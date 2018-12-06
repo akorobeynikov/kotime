@@ -1,6 +1,6 @@
 package ru.softstone.kotime.architecture.presentation
 
-import com.arellomobile.mvp.MvpAppCompatFragment
+import ru.softstone.kotime.architecture.presentation.androidx.MvpAppCompatFragment
 import javax.inject.Inject
 import javax.inject.Provider
 

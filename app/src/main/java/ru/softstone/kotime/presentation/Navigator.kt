@@ -1,8 +1,8 @@
 package ru.softstone.kotime.presentation
 
 import android.app.Activity
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import ru.softstone.kotime.architecture.presentation.BaseNavigator
 import ru.softstone.kotime.presentation.splash.SplashFragment
 

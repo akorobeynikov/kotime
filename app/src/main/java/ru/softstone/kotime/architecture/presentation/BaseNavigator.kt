@@ -1,9 +1,9 @@
 package ru.softstone.kotime.architecture.presentation
 
 import android.app.Activity
-import android.support.v4.app.FragmentManager
 import android.widget.Toast
-import ru.terrakok.cicerone.android.SupportFragmentNavigator
+import androidx.fragment.app.FragmentManager
+import ru.softstone.kotime.architecture.presentation.androidx.SupportFragmentNavigator
 
 abstract class BaseNavigator(private val activity: Activity, containerId: Int, fragmentManager: FragmentManager) :
     SupportFragmentNavigator(fragmentManager, containerId) {
