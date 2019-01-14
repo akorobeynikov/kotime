@@ -34,8 +34,26 @@ class TimerFragment : BaseFragment<TimerPresenter>(), TimerView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        show_logs_button.setOnClickListener { presenter.onShowLogsClick() }
+        record_button.setOnClickListener { presenter.onRecordClick() }
+
         description_field.setAdapter(adapter)
         adapter.setData(listOf("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"))
+    }
+
+    override fun showTime(seconds: Int) {
+        timer_view.text = getFormattedTime(seconds)
+    }
+
+    private fun getFormattedTime(time: Int): String {
+        if (time < 0) {
+            throw IllegalArgumentException("Time can't be less then zero.")
+        }
+        val hours = time / 3600
+        val minutes = (time % 3600) / 60
+        val seconds = time % 60
+        val minutesAndSeconds = "%02d:%02d".format(minutes, seconds)
+        return if (hours > 0) "$hours:$minutesAndSeconds" else minutesAndSeconds
     }
 
     @ProvidePresenter

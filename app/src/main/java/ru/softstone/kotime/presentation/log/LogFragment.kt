@@ -35,7 +35,7 @@ class LogFragment : BaseFragment<LogPresenter>(), LogView {
         val controller = LogController()
         log_rv.adapter = controller.adapter
         log_rv.layoutManager = LinearLayoutManager(context)
-        controller.setData(listOf(LogItem("one", "23:00 - 1:34")))
+        controller.setData(listOf(LogItem("one", "23:00 - 1:34"), LogItem("two", "23:00 - 1:34")))
     }
 
     @ProvidePresenter
