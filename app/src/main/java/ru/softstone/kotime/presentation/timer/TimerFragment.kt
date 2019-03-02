@@ -35,10 +35,14 @@ class TimerFragment : BaseFragment<TimerPresenter>(), TimerView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         show_logs_button.setOnClickListener { presenter.onShowLogsClick() }
-        record_button.setOnClickListener { presenter.onRecordClick() }
 
         description_field.setAdapter(adapter)
         adapter.setData(listOf("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"))
+
+        record_button.setOnClickListener {
+            val description = description_field.text.toString()
+            presenter.onRecordClick(description)
+        }
     }
 
     override fun showTime(seconds: Int) {

@@ -1,9 +1,10 @@
-package ru.softstone.kotime.architecture.data.storage
+package ru.softstone.kotime.data.action
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import io.reactivex.Completable
 
 @Dao
 interface ActionDao {
@@ -14,7 +15,7 @@ interface ActionDao {
     fun getAllActive(): List<ActionEntry>
 
     @Insert
-    fun insertAll(vararg actions: ActionEntry)
+    fun insertAll(vararg actions: ActionEntry): Completable
 
     @Update
     fun update(action: ActionEntry)

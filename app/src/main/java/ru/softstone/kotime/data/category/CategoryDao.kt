@@ -1,4 +1,4 @@
-package ru.softstone.kotime.architecture.data.storage
+package ru.softstone.kotime.data.category
 
 import androidx.room.Dao
 import androidx.room.Insert

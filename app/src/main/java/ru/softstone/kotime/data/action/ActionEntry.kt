@@ -1,12 +1,12 @@
-package ru.softstone.kotime.architecture.data.storage
+package ru.softstone.kotime.data.action
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
+import ru.softstone.kotime.data.category.CategoryEntry
 
+// todo вынести названия полей в константы
 @Entity(
     tableName = "action",
+    indices = [Index(value = ["category_id"]), Index(value = ["start_time"]), Index(value = ["end_time"])],
     foreignKeys = [ForeignKey(
         entity = CategoryEntry::class,
         parentColumns = arrayOf("uid"),
@@ -18,6 +18,6 @@ data class ActionEntry(
     @ColumnInfo(name = "category_id") var categoryId: Int,
     @ColumnInfo(name = "start_time") var startTime: Long,
     @ColumnInfo(name = "end_time") var endTime: Long,
-    @ColumnInfo(name = "description") var description: String?,
+    @ColumnInfo(name = "description") var description: String,
     @ColumnInfo(name = "active") var active: Boolean
 )

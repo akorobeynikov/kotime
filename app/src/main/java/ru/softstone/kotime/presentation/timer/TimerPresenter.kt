@@ -2,14 +2,23 @@ package ru.softstone.kotime.presentation.timer
 
 import com.arellomobile.mvp.InjectViewState
 import io.reactivex.Observable
+import ru.softstone.kotime.architecture.data.SchedulerProvider
+import ru.softstone.kotime.architecture.domain.Logger
 import ru.softstone.kotime.architecture.presentation.BasePresenter
+import ru.softstone.kotime.domain.action.ActionInteractor
+import ru.softstone.kotime.domain.category.model.Category
 import ru.softstone.kotime.presentation.LOG_SCREEN
 import ru.terrakok.cicerone.Router
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @InjectViewState
-class TimerPresenter @Inject constructor(private val router: Router) : BasePresenter<TimerView>() {
+class TimerPresenter @Inject constructor(
+    private val router: Router,
+    private val actionInteractor: ActionInteractor,
+    private val schedulerProvider: SchedulerProvider,
+    private val logger: Logger
+) : BasePresenter<TimerView>() {
     private var startTime = 0L
 
     override fun onFirstViewAttach() {
@@ -31,6 +40,16 @@ class TimerPresenter @Inject constructor(private val router: Router) : BasePrese
         router.navigateTo(LOG_SCREEN)
     }
 
-    fun onRecordClick() {
+    fun onRecordClick(description: String) {
+        val category = Category(1, "test") // todo удалить
+        addDisposable(
+            actionInteractor.addAction(description, category)
+                .subscribeOn(schedulerProvider.ioScheduler())
+                .observeOn(schedulerProvider.mainScheduler())
+                .subscribe(
+                    { logger.debug("Action was added") },
+                    { logger.error("Can't log an action", it) }
+                )
+        )
     }
 }
