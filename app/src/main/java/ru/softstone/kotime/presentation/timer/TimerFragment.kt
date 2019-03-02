@@ -35,6 +35,7 @@ class TimerFragment : BaseFragment<TimerPresenter>(), TimerView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         show_logs_button.setOnClickListener { presenter.onShowLogsClick() }
+        show_categories_button.setOnClickListener { presenter.onShowCategoriesClick() }
 
         description_field.setAdapter(adapter)
         adapter.setData(listOf("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"))

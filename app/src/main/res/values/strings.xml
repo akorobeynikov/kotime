@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Kotime</string>
     <string name="show_logs_button_text">Сприсок</string>
+    <string name="categories">Категории</string>
 </resources>

@@ -12,6 +12,12 @@
         android:layout_height="wrap_content"
         android:text="@string/show_logs_button_text" />
 
+    <Button
+        android:id="@+id/show_categories_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/categories" />
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"

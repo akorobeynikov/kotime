@@ -7,6 +7,7 @@ import ru.softstone.kotime.architecture.domain.Logger
 import ru.softstone.kotime.architecture.presentation.BasePresenter
 import ru.softstone.kotime.domain.action.ActionInteractor
 import ru.softstone.kotime.domain.category.model.Category
+import ru.softstone.kotime.presentation.CATEGORY_SCREEN
 import ru.softstone.kotime.presentation.LOG_SCREEN
 import ru.terrakok.cicerone.Router
 import java.util.concurrent.TimeUnit
@@ -51,5 +52,9 @@ class TimerPresenter @Inject constructor(
                     { logger.error("Can't log an action", it) }
                 )
         )
+    }
+
+    fun onShowCategoriesClick() {
+        router.navigateTo(CATEGORY_SCREEN)
     }
 }
