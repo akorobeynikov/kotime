@@ -12,6 +12,9 @@ import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_log.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseFragment
+import ru.softstone.kotime.presentation.log.model.LogItem
+import ru.softstone.kotime.presentation.log.rv.LogsRvController
+import javax.inject.Inject
 
 class LogFragment : BaseFragment<LogPresenter>(), LogView {
     companion object {
@@ -20,6 +23,9 @@ class LogFragment : BaseFragment<LogPresenter>(), LogView {
 
     @InjectPresenter
     lateinit var presenter: LogPresenter
+
+    @Inject
+    lateinit var rvController: LogsRvController
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -32,10 +38,14 @@ class LogFragment : BaseFragment<LogPresenter>(), LogView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val controller = LogController()
-        log_rv.adapter = controller.adapter
+        log_rv.adapter = rvController.adapter
         log_rv.layoutManager = LinearLayoutManager(context)
-        controller.setData(listOf(LogItem("one", "23:00 - 1:34"), LogItem("two", "23:00 - 1:34")))
+        rvController.setData(
+            listOf(
+                LogItem("one", "23:00 - 1:34"),
+                LogItem("two", "23:00 - 1:34")
+            )
+        )
     }
 
     @ProvidePresenter

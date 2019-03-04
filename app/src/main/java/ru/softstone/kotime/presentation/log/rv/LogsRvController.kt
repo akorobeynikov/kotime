@@ -1,8 +1,10 @@
-package ru.softstone.kotime.presentation.log
+package ru.softstone.kotime.presentation.log.rv
 
 import com.airbnb.epoxy.TypedEpoxyController
+import ru.softstone.kotime.presentation.log.model.LogItem
+import javax.inject.Inject
 
-class LogController : TypedEpoxyController<List<LogItem>>() {
+class LogsRvController @Inject constructor() : TypedEpoxyController<List<LogItem>>() {
     override fun buildModels(items: List<LogItem>) {
         items.forEach {
             logItem {

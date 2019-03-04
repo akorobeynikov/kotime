@@ -9,9 +9,11 @@ import ru.softstone.kotime.architecture.data.AndroidLogger
 import ru.softstone.kotime.architecture.data.SchedulerProvider
 import ru.softstone.kotime.architecture.domain.Logger
 import ru.softstone.kotime.data.action.ActionSourceImpl
+import ru.softstone.kotime.data.category.CategorySourceImpl
 import ru.softstone.kotime.data.storage.AppDatabase
 import ru.softstone.kotime.data.time.TimeSourceImpl
 import ru.softstone.kotime.domain.action.ActionSource
+import ru.softstone.kotime.domain.category.CategorySource
 import ru.softstone.kotime.domain.time.TimeSource
 import javax.inject.Singleton
 
@@ -34,6 +36,9 @@ class DataModule {
 
         @Binds
         fun bindActionSource(source: ActionSourceImpl): ActionSource
+
+        @Binds
+        fun bindCategorySource(source: CategorySourceImpl): CategorySource
     }
 
     @Provides
