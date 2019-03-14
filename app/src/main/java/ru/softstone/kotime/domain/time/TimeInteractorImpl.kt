@@ -1,0 +1,34 @@
+package ru.softstone.kotime.domain.time
+
+import io.reactivex.Completable
+import io.reactivex.Single
+import ru.softstone.kotime.domain.time.TimeInteractor.Companion.STOPPED_TIMER_VALUE
+import javax.inject.Inject
+
+class TimeInteractorImpl @Inject constructor(private val timeSource: TimeSource) : TimeInteractor {
+    override fun stopTimer(): Completable {
+        return timeSource.setStartTime(STOPPED_TIMER_VALUE)
+    }
+
+    override fun resetTimer(): Completable {
+        return timeSource.setStartTime(timeSource.getCurrentTime())
+    }
+
+    override fun getTimeFromStart(): Single<Long> {
+        return timeSource.getStartTime().map { startTime ->
+            if (startTime == STOPPED_TIMER_VALUE) {
+                0
+            } else {
+                timeSource.getCurrentTime() - startTime
+            }
+        }
+    }
+
+    override fun getStartTime(): Single<Long> {
+        return timeSource.getStartTime()
+    }
+
+    override fun isStopped(): Single<Boolean> {
+        return getStartTime().map { startTime -> startTime == STOPPED_TIMER_VALUE }
+    }
+}

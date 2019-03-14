@@ -13,9 +13,13 @@ abstract class LogItemModel : EpoxyModelWithHolder<LogViewHolder>() {
     @EpoxyAttribute
     lateinit var time: String
 
+    @EpoxyAttribute
+    lateinit var category: String
+
     override fun bind(holder: LogViewHolder) {
         holder.descriptionView.text = description
         holder.timeView.text = time
+        holder.categoryView.text = category
     }
 }
 

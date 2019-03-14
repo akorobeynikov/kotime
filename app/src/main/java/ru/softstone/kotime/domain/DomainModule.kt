@@ -6,6 +6,8 @@ import ru.softstone.kotime.domain.action.ActionInteractor
 import ru.softstone.kotime.domain.action.ActionInteractorImpl
 import ru.softstone.kotime.domain.category.CategoryInteractor
 import ru.softstone.kotime.domain.category.CategoryInteractorImpl
+import ru.softstone.kotime.domain.time.TimeInteractor
+import ru.softstone.kotime.domain.time.TimeInteractorImpl
 
 @Module(includes = [DomainModule.Declarations::class])
 class DomainModule {
@@ -16,5 +18,8 @@ class DomainModule {
 
         @Binds
         fun bindCategoryInteractor(interactorImpl: CategoryInteractorImpl): CategoryInteractor
+
+        @Binds
+        fun bindTimeInteractor(interactorImpl: TimeInteractorImpl): TimeInteractor
     }
 }

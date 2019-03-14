@@ -1,6 +1,7 @@
 package ru.softstone.kotime.data
 
 import android.content.Context
+import android.preference.PreferenceManager
 import androidx.room.Room
 import dagger.Binds
 import dagger.Module
@@ -53,4 +54,9 @@ class DataModule {
     @Provides
     @Singleton
     fun provideCategoryDao(appDatabase: AppDatabase) = appDatabase.categoryDao()
+
+    @Provides
+    @Singleton
+    fun providePref(context: Context) = PreferenceManager.getDefaultSharedPreferences(context)
+
 }

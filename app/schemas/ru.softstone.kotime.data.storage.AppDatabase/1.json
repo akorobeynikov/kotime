@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "b6eeb516fb3588a9b70c5a6564c40e2a",
+    "identityHash": "63e009c4d114ec679fd7f5108c4e1e9f",
     "entities": [
       {
         "tableName": "action",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `category_id` INTEGER NOT NULL, `start_time` INTEGER NOT NULL, `end_time` INTEGER NOT NULL, `description` TEXT NOT NULL, `active` INTEGER NOT NULL, FOREIGN KEY(`category_id`) REFERENCES `category`(`uid`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `category_id` INTEGER NOT NULL, `start_time` INTEGER NOT NULL, `end_time` INTEGER NOT NULL, `description` TEXT NOT NULL, `active` INTEGER NOT NULL, FOREIGN KEY(`category_id`) REFERENCES `category`(`uid`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
         "fields": [
           {
             "fieldPath": "uid",
@@ -80,7 +80,7 @@
         "foreignKeys": [
           {
             "table": "category",
-            "onDelete": "NO ACTION",
+            "onDelete": "RESTRICT",
             "onUpdate": "NO ACTION",
             "columns": [
               "category_id"
@@ -136,7 +136,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"b6eeb516fb3588a9b70c5a6564c40e2a\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"63e009c4d114ec679fd7f5108c4e1e9f\")"
     ]
   }
 }

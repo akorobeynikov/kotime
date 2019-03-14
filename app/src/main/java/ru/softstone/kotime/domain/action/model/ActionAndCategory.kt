@@ -1,8 +1,8 @@
 package ru.softstone.kotime.domain.action.model
 
-data class Action(
+data class ActionAndCategory(
     val uid: Int,
-    val categoryId: Int,
+    val categoryName: String,
     val startTime: Long,
     val endTime: Long,
     val description: String

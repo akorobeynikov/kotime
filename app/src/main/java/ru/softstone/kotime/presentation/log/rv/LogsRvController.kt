@@ -11,6 +11,7 @@ class LogsRvController @Inject constructor() : TypedEpoxyController<List<LogItem
                 id(it.hashCode())
                 description(it.description)
                 time(it.time)
+                category(it.category)
             }
         }
     }

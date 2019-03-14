@@ -9,6 +9,7 @@ import ru.softstone.kotime.data.category.CategoryEntry
     indices = [Index(value = ["category_id"]), Index(value = ["start_time"]), Index(value = ["end_time"])],
     foreignKeys = [ForeignKey(
         entity = CategoryEntry::class,
+        onDelete = ForeignKey.RESTRICT,
         parentColumns = arrayOf("uid"),
         childColumns = arrayOf("category_id")
     )]

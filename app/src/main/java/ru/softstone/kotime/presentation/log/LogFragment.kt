@@ -12,8 +12,10 @@ import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_log.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseFragment
+import ru.softstone.kotime.domain.action.model.ActionAndCategory
 import ru.softstone.kotime.presentation.log.model.LogItem
 import ru.softstone.kotime.presentation.log.rv.LogsRvController
+import java.util.*
 import javax.inject.Inject
 
 class LogFragment : BaseFragment<LogPresenter>(), LogView {
@@ -40,12 +42,15 @@ class LogFragment : BaseFragment<LogPresenter>(), LogView {
         super.onViewCreated(view, savedInstanceState)
         log_rv.adapter = rvController.adapter
         log_rv.layoutManager = LinearLayoutManager(context)
-        rvController.setData(
-            listOf(
-                LogItem("one", "23:00 - 1:34"),
-                LogItem("two", "23:00 - 1:34")
-            )
-        )
+    }
+
+    override fun showActions(actions: List<ActionAndCategory>) {
+        rvController.setData(actions.map {
+            val timeFormat = android.text.format.DateFormat.getTimeFormat(context)
+            val statTime = timeFormat.format(Date(it.startTime))
+            val endTime = timeFormat.format(Date(it.endTime))
+            LogItem(it.description, it.categoryName, "$statTime - $endTime")
+        })
     }
 
     @ProvidePresenter
