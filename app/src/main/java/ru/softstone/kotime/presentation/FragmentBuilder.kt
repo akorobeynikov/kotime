@@ -8,6 +8,8 @@ import ru.softstone.kotime.presentation.log.LogFragment
 import ru.softstone.kotime.presentation.log.LogModule
 import ru.softstone.kotime.presentation.splash.SplashFragment
 import ru.softstone.kotime.presentation.splash.SplashModule
+import ru.softstone.kotime.presentation.suggestion.SuggestionFragment
+import ru.softstone.kotime.presentation.suggestion.SuggestionModule
 import ru.softstone.kotime.presentation.timer.TimerFragment
 import ru.softstone.kotime.presentation.timer.TimerModule
 
@@ -24,4 +26,7 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector(modules = [CategoryModule::class])
     internal abstract fun bindCategoryFragment(): CategoryFragment
+
+    @ContributesAndroidInjector(modules = [SuggestionModule::class])
+    internal abstract fun bindSuggestionFragment(): SuggestionFragment
 }

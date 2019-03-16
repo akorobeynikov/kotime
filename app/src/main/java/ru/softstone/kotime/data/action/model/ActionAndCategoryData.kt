@@ -1,4 +1,4 @@
-package ru.softstone.kotime.data.action
+package ru.softstone.kotime.data.action.model
 
 import androidx.room.ColumnInfo
 

@@ -7,6 +7,7 @@ import ru.softstone.kotime.architecture.presentation.BaseNavigator
 import ru.softstone.kotime.presentation.category.CategoryFragment
 import ru.softstone.kotime.presentation.log.LogFragment
 import ru.softstone.kotime.presentation.splash.SplashFragment
+import ru.softstone.kotime.presentation.suggestion.SuggestionFragment
 import ru.softstone.kotime.presentation.timer.TimerFragment
 
 class Navigator(activity: Activity, containerId: Int, fragmentManager: FragmentManager) :
@@ -17,6 +18,7 @@ class Navigator(activity: Activity, containerId: Int, fragmentManager: FragmentM
         TIMER_SCREEN -> TimerFragment.newInstance()
         LOG_SCREEN -> LogFragment.newInstance()
         CATEGORY_SCREEN -> CategoryFragment.newInstance()
+        SUGGESTION_SCREEN -> SuggestionFragment.newInstance()
         else -> throw IllegalStateException("Unknown screenKey: $screenKey")
     }
 }

@@ -11,6 +11,7 @@ import ru.softstone.kotime.domain.category.model.Category
 import ru.softstone.kotime.domain.time.TimeInteractor
 import ru.softstone.kotime.presentation.CATEGORY_SCREEN
 import ru.softstone.kotime.presentation.LOG_SCREEN
+import ru.softstone.kotime.presentation.SUGGESTION_SCREEN
 import ru.terrakok.cicerone.Router
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -32,7 +33,7 @@ class TimerPresenter @Inject constructor(
         startTime = System.currentTimeMillis()
         updateTime(0)
         addDisposable(
-            Observable.interval(1000, TimeUnit.MILLISECONDS)
+            Observable.interval(0, 1000, TimeUnit.MILLISECONDS)
                 .concatMapSingle { timeInteractor.getTimeFromStart() }
                 .subscribe { updateTime(it) }
         )
@@ -102,5 +103,9 @@ class TimerPresenter @Inject constructor(
                     { logger.error("Can't get the timer state", it) }
                 )
         )
+    }
+
+    fun onAddRecordClick() {
+        router.navigateTo(SUGGESTION_SCREEN)
     }
 }

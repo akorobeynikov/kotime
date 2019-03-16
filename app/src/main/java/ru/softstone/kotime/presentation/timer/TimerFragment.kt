@@ -39,6 +39,7 @@ class TimerFragment : BaseFragment<TimerPresenter>(), TimerView {
         show_logs_button.setOnClickListener { presenter.onShowLogsClick() }
         show_categories_button.setOnClickListener { presenter.onShowCategoriesClick() }
         timer_button.setOnClickListener { presenter.onTimerClick() }
+        add_record_button.setOnClickListener { presenter.onAddRecordClick() }
 
 //        ArrayAdapter.createFromResource(
 //            this,

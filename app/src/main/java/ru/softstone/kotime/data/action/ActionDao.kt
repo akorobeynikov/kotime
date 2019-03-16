@@ -6,14 +6,64 @@ import androidx.room.Query
 import androidx.room.Update
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
+import ru.softstone.kotime.data.action.model.ActionAndCategoryData
+import ru.softstone.kotime.data.action.model.ActionEntry
+import ru.softstone.kotime.data.action.model.DesriptionAndCategoryData
 
 @Dao
 interface ActionDao {
     @Query("SELECT * FROM `action`")
     fun getAll(): List<ActionEntry>
 
-    @Query("SELECT `action`.uid, `action`.start_time, `action`.end_time, `action`.description, category.name AS category_name  FROM `action`, category WHERE `action`.category_id = category.uid")
-    fun getAllActive(): Flowable<List<ActionAndCategoryData>>
+    @Query(
+        """
+        SELECT `action`.uid,
+        `action`.start_time,
+        `action`.end_time,
+        `action`.description,
+        category.name AS category_name
+        FROM `action`
+        INNER JOIN category ON `action`.category_id = category.uid
+        WHERE `action`.active = 1
+        """
+    )
+    fun getAllActiveWithCategory(): Flowable<List<ActionAndCategoryData>>
+
+    @Query(
+        """
+        SELECT description, category_id, category.name AS category_name
+        FROM (
+            SELECT uid, description, category_id
+            FROM `action`
+            WHERE active = 1
+            ORDER BY `action`.uid DESC
+            LIMIT 500) AS `action`
+        INNER JOIN category ON `action`.category_id = category.uid
+        GROUP BY category_id, description
+        ORDER BY count(*) DESC, `action`.uid DESC
+        LIMIT 15
+    """
+    )
+    fun getMostFrequent(): Single<List<DesriptionAndCategoryData>>
+
+    @Query(
+        """
+        SELECT description, category_id, category.name AS category_name
+        FROM (
+            SELECT uid, description, category_id
+            FROM `action`
+            WHERE active = 1
+            ORDER BY `action`.uid DESC
+            LIMIT 1000) AS `action`
+        INNER JOIN category ON `action`.category_id = category.uid
+        WHERE `action`.description LIKE :descriptionFilter
+        GROUP BY category_id, description
+        ORDER BY count(*) DESC, `action`.uid DESC
+        LIMIT 10
+    """
+    )
+    fun getMostFrequent(descriptionFilter: String): Single<List<DesriptionAndCategoryData>>
 
     @Insert
     fun insertAll(vararg actions: ActionEntry): Completable

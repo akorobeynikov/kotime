@@ -4,6 +4,7 @@ import com.airbnb.epoxy.TypedEpoxyController
 import ru.softstone.kotime.domain.category.model.Category
 import javax.inject.Inject
 
+//todo fragment scope?
 class CategoriesRvController @Inject constructor() : TypedEpoxyController<List<Category>>() {
     private var onDeleteClickListener: ((Int) -> Unit)? = null
 

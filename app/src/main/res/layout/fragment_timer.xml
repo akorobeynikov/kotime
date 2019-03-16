@@ -6,23 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/show_logs_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/show_logs_button_text" />
-
-    <Button
-        android:id="@+id/show_categories_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/categories" />
-
-    <Button
-        android:id="@+id/timer_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/timer_button" />
 
     <Space
         android:layout_width="match_parent"
@@ -66,4 +49,29 @@
             android:src="@drawable/ic_add" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/show_logs_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/show_logs_button_text" />
+
+    <Button
+        android:id="@+id/show_categories_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/categories" />
+
+    <Button
+        android:id="@+id/timer_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/timer_button" />
+
+    <Button
+        android:id="@+id/add_record_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:text="@string/add_record_button" />
 </LinearLayout>
