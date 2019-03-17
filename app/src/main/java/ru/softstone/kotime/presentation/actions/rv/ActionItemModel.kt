@@ -1,4 +1,4 @@
-package ru.softstone.kotime.presentation.log.rv
+package ru.softstone.kotime.presentation.actions.rv
 
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
@@ -6,7 +6,7 @@ import com.airbnb.epoxy.EpoxyModelWithHolder
 import ru.softstone.kotime.R
 
 @EpoxyModelClass(layout = R.layout.item_log)
-abstract class LogItemModel : EpoxyModelWithHolder<LogViewHolder>() {
+abstract class ActionItemModel : EpoxyModelWithHolder<ActionViewHolder>() {
     @EpoxyAttribute
     lateinit var description: String
 
@@ -16,7 +16,7 @@ abstract class LogItemModel : EpoxyModelWithHolder<LogViewHolder>() {
     @EpoxyAttribute
     lateinit var category: String
 
-    override fun bind(holder: LogViewHolder) {
+    override fun bind(holder: ActionViewHolder) {
         holder.descriptionView.text = description
         holder.timeView.text = time
         holder.categoryView.text = category

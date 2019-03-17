@@ -16,8 +16,8 @@ class ActionSourceImpl @Inject constructor(private val actionDao: ActionDao) : A
         return actionDao.insertAll(action)
     }
 
-    override fun observeActions(): Flowable<List<ActionAndCategory>> {
-        return actionDao.getAllActiveWithCategory().map { actions ->
+    override fun observeActions(startTime: Long, endTime: Long): Flowable<List<ActionAndCategory>> {
+        return actionDao.getActiveBetween(startTime, endTime).map { actions ->
             actions.map {
                 ActionAndCategory(
                     it.uid,

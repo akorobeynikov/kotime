@@ -1,4 +1,4 @@
-package ru.softstone.kotime.presentation.log
+package ru.softstone.kotime.presentation.actions
 
 import android.content.Context
 import android.os.Bundle
@@ -13,21 +13,23 @@ import kotlinx.android.synthetic.main.fragment_log.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseFragment
 import ru.softstone.kotime.domain.action.model.ActionAndCategory
-import ru.softstone.kotime.presentation.log.model.LogItem
-import ru.softstone.kotime.presentation.log.rv.LogsRvController
+import ru.softstone.kotime.presentation.actions.model.ActionItem
+import ru.softstone.kotime.presentation.actions.rv.ActionsRvController
+import ru.softstone.kotime.presentation.getFormattedTime
 import java.util.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class LogFragment : BaseFragment<LogPresenter>(), LogView {
+class ActionsFragment : BaseFragment<ActionsPresenter>(), ActionsView {
     companion object {
-        fun newInstance() = LogFragment()
+        fun newInstance() = ActionsFragment()
     }
 
     @InjectPresenter
-    lateinit var presenter: LogPresenter
+    lateinit var presenter: ActionsPresenter
 
     @Inject
-    lateinit var rvController: LogsRvController
+    lateinit var rvController: ActionsRvController
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -49,12 +51,14 @@ class LogFragment : BaseFragment<LogPresenter>(), LogView {
             val timeFormat = android.text.format.DateFormat.getTimeFormat(context)
             val statTime = timeFormat.format(Date(it.startTime))
             val endTime = timeFormat.format(Date(it.endTime))
-            LogItem(it.description, it.categoryName, "$statTime - $endTime")
+            val durationSeconds = TimeUnit.MILLISECONDS.toSeconds(it.endTime - it.startTime).toInt()
+            val duration = getFormattedTime(durationSeconds)
+            ActionItem(it.description, it.categoryName, "$duration ($statTime - $endTime)")
         })
     }
 
     @ProvidePresenter
-    override fun providePresenter(): LogPresenter {
+    override fun providePresenter(): ActionsPresenter {
         return super.providePresenter()
     }
 

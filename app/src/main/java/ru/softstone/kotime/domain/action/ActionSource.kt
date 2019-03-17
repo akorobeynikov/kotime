@@ -8,7 +8,7 @@ import ru.softstone.kotime.domain.action.model.DesriptionAndCategory
 
 interface ActionSource {
     fun addAction(categoryId: Int, startTime: Long, endTime: Long, description: String): Completable
-    fun observeActions(): Flowable<List<ActionAndCategory>>
+    fun observeActions(startTime: Long, endTime: Long): Flowable<List<ActionAndCategory>>
     fun getMostFrequent(): Single<List<DesriptionAndCategory>>
     fun getMostFrequentWhere(descriptionStartsWith: String): Single<List<DesriptionAndCategory>>
 }

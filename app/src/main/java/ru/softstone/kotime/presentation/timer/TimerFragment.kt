@@ -36,6 +36,7 @@ class TimerFragment : BaseFragment<TimerPresenter>(), TimerView {
         show_categories_button.setOnClickListener { presenter.onShowCategoriesClick() }
         timer_button.setOnClickListener { presenter.onTimerClick() }
         add_record_button.setOnClickListener { presenter.onAddRecordClick() }
+        show_stats_button.setOnClickListener { presenter.onShowStatsClick() }
     }
 
     override fun showTime(seconds: Int) {

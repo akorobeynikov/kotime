@@ -13,9 +13,6 @@ import ru.softstone.kotime.data.action.model.DesriptionAndCategoryData
 
 @Dao
 interface ActionDao {
-    @Query("SELECT * FROM `action`")
-    fun getAll(): List<ActionEntry>
-
     @Query(
         """
         SELECT `action`.uid,
@@ -25,10 +22,10 @@ interface ActionDao {
         category.name AS category_name
         FROM `action`
         INNER JOIN category ON `action`.category_id = category.uid
-        WHERE `action`.active = 1
+        WHERE `action`.active = 1 AND end_time > :startTime AND start_time < :endTime
         """
     )
-    fun getAllActiveWithCategory(): Flowable<List<ActionAndCategoryData>>
+    fun getActiveBetween(startTime: Long, endTime: Long): Flowable<List<ActionAndCategoryData>>
 
     @Query(
         """
@@ -42,7 +39,7 @@ interface ActionDao {
         INNER JOIN category ON `action`.category_id = category.uid
         GROUP BY category_id, description
         ORDER BY count(*) DESC, `action`.uid DESC
-        LIMIT 15
+        LIMIT 20
     """
     )
     fun getMostFrequent(): Single<List<DesriptionAndCategoryData>>
