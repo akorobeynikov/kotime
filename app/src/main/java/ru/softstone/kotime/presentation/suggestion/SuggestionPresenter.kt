@@ -4,14 +4,18 @@ import com.arellomobile.mvp.InjectViewState
 import ru.softstone.kotime.architecture.data.SchedulerProvider
 import ru.softstone.kotime.architecture.domain.Logger
 import ru.softstone.kotime.architecture.presentation.BasePresenter
+import ru.softstone.kotime.domain.action.ActionInteractor
 import ru.softstone.kotime.domain.suggestion.SuggestionInteractor
 import ru.softstone.kotime.presentation.suggestion.model.Suggestion
+import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 @InjectViewState
 class SuggestionPresenter @Inject constructor(
     private val logger: Logger,
+    private val router: Router,
     private val suggestionInteractor: SuggestionInteractor,
+    private val actionInteractor: ActionInteractor,
     private val schedulerProvider: SchedulerProvider
 ) : BasePresenter<SuggestionView>() {
     override fun onFirstViewAttach() {
@@ -30,7 +34,7 @@ class SuggestionPresenter @Inject constructor(
                             suggestion.id,
                             suggestion.description,
                             suggestion.categoryName,
-                            "time"
+                            suggestion.categoryId
                         )
                     })
                 }, {
@@ -50,7 +54,7 @@ class SuggestionPresenter @Inject constructor(
                             suggestion.id,
                             suggestion.description,
                             suggestion.categoryName,
-                            "time"
+                            suggestion.categoryId
                         )
                     })
                 }, {
@@ -67,8 +71,19 @@ class SuggestionPresenter @Inject constructor(
         }
     }
 
-    fun onSuggestionClick() {
-        logger.debug("onSuggestionClick")
+    fun onSuggestionClick(categoryId: Int, description: String) {
+        addDisposable(
+            actionInteractor.addAction(description, categoryId)
+                .subscribeOn(schedulerProvider.ioScheduler())
+                .observeOn(schedulerProvider.mainScheduler())
+                .subscribe(
+                    {
+                        logger.debug("Action was added")
+                        router.exit()
+                    },
+                    { logger.error("Can't log an action", it) }
+                )
+        )
     }
 
 

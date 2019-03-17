@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Kotime</string>
-    <string name="show_logs_button_text">Сприсок</string>
+    <string name="show_logs_button_text">Записи</string>
     <string name="categories">Категории</string>
-    <string name="timer_button">start/stop</string>
+    <string name="timer_button">Старт/Стоп</string>
     <string name="add_record_button">Записать</string>
-    <string name="action_descriptions_hint">action</string>
+    <string name="action_descriptions_hint">Описание активности</string>
+    <string name="stats">Статистика</string>
 </resources>

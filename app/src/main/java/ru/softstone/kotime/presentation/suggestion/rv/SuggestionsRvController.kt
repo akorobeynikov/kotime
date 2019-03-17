@@ -6,22 +6,23 @@ import javax.inject.Inject
 
 //todo fragment scope?
 class SuggestionsRvController @Inject constructor() : TypedEpoxyController<List<Suggestion>>() {
-    private var clickListener: ((Int) -> Unit)? = null
+    private var clickListener: ((Int, String) -> Unit)? = null
 
     override fun buildModels(items: List<Suggestion>) {
         items.forEach {
             suggestionItem {
                 id(it.id)
                 category(it.category)
+                categoryId(it.categoryId)
                 description(it.description)
                 clickListener { model, _, _, _ ->
-                    clickListener?.invoke(model.id().toInt())
+                    clickListener?.invoke(model.categoryId(), model.description())
                 }
             }
         }
     }
 
-    fun setOnClickListener(listener: (Int) -> Unit) {
+    fun setOnClickListener(listener: (Int, String) -> Unit) {
         clickListener = listener
     }
 }

@@ -7,7 +7,4 @@ import ru.softstone.kotime.architecture.presentation.BaseView
 interface TimerView : BaseView {
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun showTime(seconds: Int)
-
-    @StateStrategyType(AddToEndSingleStrategy::class)
-    fun showCategories(categories: List<String>)
 }

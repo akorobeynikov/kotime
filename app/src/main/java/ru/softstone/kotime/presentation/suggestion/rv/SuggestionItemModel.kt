@@ -13,6 +13,8 @@ abstract class SuggestionItemModel : EpoxyModelWithHolder<SuggestionViewHolder>(
     @EpoxyAttribute
     lateinit var category: String
     @EpoxyAttribute
+    var categoryId: Int = 0
+    @EpoxyAttribute
     lateinit var clickListener: View.OnClickListener
 
     override fun bind(holder: SuggestionViewHolder) {

@@ -53,7 +53,12 @@ class SuggestionFragment : BaseFragment<SuggestionPresenter>(), SuggestionView {
                 // do nothing
             }
         })
-        rvController.setOnClickListener { presenter.onSuggestionClick() }
+        rvController.setOnClickListener { categoryId, description ->
+            presenter.onSuggestionClick(
+                categoryId,
+                description
+            )
+        }
         suggestions_rv.adapter = rvController.adapter
         suggestions_rv.layoutManager = LinearLayoutManager(context)
     }
