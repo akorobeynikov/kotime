@@ -6,4 +6,5 @@
     <string name="add_record_button">Записать</string>
     <string name="action_descriptions_hint">Описание активности</string>
     <string name="stats">Статистика</string>
+    <string name="precentage">%d%%</string>
 </resources>

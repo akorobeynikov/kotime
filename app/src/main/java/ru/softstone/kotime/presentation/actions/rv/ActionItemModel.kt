@@ -5,7 +5,7 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import ru.softstone.kotime.R
 
-@EpoxyModelClass(layout = R.layout.item_log)
+@EpoxyModelClass(layout = R.layout.item_action)
 abstract class ActionItemModel : EpoxyModelWithHolder<ActionViewHolder>() {
     @EpoxyAttribute
     lateinit var description: String

@@ -27,6 +27,7 @@ class ActionInteractorImpl @Inject constructor(
 
     override fun observeActions(date: Date): Flowable<List<ActionAndCategory>> {
         // todo добавить настройки времени смены дня
+        // todo вынести получение таймстампов
         val calendar = Calendar.getInstance()
         calendar.time = date
         if (calendar.get(Calendar.HOUR_OF_DAY) < 4) {

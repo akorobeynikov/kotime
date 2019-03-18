@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.fragment_log.*
+import kotlinx.android.synthetic.main.fragment_actions.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseFragment
 import ru.softstone.kotime.domain.action.model.ActionAndCategory
@@ -37,13 +37,13 @@ class ActionsFragment : BaseFragment<ActionsPresenter>(), ActionsView {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_log, container, false)
+        return inflater.inflate(R.layout.fragment_actions, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        log_rv.adapter = rvController.adapter
-        log_rv.layoutManager = LinearLayoutManager(context)
+        actions_rv.adapter = rvController.adapter
+        actions_rv.layoutManager = LinearLayoutManager(context)
     }
 
     override fun showActions(actions: List<ActionAndCategory>) {
