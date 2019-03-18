@@ -10,16 +10,21 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_stat.*
+import kotlinx.android.synthetic.main.part_date_chooser.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseFragment
 import ru.softstone.kotime.domain.statistics.model.StatItem
 import ru.softstone.kotime.presentation.statistics.rv.StatsRvController
+import java.text.DateFormat
+import java.util.*
 import javax.inject.Inject
 
 class StatFragment : BaseFragment<StatPresenter>(), StatView {
     companion object {
         fun newInstance() = StatFragment()
     }
+
+    private lateinit var dateFormat: DateFormat
 
     @InjectPresenter
     lateinit var presenter: StatPresenter
@@ -30,6 +35,7 @@ class StatFragment : BaseFragment<StatPresenter>(), StatView {
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
+        dateFormat = android.text.format.DateFormat.getDateFormat(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -40,6 +46,12 @@ class StatFragment : BaseFragment<StatPresenter>(), StatView {
         super.onViewCreated(view, savedInstanceState)
         stats_rv.adapter = rvController.adapter
         stats_rv.layoutManager = LinearLayoutManager(context)
+        plus_date_button.setOnClickListener { presenter.onPlusDateClick() }
+        minus_date_button.setOnClickListener { presenter.onMinusDateClick() }
+    }
+
+    override fun showDate(date: Date) {
+        date_view.text = dateFormat.format(date)
     }
 
     override fun showStats(stats: List<StatItem>) {

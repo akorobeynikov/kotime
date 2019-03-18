@@ -7,4 +7,6 @@
     <string name="action_descriptions_hint">Описание активности</string>
     <string name="stats">Статистика</string>
     <string name="precentage">%d%%</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
 </resources>

@@ -14,6 +14,8 @@ import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_suggestion.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseFragment
+import ru.softstone.kotime.architecture.presentation.hideKeyboard
+import ru.softstone.kotime.architecture.presentation.showKeyboard
 import ru.softstone.kotime.presentation.suggestion.model.Suggestion
 import ru.softstone.kotime.presentation.suggestion.rv.SuggestionsRvController
 import javax.inject.Inject
@@ -62,6 +64,18 @@ class SuggestionFragment : BaseFragment<SuggestionPresenter>(), SuggestionView {
         suggestions_rv.adapter = rvController.adapter
         suggestions_rv.layoutManager = LinearLayoutManager(context)
     }
+
+    override fun onStart() {
+        super.onStart()
+        description_field.requestFocus()
+        showKeyboard(context!!)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        hideKeyboard(context!!)
+    }
+
 
     override fun showSuggestions(suggestions: List<Suggestion>) {
         rvController.setData(suggestions)

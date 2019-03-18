@@ -14,10 +14,32 @@ class StatPresenter @Inject constructor(
     private val schedulerProvider: SchedulerProvider,
     private val logger: Logger
 ) : BasePresenter<StatView>() {
+
+    private val calendar = Calendar.getInstance()
+
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
+        viewState.showDate(calendar.time)
+        showStats(calendar.time)
+    }
+
+    fun onPlusDateClick() {
+        changeDate(1)
+    }
+
+    fun onMinusDateClick() {
+        changeDate(-1)
+    }
+
+    private fun changeDate(amount: Int) {
+        calendar.add(Calendar.DATE, amount)
+        viewState.showDate(calendar.time)
+        showStats(calendar.time)
+    }
+
+    private fun showStats(date: Date) {
         addDisposable(
-            statInteractor.getStatistics(Date())
+            statInteractor.getStatistics(date)
                 .subscribeOn(schedulerProvider.ioScheduler())
                 .observeOn(schedulerProvider.mainScheduler())
                 .subscribe({
