@@ -4,7 +4,8 @@ import android.app.Activity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import ru.softstone.kotime.architecture.presentation.BaseNavigator
-import ru.softstone.kotime.presentation.actions.ActionsFragment
+import ru.softstone.kotime.presentation.actions.edit.EditActionFragment
+import ru.softstone.kotime.presentation.actions.list.ActionsFragment
 import ru.softstone.kotime.presentation.category.CategoryFragment
 import ru.softstone.kotime.presentation.splash.SplashFragment
 import ru.softstone.kotime.presentation.statistics.StatFragment
@@ -18,6 +19,7 @@ class Navigator(activity: Activity, containerId: Int, fragmentManager: FragmentM
         SPLASH_SCREEN -> SplashFragment.newInstance()
         TIMER_SCREEN -> TimerFragment.newInstance()
         ACTIONS_SCREEN -> ActionsFragment.newInstance()
+        EDIT_ACTION_SCREEN -> EditActionFragment.newInstance()
         CATEGORY_SCREEN -> CategoryFragment.newInstance()
         SUGGESTION_SCREEN -> SuggestionFragment.newInstance()
         STAT_SCREEN -> StatFragment.newInstance()

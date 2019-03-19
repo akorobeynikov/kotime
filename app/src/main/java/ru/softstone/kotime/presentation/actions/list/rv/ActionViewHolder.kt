@@ -1,4 +1,4 @@
-package ru.softstone.kotime.presentation.actions.rv
+package ru.softstone.kotime.presentation.actions.list.rv
 
 import android.widget.TextView
 import ru.softstone.kotime.R

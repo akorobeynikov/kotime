@@ -1,4 +1,4 @@
-package ru.softstone.kotime.presentation.actions
+package ru.softstone.kotime.presentation.actions.list
 
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType

@@ -2,8 +2,10 @@ package ru.softstone.kotime.presentation
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import ru.softstone.kotime.presentation.actions.ActionsFragment
-import ru.softstone.kotime.presentation.actions.ActionsModule
+import ru.softstone.kotime.presentation.actions.edit.EditActionFragment
+import ru.softstone.kotime.presentation.actions.edit.EditActionModule
+import ru.softstone.kotime.presentation.actions.list.ActionsFragment
+import ru.softstone.kotime.presentation.actions.list.ActionsModule
 import ru.softstone.kotime.presentation.category.CategoryFragment
 import ru.softstone.kotime.presentation.category.CategoryModule
 import ru.softstone.kotime.presentation.splash.SplashFragment
@@ -24,7 +26,10 @@ abstract class FragmentBuilder {
     internal abstract fun bindTimerFragment(): TimerFragment
 
     @ContributesAndroidInjector(modules = [ActionsModule::class])
-    internal abstract fun bindLogFragment(): ActionsFragment
+    internal abstract fun bindActionsFragment(): ActionsFragment
+
+    @ContributesAndroidInjector(modules = [EditActionModule::class])
+    internal abstract fun bindEditActionFragment(): EditActionFragment
 
     @ContributesAndroidInjector(modules = [CategoryModule::class])
     internal abstract fun bindCategoryFragment(): CategoryFragment

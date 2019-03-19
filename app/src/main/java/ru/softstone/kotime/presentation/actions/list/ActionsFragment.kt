@@ -1,4 +1,4 @@
-package ru.softstone.kotime.presentation.actions
+package ru.softstone.kotime.presentation.actions.list
 
 import android.content.Context
 import android.os.Bundle
@@ -14,15 +14,16 @@ import kotlinx.android.synthetic.main.part_date_chooser.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseFragment
 import ru.softstone.kotime.domain.action.model.ActionAndCategory
-import ru.softstone.kotime.presentation.actions.model.ActionItem
-import ru.softstone.kotime.presentation.actions.rv.ActionsRvController
+import ru.softstone.kotime.presentation.actions.list.model.ActionItem
+import ru.softstone.kotime.presentation.actions.list.rv.ActionsRvController
 import ru.softstone.kotime.presentation.getFormattedTime
 import java.text.DateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class ActionsFragment : BaseFragment<ActionsPresenter>(), ActionsView {
+class ActionsFragment : BaseFragment<ActionsPresenter>(),
+    ActionsView {
     companion object {
         fun newInstance() = ActionsFragment()
     }
@@ -64,7 +65,11 @@ class ActionsFragment : BaseFragment<ActionsPresenter>(), ActionsView {
             val endTime = timeFormat.format(Date(it.endTime))
             val durationSeconds = TimeUnit.MILLISECONDS.toSeconds(it.endTime - it.startTime).toInt()
             val duration = getFormattedTime(durationSeconds)
-            ActionItem(it.description, it.categoryName, "$duration ($statTime - $endTime)")
+            ActionItem(
+                it.description,
+                it.categoryName,
+                "$duration ($statTime - $endTime)"
+            )
         })
     }
 

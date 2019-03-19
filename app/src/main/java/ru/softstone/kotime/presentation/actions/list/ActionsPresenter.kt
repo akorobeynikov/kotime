@@ -1,4 +1,4 @@
-package ru.softstone.kotime.presentation.actions
+package ru.softstone.kotime.presentation.actions.list
 
 import com.arellomobile.mvp.InjectViewState
 import ru.softstone.kotime.architecture.data.SchedulerProvider

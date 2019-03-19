@@ -1,4 +1,4 @@
-package ru.softstone.kotime.presentation.actions.rv
+package ru.softstone.kotime.presentation.actions.list.rv
 
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
