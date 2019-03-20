@@ -27,18 +27,23 @@ class DataModule {
     @Module
     internal interface Declarations {
         @Binds
+        @Singleton
         fun bindLogger(logger: AndroidLogger): Logger
 
         @Binds
+        @Singleton
         fun bindTimeSource(timeSource: TimeSourceImpl): TimeSource
 
         @Binds
+        @Singleton
         fun bindSchedulerProrovider(provider: AppSchedulerProvider): SchedulerProvider
 
         @Binds
+        @Singleton
         fun bindActionSource(source: ActionSourceImpl): ActionSource
 
         @Binds
+        @Singleton
         fun bindCategorySource(source: CategorySourceImpl): CategorySource
     }
 

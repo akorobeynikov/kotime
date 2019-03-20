@@ -56,10 +56,11 @@ class SuggestionFragment : BaseFragment<SuggestionPresenter>(), SuggestionView {
             }
         })
         rvController.setOnClickListener { categoryId, description ->
-            presenter.onSuggestionClick(
-                categoryId,
-                description
-            )
+            presenter.onSuggestionClick(categoryId, description)
+        }
+
+        rvController.setFastRecordListener { categoryId, description ->
+            presenter.onFastRecordClick(categoryId, description)
         }
         suggestions_rv.adapter = rvController.adapter
         suggestions_rv.layoutManager = LinearLayoutManager(context)

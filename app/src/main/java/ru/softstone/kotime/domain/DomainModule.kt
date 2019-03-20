@@ -12,24 +12,30 @@ import ru.softstone.kotime.domain.suggestion.SuggestionInteractor
 import ru.softstone.kotime.domain.suggestion.SuggestionInteractorImpl
 import ru.softstone.kotime.domain.time.TimeInteractor
 import ru.softstone.kotime.domain.time.TimeInteractorImpl
+import javax.inject.Singleton
 
 @Module(includes = [DomainModule.Declarations::class])
 class DomainModule {
     @Module
     internal interface Declarations {
         @Binds
+        @Singleton
         fun bindActionInteractor(interactorImpl: ActionInteractorImpl): ActionInteractor
 
         @Binds
+        @Singleton
         fun bindCategoryInteractor(interactorImpl: CategoryInteractorImpl): CategoryInteractor
 
         @Binds
+        @Singleton
         fun bindTimeInteractor(interactorImpl: TimeInteractorImpl): TimeInteractor
 
         @Binds
+        @Singleton
         fun bindSuggestionInteractor(interactorImpl: SuggestionInteractorImpl): SuggestionInteractor
 
         @Binds
+        @Singleton
         fun bindStatInteractor(interactorImpl: StatInteractorImpl): StatInteractor
     }
 }

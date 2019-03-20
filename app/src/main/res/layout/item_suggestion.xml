@@ -25,6 +25,15 @@
         android:layout_height="wrap_content"
         tools:text="some category name" />
 
+    <Button
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:id="@+id/fast_record_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fast_record_button" />
+
     <View
         android:background="@android:color/black"
         android:layout_width="match_parent"

@@ -13,4 +13,6 @@ interface TimeInteractor {
     fun getTimeFromStart(): Single<Long>
     fun getStartTime(): Single<Long>
     fun isStopped(): Single<Boolean>
+    fun getCurrentTime(): Long
+    fun setStartTime(time: Long): Completable
 }

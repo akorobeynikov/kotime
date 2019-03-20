@@ -31,4 +31,10 @@ class TimeInteractorImpl @Inject constructor(private val timeSource: TimeSource)
     override fun isStopped(): Single<Boolean> {
         return getStartTime().map { startTime -> startTime == STOPPED_TIMER_VALUE }
     }
+
+    override fun getCurrentTime(): Long = timeSource.getCurrentTime()
+
+    override fun setStartTime(time: Long): Completable {
+        return timeSource.setStartTime(time)
+    }
 }

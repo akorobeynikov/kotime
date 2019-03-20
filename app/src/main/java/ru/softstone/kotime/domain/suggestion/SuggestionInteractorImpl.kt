@@ -6,6 +6,7 @@ import ru.softstone.kotime.domain.action.ActionSource
 import ru.softstone.kotime.domain.action.model.DesriptionAndCategory
 import ru.softstone.kotime.domain.category.CategoryInteractor
 import ru.softstone.kotime.domain.category.model.Category
+import ru.softstone.kotime.domain.suggestion.model.SelectedSuggestion
 import ru.softstone.kotime.domain.suggestion.model.Suggestion
 import javax.inject.Inject
 
@@ -13,6 +14,8 @@ class SuggestionInteractorImpl @Inject constructor(
     private val categoryInteractor: CategoryInteractor,
     private val actionSource: ActionSource
 ) : SuggestionInteractor {
+
+    private var selectedSuggestion: SelectedSuggestion? = null
 
     override fun getGeneralSuggestions(): Single<List<Suggestion>> {
         return actionSource.getMostFrequent().map { mostFrequent ->
@@ -54,4 +57,13 @@ class SuggestionInteractorImpl @Inject constructor(
                 return@map suggestions
             }
     }
+
+    override fun setSelectedSuggestion(suggestion: SelectedSuggestion) {
+        selectedSuggestion = suggestion
+    }
+
+    override fun getSelectedSuggection(): SelectedSuggestion {
+        return selectedSuggestion ?: throw IllegalStateException("Invoke setSelectedSuggestion() before")
+    }
+
 }

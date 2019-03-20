@@ -7,6 +7,7 @@ import javax.inject.Inject
 //todo fragment scope?
 class SuggestionsRvController @Inject constructor() : TypedEpoxyController<List<Suggestion>>() {
     private var clickListener: ((Int, String) -> Unit)? = null
+    private var fastRecordListener: ((Int, String) -> Unit)? = null
 
     override fun buildModels(items: List<Suggestion>) {
         items.forEach {
@@ -18,11 +19,18 @@ class SuggestionsRvController @Inject constructor() : TypedEpoxyController<List<
                 clickListener { model, _, _, _ ->
                     clickListener?.invoke(model.categoryId(), model.description())
                 }
+                fastRecordListener { model, _, _, _ ->
+                    fastRecordListener?.invoke(model.categoryId(), model.description())
+                }
             }
         }
     }
 
     fun setOnClickListener(listener: (Int, String) -> Unit) {
         clickListener = listener
+    }
+
+    fun setFastRecordListener(listener: (Int, String) -> Unit) {
+        fastRecordListener = listener
     }
 }
