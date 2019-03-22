@@ -23,6 +23,9 @@ interface CategoryDao {
     @Insert
     fun insertAll(vararg categories: CategoryEntry): Completable
 
+    @Insert
+    fun insertAll(categories: List<CategoryEntry>): Completable
+
     @Update
     fun update(category: CategoryEntry)
 

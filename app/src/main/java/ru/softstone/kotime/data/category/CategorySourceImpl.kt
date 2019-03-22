@@ -14,6 +14,11 @@ class CategorySourceImpl @Inject constructor(private val categoryDao: CategoryDa
         return categoryDao.insertAll(entry)
     }
 
+    override fun addCategories(categoryNames: List<String>): Completable {
+        val entries = categoryNames.map { CategoryEntry(0, it, true) }
+        return categoryDao.insertAll(entries)
+    }
+
     override fun getCategoryStatusByName(name: String): Single<CategoryStatus> {
         return categoryDao.findByName(name)
             .map { CategoryStatus(it.uid, it.active, exist = true) }

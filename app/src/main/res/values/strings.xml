@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">Kotime</string>
-    <string name="show_logs_button_text">Записи</string>
-    <string name="categories">Категории</string>
-    <string name="timer_button">Старт/Сброс</string>
-    <string name="add_record_button">Записать</string>
-    <string name="action_descriptions_hint">Описание активности</string>
-    <string name="stats">Статистика</string>
+    <string name="show_logs_button_text">Records</string>
+    <string name="categories">Categories</string>
+    <string name="timer_button">Start/Reset</string>
+    <string name="add_record_button">Add record</string>
+    <string name="action_descriptions_hint">Description</string>
+    <string name="stats">Statistics</string>
     <string name="precentage">%d%%</string>
     <string name="minus">-</string>
     <string name="plus">+</string>
-    <string name="fast_record_button">Быстрая запись</string>
-    <string name="start_time_picker_title">Начало</string>
-    <string name="end_time_picker_title">Завершение</string>
+    <string name="fast_record_button">Fast record</string>
+    <string name="start_time_picker_title">Start</string>
+    <string name="end_time_picker_title">End</string>
 </resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="default_categories">
+        <item>работа</item>
+        <item>проекты</item>
+        <item>отдых</item>
+        <item>обучение</item>
+        <item>хозяйство</item>
+        <item>дорога</item>
+        <item>планирование</item>
+        <item>спорт</item>
+        <item>развления</item>
+        <item>без дела</item>
+        <item>личное</item>
+        <item>семья</item>
+        <item>общение</item>
+    </string-array>
+</resources>

@@ -8,8 +8,7 @@ import javax.inject.Inject
 
 @InjectViewState
 class ActivityPresenter @Inject constructor(private val router: Router) : BasePresenter<ActivityView>() {
-    override fun onFirstViewAttach() {
-        super.onFirstViewAttach()
+    fun onFirstCreate() {
         router.newRootScreen(TIMER_SCREEN)
     }
 }

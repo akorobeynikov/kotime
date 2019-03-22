@@ -10,12 +10,22 @@ import ru.softstone.kotime.presentation.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
+
 class MainActivity : BaseActivity<ActivityPresenter>(), ActivityView {
     @InjectPresenter
     lateinit var presenter: ActivityPresenter
 
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        if (savedInstanceState == null) {
+            presenter.onFirstCreate()
+        }
+    }
 
     override fun onResume() {
         super.onResume()
@@ -31,11 +41,5 @@ class MainActivity : BaseActivity<ActivityPresenter>(), ActivityView {
     @ProvidePresenter
     override fun providePresenter(): ActivityPresenter {
         return super.providePresenter()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
     }
 }
