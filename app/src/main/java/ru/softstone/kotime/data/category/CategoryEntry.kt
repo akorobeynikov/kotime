@@ -12,5 +12,6 @@ import androidx.room.PrimaryKey
 data class CategoryEntry(
     @PrimaryKey(autoGenerate = true) var uid: Int,
     @ColumnInfo(name = "name") var name: String,
+    @ColumnInfo(name = "position") var position: Int,
     @ColumnInfo(name = "active") var active: Boolean
 )

@@ -5,6 +5,7 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 import ru.softstone.kotime.domain.category.model.AddResult
 import ru.softstone.kotime.domain.category.model.Category
+import ru.softstone.kotime.domain.category.model.PositionOfCategory
 import javax.inject.Inject
 
 class CategoryInteractorImpl @Inject constructor(private var categorySource: CategorySource) : CategoryInteractor {
@@ -31,5 +32,10 @@ class CategoryInteractorImpl @Inject constructor(private var categorySource: Cat
 
     override fun disableCategory(categoryId: Int): Completable {
         return categorySource.setStatus(categoryId, false)
+    }
+
+    override fun updateAllPositions(positions: Set<PositionOfCategory>): Completable {
+        return categorySource.updateAllPositions(positions)
+
     }
 }

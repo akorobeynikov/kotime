@@ -9,12 +9,13 @@ import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Single
 
+
 @Dao
 interface CategoryDao {
     @Query("SELECT * FROM category")
     fun getAll(): List<CategoryEntry>
 
-    @Query("SELECT * FROM category WHERE active = 1")
+    @Query("SELECT * FROM category WHERE active = 1 ORDER BY position ASC")
     fun getAllActive(): Flowable<List<CategoryEntry>>
 
     @Query("SELECT * FROM category WHERE name = :name")
@@ -29,6 +30,13 @@ interface CategoryDao {
     @Update
     fun update(category: CategoryEntry)
 
+    @Query("UPDATE category SET position = :position WHERE uid = :id")
+    fun updatePosition(id: Int, position: Int): Completable
+
+
     @Query("UPDATE category SET active = :active WHERE uid = :categoryId")
     fun setStatus(categoryId: Int, active: Boolean): Single<Int>
+
+    @Query("SELECT COUNT(uid) FROM category WHERE active = 1")
+    fun getCount(): Single<Int>
 }
