@@ -41,20 +41,25 @@ class EditActionPresenter @Inject constructor(
     private fun showCategories() {
         addDisposable(
             categoryInteractor.observeActiveCategories()
+                .switchMapSingle { categories ->
+                    suggestionInteractor.getSelectedSuggestion().map { suggestion -> categories to suggestion }
+                }
                 .subscribeOn(schedulerProvider.ioScheduler())
                 .observeOn(schedulerProvider.mainScheduler())
-                .subscribe({
-                    categories = it
-                    viewState.showCategories(it.map { category -> category.name })
-                    val selectedCategoryId = suggestionInteractor.getSelectedSuggection().categoryId
-                    val index = it.indexOfFirst { category -> category.id == selectedCategoryId }
+                .subscribe({ pair ->
+                    val categories = pair.first
+                    this.categories = categories
+                    val suggestion = pair.second
+
+                    viewState.showCategories(categories.map { category -> category.name })
+                    val selectedCategoryId = suggestion.categoryId
+                    val index = categories.indexOfFirst { category -> category.id == selectedCategoryId }
                     viewState.setSelectedCategory(index)
+                    viewState.setDescription(suggestion.description)
                 }, {
                     logger.error("Can't observe active categories", it)
                 })
         )
-        val description = suggestionInteractor.getSelectedSuggection().description
-        viewState.setDescription(description)
     }
 
     private fun showTime() {

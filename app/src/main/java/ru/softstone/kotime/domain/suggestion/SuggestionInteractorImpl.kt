@@ -2,6 +2,7 @@ package ru.softstone.kotime.domain.suggestion
 
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
+import ru.softstone.kotime.architecture.domain.StateStorage
 import ru.softstone.kotime.domain.action.ActionSource
 import ru.softstone.kotime.domain.action.model.DesriptionAndCategory
 import ru.softstone.kotime.domain.category.CategoryInteractor
@@ -12,10 +13,12 @@ import javax.inject.Inject
 
 class SuggestionInteractorImpl @Inject constructor(
     private val categoryInteractor: CategoryInteractor,
-    private val actionSource: ActionSource
+    private val actionSource: ActionSource,
+    private val stateStorage: StateStorage
 ) : SuggestionInteractor {
-
-    private var selectedSuggestion: SelectedSuggestion? = null
+    companion object {
+        private val SUGGESTION_STATE_KEY = "SUGGESTION_STATE_KEY"
+    }
 
     override fun getGeneralSuggestions(): Single<List<Suggestion>> {
         return actionSource.getMostFrequent().map { mostFrequent ->
@@ -59,11 +62,11 @@ class SuggestionInteractorImpl @Inject constructor(
     }
 
     override fun setSelectedSuggestion(suggestion: SelectedSuggestion) {
-        selectedSuggestion = suggestion
+        stateStorage.put(SUGGESTION_STATE_KEY, suggestion)
     }
 
-    override fun getSelectedSuggection(): SelectedSuggestion {
-        return selectedSuggestion ?: throw IllegalStateException("Invoke setSelectedSuggestion() before")
+    override fun getSelectedSuggestion(): Single<SelectedSuggestion> {
+        return stateStorage.pull(SUGGESTION_STATE_KEY)
     }
 
 }

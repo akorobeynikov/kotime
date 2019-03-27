@@ -10,7 +10,9 @@ import dagger.Module
 import dagger.Provides
 import ru.softstone.kotime.architecture.data.AndroidLogger
 import ru.softstone.kotime.architecture.data.SchedulerProvider
+import ru.softstone.kotime.architecture.data.StateStorageImpl
 import ru.softstone.kotime.architecture.domain.Logger
+import ru.softstone.kotime.architecture.domain.StateStorage
 import ru.softstone.kotime.data.action.ActionSourceImpl
 import ru.softstone.kotime.data.category.CategorySourceImpl
 import ru.softstone.kotime.data.storage.AppDatabase
@@ -49,6 +51,10 @@ class DataModule {
         @Binds
         @Singleton
         fun bindCategorySource(source: CategorySourceImpl): CategorySource
+
+        @Binds
+        @Singleton
+        fun bindStateStorage(storage: StateStorageImpl): StateStorage
     }
 
     @Provides

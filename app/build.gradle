@@ -53,6 +53,9 @@ android {
         }
     }
 }
+androidExtensions {
+    experimental = true // for @Parcelize
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -84,7 +87,7 @@ dependencies {
     implementation 'ru.terrakok.cicerone:cicerone:3.0.0'
 
     // Room
-    def room_version = "2.1.0-alpha05"
+    def room_version = "2.1.0-alpha06"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"

@@ -7,6 +7,6 @@ import ru.softstone.kotime.domain.suggestion.model.Suggestion
 interface SuggestionInteractor {
     fun getSuggestionsFor(input: String): Single<List<Suggestion>>
     fun getGeneralSuggestions(): Single<List<Suggestion>>
-    fun getSelectedSuggection(): SelectedSuggestion
+    fun getSelectedSuggestion(): Single<SelectedSuggestion>
     fun setSelectedSuggestion(suggestion: SelectedSuggestion)
 }
