@@ -67,4 +67,7 @@ interface ActionDao {
 
     @Update
     fun update(action: ActionEntry)
+
+    @Query("UPDATE `action` SET active = :active WHERE uid = :actionId")
+    fun setStatus(actionId: Int, active: Boolean): Completable
 }

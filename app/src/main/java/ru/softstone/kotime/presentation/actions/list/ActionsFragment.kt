@@ -52,6 +52,7 @@ class ActionsFragment : BaseFragment<ActionsPresenter>(),
         actions_rv.layoutManager = LinearLayoutManager(context)
         plus_date_button.setOnClickListener { presenter.onPlusDateClick() }
         minus_date_button.setOnClickListener { presenter.onMinusDateClick() }
+        rvController.setDeleteListener { presenter.onDeleteAction(it) }
     }
 
     override fun showDate(date: Date) {
@@ -66,6 +67,7 @@ class ActionsFragment : BaseFragment<ActionsPresenter>(),
             val durationSeconds = TimeUnit.MILLISECONDS.toSeconds(it.endTime - it.startTime).toInt()
             val duration = getFormattedTime(durationSeconds)
             ActionItem(
+                it.uid,
                 it.description,
                 it.categoryName,
                 "$duration ($statTime - $endTime)"

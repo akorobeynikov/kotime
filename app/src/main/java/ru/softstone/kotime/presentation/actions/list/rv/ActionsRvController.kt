@@ -5,14 +5,21 @@ import ru.softstone.kotime.presentation.actions.list.model.ActionItem
 import javax.inject.Inject
 
 class ActionsRvController @Inject constructor() : TypedEpoxyController<List<ActionItem>>() {
+    private var onDeleteClickListener: ((Int) -> Unit)? = null
+
     override fun buildModels(items: List<ActionItem>) {
         items.forEach {
             actionItem {
-                id(it.hashCode())
+                id(it.id.toLong())
                 description(it.description)
                 time(it.time)
                 category(it.category)
+                deleteClickListener { model, _, _, _ -> onDeleteClickListener?.invoke(model.id().toInt()) }
             }
         }
+    }
+
+    fun setDeleteListener(listener: ((Int) -> Unit)) {
+        onDeleteClickListener = listener
     }
 }

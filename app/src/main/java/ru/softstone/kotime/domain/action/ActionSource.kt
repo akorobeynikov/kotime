@@ -11,4 +11,5 @@ interface ActionSource {
     fun observeActions(startTime: Long, endTime: Long): Flowable<List<ActionAndCategory>>
     fun getMostFrequent(): Single<List<DesriptionAndCategory>>
     fun getMostFrequentWhere(descriptionStartsWith: String): Single<List<DesriptionAndCategory>>
+    fun setStatus(actionId: Int, active: Boolean): Completable
 }

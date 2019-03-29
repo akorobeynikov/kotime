@@ -39,7 +39,7 @@ class CategoryPresenter @Inject constructor(
                 .subscribeOn(schedulerProvider.ioScheduler())
                 .observeOn(schedulerProvider.mainScheduler())
                 .subscribe(
-                    { logger.debug("Category was added $it") },
+                    { logger.debug("Category added $it") },
                     { logger.error("Can't add category", it) }
                 )
         )
@@ -51,7 +51,7 @@ class CategoryPresenter @Inject constructor(
                 .subscribeOn(schedulerProvider.ioScheduler())
                 .observeOn(schedulerProvider.mainScheduler())
                 .subscribe(
-                    { logger.debug("Category was disabled") },
+                    { logger.debug("Category disabled") },
                     { logger.error("Can't disable category", it) }
                 )
         )
@@ -76,7 +76,7 @@ class CategoryPresenter @Inject constructor(
                 .subscribeOn(schedulerProvider.ioScheduler())
                 .observeOn(schedulerProvider.mainScheduler())
                 .subscribe(
-                    { logger.debug("Order was changed") },
+                    { logger.debug("Order changed") },
                     { logger.error("Can't update positions of categories", it) }
                 )
         )

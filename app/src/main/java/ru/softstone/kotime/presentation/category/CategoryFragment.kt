@@ -44,6 +44,7 @@ class CategoryFragment : BaseFragment<CategoryPresenter>(), CategoryView {
         add_category_button.setOnClickListener {
             val categoryName = category_field.text.toString()
             presenter.onAddCategoryClick(categoryName)
+            category_field.text = null
         }
 
         EpoxyTouchHelper.initDragging(rvController)

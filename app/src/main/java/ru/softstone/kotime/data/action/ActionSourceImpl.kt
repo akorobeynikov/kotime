@@ -42,4 +42,8 @@ class ActionSourceImpl @Inject constructor(private val actionDao: ActionDao) : A
             data.map { DesriptionAndCategory(it.categoryId, it.categoryName, it.description) }
         }
     }
+
+    override fun setStatus(actionId: Int, active: Boolean): Completable {
+        return actionDao.setStatus(actionId, active)
+    }
 }

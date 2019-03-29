@@ -49,4 +49,18 @@ class ActionsPresenter @Inject constructor(
                 })
         )
     }
+
+    fun onDeleteAction(actionId: Int) {
+        logger.debug("onDeleteAction $actionId")
+        addDisposable(
+            actionInteractor.deleteAction(actionId)
+                .subscribeOn(schedulerProvider.ioScheduler())
+                .observeOn(schedulerProvider.mainScheduler())
+                .subscribe({
+                    logger.debug("Action deleted")
+                }, {
+                    logger.error("Can't delete action", it)
+                })
+        )
+    }
 }

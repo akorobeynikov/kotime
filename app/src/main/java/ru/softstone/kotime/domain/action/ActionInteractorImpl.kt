@@ -47,4 +47,8 @@ class ActionInteractorImpl @Inject constructor(
         val endTime = calendar.timeInMillis
         return actionSource.observeActions(startTime, endTime)
     }
+
+    override fun deleteAction(actionId: Int): Completable {
+        return actionSource.setStatus(actionId, false)
+    }
 }
