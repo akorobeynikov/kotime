@@ -5,11 +5,16 @@ import ru.softstone.kotime.architecture.data.SchedulerProvider
 import ru.softstone.kotime.architecture.domain.Logger
 import ru.softstone.kotime.architecture.presentation.BasePresenter
 import ru.softstone.kotime.domain.action.ActionInteractor
+import ru.softstone.kotime.domain.action.state.ActionState
+import ru.softstone.kotime.domain.action.state.AddActionState
+import ru.softstone.kotime.domain.action.state.EditActionState
+import ru.softstone.kotime.domain.action.state.EditSuggestionState
 import ru.softstone.kotime.domain.category.CategoryInteractor
-import ru.softstone.kotime.domain.category.model.Category
-import ru.softstone.kotime.domain.suggestion.SuggestionInteractor
 import ru.softstone.kotime.domain.time.TimeInteractor
-import ru.softstone.kotime.presentation.TIMER_SCREEN
+import ru.softstone.kotime.presentation.actions.edit.behavior.ActionBehavior
+import ru.softstone.kotime.presentation.actions.edit.behavior.AddActionBehavior
+import ru.softstone.kotime.presentation.actions.edit.behavior.EditActionBehavior
+import ru.softstone.kotime.presentation.actions.edit.behavior.EditSuggestionBehavior
 import ru.terrakok.cicerone.Router
 import java.util.*
 import javax.inject.Inject
@@ -18,110 +23,82 @@ import javax.inject.Inject
 class EditActionPresenter @Inject constructor(
     private val categoryInteractor: CategoryInteractor,
     private val schedulerProvider: SchedulerProvider,
-    private val suggestionInteractor: SuggestionInteractor,
     private val actionInteractor: ActionInteractor,
     private val timeInteractor: TimeInteractor,
     private val router: Router,
     private val logger: Logger
 ) : BasePresenter<EditActionView>() {
-    private var initialStartTime: Long = 0
-    private var initialEndTime: Long = 0
-
-    private lateinit var startTime: Date
-    private lateinit var endTime: Date
-
-    private lateinit var categories: List<Category>
+    private lateinit var behavior: ActionBehavior
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        showCategories()
-        showTime()
-    }
-
-    private fun showCategories() {
         addDisposable(
-            categoryInteractor.observeActiveCategories()
-                .switchMapSingle { categories ->
-                    suggestionInteractor.getSelectedSuggestion().map { suggestion -> categories to suggestion }
-                }
+            actionInteractor.getActionState()
                 .subscribeOn(schedulerProvider.ioScheduler())
                 .observeOn(schedulerProvider.mainScheduler())
-                .subscribe({ pair ->
-                    val categories = pair.first
-                    this.categories = categories
-                    val suggestion = pair.second
-
-                    viewState.showCategories(categories.map { category -> category.name })
-                    val selectedCategoryId = suggestion.categoryId
-                    val index = categories.indexOfFirst { category -> category.id == selectedCategoryId }
-                    viewState.setSelectedCategory(index)
-                    viewState.setDescription(suggestion.description)
-                }, {
-                    logger.error("Can't observe active categories", it)
-                })
-        )
-    }
-
-    private fun showTime() {
-        addDisposable(
-            timeInteractor.getStartTime()
-                .subscribeOn(schedulerProvider.ioScheduler())
-                .observeOn(schedulerProvider.mainScheduler())
-                .subscribe({ startTime ->
-                    initialStartTime = startTime
-                    initialEndTime = timeInteractor.getCurrentTime()
-                    setStartTime(Date(initialStartTime))
-                    setEndTime(Date(initialEndTime))
+                .subscribe({ state ->
+                    logger.debug("getActionState $state")
+                    behavior = getBehavior(state)
+                    behavior.start()
                 }, {
                     logger.error("Can't get start time", it)
                 })
         )
     }
 
-    private fun setStartTime(date: Date) {
-        startTime = date
-        viewState.showStartTime(date)
-    }
-
-    private fun setEndTime(date: Date) {
-        endTime = date
-        viewState.showEndTime(date)
-    }
-
-    fun startTimeChanged(date: Date) {
-        val limitedTime = limitInInitialRange(date)
-        setStartTime(limitedTime)
-    }
-
-    fun endTimeChanged(date: Date) {
-        val limitedTime = limitInInitialRange(date)
-        setEndTime(limitedTime)
-    }
-
-    private fun limitInInitialRange(date: Date): Date {
-        if (initialStartTime != 0L && initialEndTime != 0L) {
-            return when {
-                date.time < initialStartTime -> Date(initialStartTime)
-                date.time > initialEndTime -> Date(initialEndTime)
-                else -> date
-            }
-        } else {
-            throw IllegalStateException("Set initialStartTime and initialEndTime before")
+    private fun getBehavior(state: ActionState): ActionBehavior {
+        return when (state) {
+            is AddActionState -> AddActionBehavior(
+                viewState,
+                categoryInteractor,
+                schedulerProvider,
+                actionInteractor,
+                timeInteractor,
+                router,
+                logger
+            )
+            is EditActionState -> EditActionBehavior(
+                state,
+                viewState,
+                categoryInteractor,
+                schedulerProvider,
+                actionInteractor,
+                timeInteractor,
+                router,
+                logger
+            )
+            is EditSuggestionState -> EditSuggestionBehavior(
+                state,
+                viewState,
+                categoryInteractor,
+                schedulerProvider,
+                actionInteractor,
+                timeInteractor,
+                router,
+                logger
+            )
+            else -> throw IllegalStateException("Unknown type of state")
         }
     }
 
+
+
+
+    fun startTimeChanged(date: Date) {
+        behavior.startTimeChanged(date)
+    }
+
+
+    fun endTimeChanged(date: Date) {
+        behavior.endTimeChanged(date)
+    }
+
     fun onAddActionClick(description: String, categoryIndex: Int) {
-        val categoryId = categories[categoryIndex].id
-        addDisposable(
-            actionInteractor.addAction(categoryId, startTime.time, endTime.time, description)
-                .subscribeOn(schedulerProvider.ioScheduler())
-                .observeOn(schedulerProvider.mainScheduler())
-                .subscribe({
-                    logger.debug("Action added")
-                    router.newRootScreen(TIMER_SCREEN)
-                }, {
-                    logger.error("Can't add action", it)
-                })
-        )
+        behavior.onAddActionClick(description, categoryIndex)
+    }
+
+    override fun onDestroy() {
+        behavior.onDestroy()
+        super.onDestroy()
     }
 }

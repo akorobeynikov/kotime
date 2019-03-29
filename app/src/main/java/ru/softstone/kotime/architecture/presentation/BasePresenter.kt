@@ -1,18 +1,17 @@
 package ru.softstone.kotime.architecture.presentation
 
 import com.arellomobile.mvp.MvpPresenter
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
 open class BasePresenter<V : BaseView> : MvpPresenter<V>() {
-    private val disposable = CompositeDisposable()
+    private val disposeManager = DisposeManager()
 
     fun addDisposable(d: Disposable) {
-        disposable.add(d)
+        disposeManager.addDisposable(d)
     }
 
     override fun onDestroy() {
-        disposable.dispose()
+        disposeManager.onDestroy()
         super.onDestroy()
     }
 }

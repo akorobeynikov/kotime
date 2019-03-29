@@ -5,8 +5,8 @@ import ru.softstone.kotime.architecture.data.SchedulerProvider
 import ru.softstone.kotime.architecture.domain.Logger
 import ru.softstone.kotime.architecture.presentation.BasePresenter
 import ru.softstone.kotime.domain.action.ActionInteractor
+import ru.softstone.kotime.domain.action.state.EditSuggestionState
 import ru.softstone.kotime.domain.suggestion.SuggestionInteractor
-import ru.softstone.kotime.domain.suggestion.model.SelectedSuggestion
 import ru.softstone.kotime.presentation.EDIT_ACTION_SCREEN
 import ru.softstone.kotime.presentation.suggestion.model.Suggestion
 import ru.terrakok.cicerone.Router
@@ -74,7 +74,7 @@ class SuggestionPresenter @Inject constructor(
     }
 
     fun onSuggestionClick(categoryId: Int, description: String) {
-        suggestionInteractor.setSelectedSuggestion(SelectedSuggestion(description, categoryId))
+        actionInteractor.setActionState(EditSuggestionState(description, categoryId))
         router.navigateTo(EDIT_ACTION_SCREEN)
     }
 

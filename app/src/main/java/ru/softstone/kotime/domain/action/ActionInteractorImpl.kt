@@ -2,7 +2,10 @@ package ru.softstone.kotime.domain.action
 
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
+import ru.softstone.kotime.architecture.domain.StateStorage
 import ru.softstone.kotime.domain.action.model.ActionAndCategory
+import ru.softstone.kotime.domain.action.state.ActionState
 import ru.softstone.kotime.domain.time.TimeInteractor
 import ru.softstone.kotime.domain.time.TimeSource
 import java.util.*
@@ -11,8 +14,13 @@ import javax.inject.Inject
 class ActionInteractorImpl @Inject constructor(
     private val actionSource: ActionSource,
     private val timeSource: TimeSource,
+    private val stateStorage: StateStorage,
     private val timeInteractor: TimeInteractor
 ) : ActionInteractor {
+    companion object {
+        private const val ACTION_STATE = "ACTION_STATE"
+    }
+
     override fun addAction(description: String, categoryId: Int): Completable {
         val endTime = timeSource.getCurrentTime()
         return timeInteractor.getStartTime().flatMapCompletable { startTime ->
@@ -50,5 +58,13 @@ class ActionInteractorImpl @Inject constructor(
 
     override fun deleteAction(actionId: Int): Completable {
         return actionSource.setStatus(actionId, false)
+    }
+
+    override fun setActionState(state: ActionState) {
+        stateStorage.put(ACTION_STATE, state)
+    }
+
+    override fun getActionState(): Single<ActionState> {
+        return stateStorage.pull(ACTION_STATE)
     }
 }

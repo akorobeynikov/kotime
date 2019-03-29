@@ -20,11 +20,15 @@ abstract class ActionItemModel : EpoxyModelWithHolder<ActionViewHolder>() {
     @EpoxyAttribute
     lateinit var deleteClickListener: View.OnClickListener
 
+    @EpoxyAttribute
+    lateinit var itemClickListener: View.OnClickListener
+
     override fun bind(holder: ActionViewHolder) {
         holder.descriptionView.text = description
         holder.timeView.text = time
         holder.categoryView.text = category
         holder.deleteButton.setOnClickListener(deleteClickListener)
+        holder.container.setOnClickListener(itemClickListener)
     }
 }
 

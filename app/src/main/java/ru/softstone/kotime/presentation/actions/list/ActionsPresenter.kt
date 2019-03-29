@@ -5,6 +5,10 @@ import ru.softstone.kotime.architecture.data.SchedulerProvider
 import ru.softstone.kotime.architecture.domain.Logger
 import ru.softstone.kotime.architecture.presentation.BasePresenter
 import ru.softstone.kotime.domain.action.ActionInteractor
+import ru.softstone.kotime.domain.action.state.AddActionState
+import ru.softstone.kotime.domain.action.state.EditActionState
+import ru.softstone.kotime.presentation.EDIT_ACTION_SCREEN
+import ru.terrakok.cicerone.Router
 import java.util.*
 import javax.inject.Inject
 
@@ -12,6 +16,7 @@ import javax.inject.Inject
 class ActionsPresenter @Inject constructor(
     private val actionInteractor: ActionInteractor,
     private val schedulerProvider: SchedulerProvider,
+    private val router: Router,
     private val logger: Logger
 ) : BasePresenter<ActionsView>() {
 
@@ -62,5 +67,16 @@ class ActionsPresenter @Inject constructor(
                     logger.error("Can't delete action", it)
                 })
         )
+    }
+
+    fun onEditAction(actionId: Int) {
+        actionInteractor.setActionState(EditActionState(actionId))
+        router.navigateTo(EDIT_ACTION_SCREEN)
+    }
+
+    fun onAddAction() {
+        logger.debug("onAddAction")
+        actionInteractor.setActionState(AddActionState())
+        router.navigateTo(EDIT_ACTION_SCREEN)
     }
 }

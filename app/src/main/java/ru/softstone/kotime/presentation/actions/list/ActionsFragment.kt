@@ -52,7 +52,9 @@ class ActionsFragment : BaseFragment<ActionsPresenter>(),
         actions_rv.layoutManager = LinearLayoutManager(context)
         plus_date_button.setOnClickListener { presenter.onPlusDateClick() }
         minus_date_button.setOnClickListener { presenter.onMinusDateClick() }
+        add_record_button.setOnClickListener { presenter.onAddAction() }
         rvController.setDeleteListener { presenter.onDeleteAction(it) }
+        rvController.setItemClickListener { presenter.onEditAction(it) }
     }
 
     override fun showDate(date: Date) {

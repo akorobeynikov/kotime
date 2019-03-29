@@ -6,6 +6,7 @@ import javax.inject.Inject
 
 class ActionsRvController @Inject constructor() : TypedEpoxyController<List<ActionItem>>() {
     private var onDeleteClickListener: ((Int) -> Unit)? = null
+    private var onItemClickListener: ((Int) -> Unit)? = null
 
     override fun buildModels(items: List<ActionItem>) {
         items.forEach {
@@ -15,6 +16,7 @@ class ActionsRvController @Inject constructor() : TypedEpoxyController<List<Acti
                 time(it.time)
                 category(it.category)
                 deleteClickListener { model, _, _, _ -> onDeleteClickListener?.invoke(model.id().toInt()) }
+                itemClickListener { model, _, _, _ -> onItemClickListener?.invoke(model.id().toInt()) }
             }
         }
     }
@@ -22,4 +24,9 @@ class ActionsRvController @Inject constructor() : TypedEpoxyController<List<Acti
     fun setDeleteListener(listener: ((Int) -> Unit)) {
         onDeleteClickListener = listener
     }
+
+    fun setItemClickListener(listener: ((Int) -> Unit)) {
+        onItemClickListener = listener
+    }
+
 }
