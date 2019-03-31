@@ -62,11 +62,14 @@ interface ActionDao {
     )
     fun getMostFrequent(descriptionFilter: String): Single<List<DesriptionAndCategoryData>>
 
+    @Query(" SELECT * FROM `action` WHERE uid = :actionId")
+    fun getAction(actionId: Int): Single<ActionEntry>
+
     @Insert
     fun insertAll(vararg actions: ActionEntry): Completable
 
     @Update
-    fun update(action: ActionEntry)
+    fun update(action: ActionEntry): Completable
 
     @Query("UPDATE `action` SET active = :active WHERE uid = :actionId")
     fun setStatus(actionId: Int, active: Boolean): Completable

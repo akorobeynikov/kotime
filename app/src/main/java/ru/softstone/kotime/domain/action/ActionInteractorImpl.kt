@@ -4,6 +4,7 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import ru.softstone.kotime.architecture.domain.StateStorage
+import ru.softstone.kotime.domain.action.model.Action
 import ru.softstone.kotime.domain.action.model.ActionAndCategory
 import ru.softstone.kotime.domain.action.state.ActionState
 import ru.softstone.kotime.domain.time.TimeInteractor
@@ -66,5 +67,14 @@ class ActionInteractorImpl @Inject constructor(
 
     override fun getActionState(): Single<ActionState> {
         return stateStorage.pull(ACTION_STATE)
+    }
+
+    override fun getAction(actionId: Int): Single<Action> {
+        return actionSource.getAction(actionId)
+            .map { Action(it.uid, it.categoryId, it.startTime, it.endTime, it.description) }
+    }
+
+    override fun updateActiveAction(action: Action): Completable {
+        return actionSource.updateActiveAction(action)
     }
 }

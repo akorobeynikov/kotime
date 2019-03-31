@@ -5,6 +5,7 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 import ru.softstone.kotime.data.action.model.ActionEntry
 import ru.softstone.kotime.domain.action.ActionSource
+import ru.softstone.kotime.domain.action.model.Action
 import ru.softstone.kotime.domain.action.model.ActionAndCategory
 import ru.softstone.kotime.domain.action.model.DesriptionAndCategory
 import javax.inject.Inject
@@ -45,5 +46,23 @@ class ActionSourceImpl @Inject constructor(private val actionDao: ActionDao) : A
 
     override fun setStatus(actionId: Int, active: Boolean): Completable {
         return actionDao.setStatus(actionId, active)
+    }
+
+    override fun getAction(actionId: Int): Single<Action> {
+        return actionDao.getAction(actionId)
+            .map { Action(it.uid, it.categoryId, it.startTime, it.endTime, it.description) }
+    }
+
+    override fun updateActiveAction(action: Action): Completable {
+        return actionDao.update(
+            ActionEntry(
+                action.uid,
+                action.categoryId,
+                action.startTime,
+                action.endTime,
+                action.description,
+                active = true
+            )
+        )
     }
 }

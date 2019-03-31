@@ -48,6 +48,7 @@ class EditActionPresenter @Inject constructor(
 
     private fun getBehavior(state: ActionState): ActionBehavior {
         return when (state) {
+            // todo инстацировать через dagger
             is AddActionState -> AddActionBehavior(
                 viewState,
                 categoryInteractor,
@@ -57,6 +58,7 @@ class EditActionPresenter @Inject constructor(
                 router,
                 logger
             )
+            // todo инстацировать через dagger
             is EditActionState -> EditActionBehavior(
                 state,
                 viewState,
@@ -67,6 +69,7 @@ class EditActionPresenter @Inject constructor(
                 router,
                 logger
             )
+            // todo инстацировать через dagger
             is EditSuggestionState -> EditSuggestionBehavior(
                 state,
                 viewState,
