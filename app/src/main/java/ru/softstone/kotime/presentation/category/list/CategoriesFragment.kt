@@ -1,4 +1,4 @@
-package ru.softstone.kotime.presentation.category
+package ru.softstone.kotime.presentation.category.list
 
 import android.content.Context
 import android.os.Bundle
@@ -14,17 +14,18 @@ import kotlinx.android.synthetic.main.fragment_category.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseFragment
 import ru.softstone.kotime.domain.category.model.Category
-import ru.softstone.kotime.presentation.category.rv.CategoriesRvController
-import ru.softstone.kotime.presentation.category.rv.CategoryItemModel
+import ru.softstone.kotime.presentation.category.list.rv.CategoriesRvController
+import ru.softstone.kotime.presentation.category.list.rv.CategoryItemModel
 import javax.inject.Inject
 
-class CategoryFragment : BaseFragment<CategoryPresenter>(), CategoryView {
+class CategoriesFragment : BaseFragment<CategoriesPresenter>(),
+    CategoriesView {
     companion object {
-        fun newInstance() = CategoryFragment()
+        fun newInstance() = CategoriesFragment()
     }
 
     @InjectPresenter
-    lateinit var presenter: CategoryPresenter
+    lateinit var presenter: CategoriesPresenter
 
     @Inject
     lateinit var rvController: CategoriesRvController
@@ -95,7 +96,7 @@ class CategoryFragment : BaseFragment<CategoryPresenter>(), CategoryView {
     }
 
     @ProvidePresenter
-    override fun providePresenter(): CategoryPresenter {
+    override fun providePresenter(): CategoriesPresenter {
         return super.providePresenter()
     }
 

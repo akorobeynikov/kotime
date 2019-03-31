@@ -4,4 +4,4 @@ import dagger.Module
 
 
 @Module
-class EditActionModule
+class ActionModule

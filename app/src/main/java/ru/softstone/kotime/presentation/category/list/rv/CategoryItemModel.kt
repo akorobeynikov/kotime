@@ -1,4 +1,4 @@
-package ru.softstone.kotime.presentation.category.rv
+package ru.softstone.kotime.presentation.category.list.rv
 
 import android.view.View
 import com.airbnb.epoxy.EpoxyAttribute

@@ -1,4 +1,4 @@
-package ru.softstone.kotime.presentation.category
+package ru.softstone.kotime.presentation.category.list
 
 import com.arellomobile.mvp.InjectViewState
 import ru.softstone.kotime.architecture.data.SchedulerProvider
@@ -10,11 +10,11 @@ import ru.softstone.kotime.domain.category.model.PositionOfCategory
 import javax.inject.Inject
 
 @InjectViewState
-class CategoryPresenter @Inject constructor(
+class CategoriesPresenter @Inject constructor(
     private val categoryInteractor: CategoryInteractor,
     private val schedulerProvider: SchedulerProvider,
     private val logger: Logger
-) : BasePresenter<CategoryView>() {
+) : BasePresenter<CategoriesView>() {
 
     private var categories: MutableList<Category>? = null
 

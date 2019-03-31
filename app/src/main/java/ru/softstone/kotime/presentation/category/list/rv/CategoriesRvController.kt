@@ -1,4 +1,4 @@
-package ru.softstone.kotime.presentation.category.rv
+package ru.softstone.kotime.presentation.category.list.rv
 
 import com.airbnb.epoxy.TypedEpoxyController
 import ru.softstone.kotime.domain.category.model.Category

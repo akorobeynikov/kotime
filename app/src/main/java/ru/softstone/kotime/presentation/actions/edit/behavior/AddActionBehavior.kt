@@ -7,12 +7,12 @@ import ru.softstone.kotime.domain.action.ActionInteractor
 import ru.softstone.kotime.domain.category.CategoryInteractor
 import ru.softstone.kotime.domain.category.model.Category
 import ru.softstone.kotime.domain.time.TimeInteractor
-import ru.softstone.kotime.presentation.actions.edit.EditActionView
+import ru.softstone.kotime.presentation.actions.edit.ActionView
 import ru.terrakok.cicerone.Router
 import java.util.*
 
 class AddActionBehavior(
-    private val viewState: EditActionView,
+    private val viewState: ActionView,
     private val categoryInteractor: CategoryInteractor,
     private val schedulerProvider: SchedulerProvider,
     private val actionInteractor: ActionInteractor,

@@ -1,4 +1,4 @@
-package ru.softstone.kotime.presentation.category.rv
+package ru.softstone.kotime.presentation.category.list.rv
 
 import android.widget.ImageButton
 import android.widget.TextView

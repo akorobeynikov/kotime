@@ -20,14 +20,14 @@ import java.util.*
 import javax.inject.Inject
 
 @InjectViewState
-class EditActionPresenter @Inject constructor(
+class ActionPresenter @Inject constructor(
     private val categoryInteractor: CategoryInteractor,
     private val schedulerProvider: SchedulerProvider,
     private val actionInteractor: ActionInteractor,
     private val timeInteractor: TimeInteractor,
     private val router: Router,
     private val logger: Logger
-) : BasePresenter<EditActionView>() {
+) : BasePresenter<ActionView>() {
     private lateinit var behavior: ActionBehavior
 
     override fun onFirstViewAttach() {

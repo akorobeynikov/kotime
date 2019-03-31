@@ -16,13 +16,13 @@ import java.text.DateFormat
 import java.util.*
 
 
-class EditActionFragment : BaseFragment<EditActionPresenter>(), EditActionView {
+class ActionFragment : BaseFragment<ActionPresenter>(), ActionView {
     companion object {
-        fun newInstance() = EditActionFragment()
+        fun newInstance() = ActionFragment()
     }
 
     @InjectPresenter
-    lateinit var presenter: EditActionPresenter
+    lateinit var presenter: ActionPresenter
 
     private lateinit var dateFormat: DateFormat
 
@@ -94,7 +94,7 @@ class EditActionFragment : BaseFragment<EditActionPresenter>(), EditActionView {
     }
 
     @ProvidePresenter
-    override fun providePresenter(): EditActionPresenter {
+    override fun providePresenter(): ActionPresenter {
         return super.providePresenter()
     }
 

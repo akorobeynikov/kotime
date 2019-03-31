@@ -6,7 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import ru.softstone.kotime.architecture.presentation.BaseView
 import java.util.*
 
-interface EditActionView : BaseView {
+interface ActionView : BaseView {
     //todo сохранять выбранную пользователм категорию при повороте экрана
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun setSelectedCategory(index: Int)
