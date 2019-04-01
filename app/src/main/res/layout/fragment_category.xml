@@ -1,34 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/categories_rv"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <LinearLayout
+    <EditText
+        android:inputType="text"
+        android:id="@+id/category_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:hint="@string/category_field_hint"
+        tools:ignore="Autofill" />
 
-        <EditText
-            android:id="@+id/category_field"
-            android:layout_width="0dp"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/goal_label" />
+
+    <RadioGroup
+        android:id="@+id/goal_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/none_goal_radio_button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:checked="true"
+            android:text="@string/none_goal" />
 
-        <ImageButton
-            android:id="@+id/add_category_button"
-            android:layout_width="wrap_content"
+        <RadioButton
+            android:id="@+id/increase_goal_radio_button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="@null"
-            app:srcCompat="@drawable/ic_add" />
-    </LinearLayout>
+            android:text="@string/increase_goal" />
 
+        <RadioButton
+            android:id="@+id/decrease_goal_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/decrease_goal" />
+
+    </RadioGroup>
+
+    <Space
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <Button
+        android:id="@+id/next_button"
+        android:text="@string/done_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

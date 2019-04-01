@@ -10,7 +10,7 @@ import com.airbnb.epoxy.EpoxyTouchHelper
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.fragment_category.*
+import kotlinx.android.synthetic.main.fragment_categories.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseFragment
 import ru.softstone.kotime.domain.category.model.Category
@@ -36,16 +36,14 @@ class CategoriesFragment : BaseFragment<CategoriesPresenter>(),
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_category, container, false)
+        return inflater.inflate(R.layout.fragment_categories, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         add_category_button.setOnClickListener {
-            val categoryName = category_field.text.toString()
-            presenter.onAddCategoryClick(categoryName)
-            category_field.text = null
+            presenter.onAddCategoryClick()
         }
 
         EpoxyTouchHelper.initDragging(rvController)

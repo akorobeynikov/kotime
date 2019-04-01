@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager
 import ru.softstone.kotime.architecture.presentation.BaseNavigator
 import ru.softstone.kotime.presentation.actions.edit.ActionFragment
 import ru.softstone.kotime.presentation.actions.list.ActionsFragment
+import ru.softstone.kotime.presentation.category.edit.CategoryFragment
 import ru.softstone.kotime.presentation.category.list.CategoriesFragment
 import ru.softstone.kotime.presentation.splash.SplashFragment
 import ru.softstone.kotime.presentation.statistics.StatFragment
@@ -20,7 +21,8 @@ class Navigator(activity: Activity, containerId: Int, fragmentManager: FragmentM
         TIMER_SCREEN -> TimerFragment.newInstance()
         ACTIONS_SCREEN -> ActionsFragment.newInstance()
         EDIT_ACTION_SCREEN -> ActionFragment.newInstance()
-        CATEGORY_SCREEN -> CategoriesFragment.newInstance()
+        CATEGORIES_SCREEN -> CategoriesFragment.newInstance()
+        CATEGORY_SCREEN -> CategoryFragment.newInstance()
         SUGGESTION_SCREEN -> SuggestionFragment.newInstance()
         STAT_SCREEN -> StatFragment.newInstance()
         else -> throw IllegalStateException("Unknown screenKey: $screenKey")

@@ -7,12 +7,15 @@ import ru.softstone.kotime.architecture.presentation.BasePresenter
 import ru.softstone.kotime.domain.category.CategoryInteractor
 import ru.softstone.kotime.domain.category.model.Category
 import ru.softstone.kotime.domain.category.model.PositionOfCategory
+import ru.softstone.kotime.presentation.CATEGORY_SCREEN
+import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 @InjectViewState
 class CategoriesPresenter @Inject constructor(
     private val categoryInteractor: CategoryInteractor,
     private val schedulerProvider: SchedulerProvider,
+    private val router: Router,
     private val logger: Logger
 ) : BasePresenter<CategoriesView>() {
 
@@ -33,16 +36,9 @@ class CategoriesPresenter @Inject constructor(
         )
     }
 
-    fun onAddCategoryClick(categoryName: String) {
-        addDisposable(
-            categoryInteractor.addCategory(categoryName)
-                .subscribeOn(schedulerProvider.ioScheduler())
-                .observeOn(schedulerProvider.mainScheduler())
-                .subscribe(
-                    { logger.debug("Category added $it") },
-                    { logger.error("Can't add category", it) }
-                )
-        )
+    fun onAddCategoryClick() {
+        // todo добавить установку состояния
+        router.navigateTo(CATEGORY_SCREEN)
     }
 
     fun onDeleteCategoryClick(categoryId: Int) {

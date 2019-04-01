@@ -7,7 +7,7 @@ import ru.softstone.kotime.architecture.domain.Logger
 import ru.softstone.kotime.architecture.presentation.BasePresenter
 import ru.softstone.kotime.domain.time.TimeInteractor
 import ru.softstone.kotime.presentation.ACTIONS_SCREEN
-import ru.softstone.kotime.presentation.CATEGORY_SCREEN
+import ru.softstone.kotime.presentation.CATEGORIES_SCREEN
 import ru.softstone.kotime.presentation.STAT_SCREEN
 import ru.softstone.kotime.presentation.SUGGESTION_SCREEN
 import ru.terrakok.cicerone.Router
@@ -44,7 +44,7 @@ class TimerPresenter @Inject constructor(
     }
 
     fun onShowCategoriesClick() {
-        router.navigateTo(CATEGORY_SCREEN)
+        router.navigateTo(CATEGORIES_SCREEN)
     }
 
     fun onTimerClick() {
