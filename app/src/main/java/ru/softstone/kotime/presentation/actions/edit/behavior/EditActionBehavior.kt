@@ -92,6 +92,14 @@ class EditActionBehavior(
         setEndTime(date)
     }
 
+    override fun onMinusDurationClick() {
+        //todo частитчно реализовано в EditSuggestionBehavior
+    }
+
+    override fun onPlusDurationClick() {
+        //todo частитчно реализовано в EditSuggestionBehavior
+    }
+
     override fun onDestroy() {
         disposeManager.onDestroy()
     }

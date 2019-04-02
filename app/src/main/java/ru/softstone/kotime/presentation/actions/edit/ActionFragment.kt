@@ -12,6 +12,7 @@ import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_edit_action.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseFragment
+import ru.softstone.kotime.presentation.getFormattedDuration
 import java.text.DateFormat
 import java.util.*
 
@@ -54,6 +55,12 @@ class ActionFragment : BaseFragment<ActionPresenter>(), ActionView {
             val categoryIndex = categories_spinner.selectedIndex
             presenter.onAddActionClick(description, categoryIndex)
         }
+        minus_button.setOnClickListener { presenter.onMinusDurationClick() }
+        plus_button.setOnClickListener { presenter.onPlusDurationClick() }
+    }
+
+    override fun showDuration(seconds: Int) {
+        duration_view.text = getFormattedDuration(seconds)
     }
 
     private fun showTimePicker(listener: (Date) -> Unit, title: String, default: Date?) {

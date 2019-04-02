@@ -8,4 +8,6 @@ interface ActionBehavior {
     fun endTimeChanged(date: Date)
     fun startTimeChanged(date: Date)
     fun onDestroy()
+    fun onMinusDurationClick()
+    fun onPlusDurationClick()
 }

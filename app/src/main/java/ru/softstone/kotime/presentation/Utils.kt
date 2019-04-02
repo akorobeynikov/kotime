@@ -1,6 +1,6 @@
 package ru.softstone.kotime.presentation
 
-fun getFormattedTime(time: Int): String {
+fun getFormattedDuration(time: Int): String {
     if (time < 0) {
         throw IllegalArgumentException("Time can't be less then zero.")
     }

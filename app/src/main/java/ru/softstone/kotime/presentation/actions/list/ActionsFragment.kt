@@ -16,7 +16,7 @@ import ru.softstone.kotime.architecture.presentation.BaseFragment
 import ru.softstone.kotime.domain.action.model.ActionAndCategory
 import ru.softstone.kotime.presentation.actions.list.model.ActionItem
 import ru.softstone.kotime.presentation.actions.list.rv.ActionsRvController
-import ru.softstone.kotime.presentation.getFormattedTime
+import ru.softstone.kotime.presentation.getFormattedDuration
 import java.text.DateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -67,7 +67,7 @@ class ActionsFragment : BaseFragment<ActionsPresenter>(),
             val statTime = timeFormat.format(Date(it.startTime))
             val endTime = timeFormat.format(Date(it.endTime))
             val durationSeconds = TimeUnit.MILLISECONDS.toSeconds(it.endTime - it.startTime).toInt()
-            val duration = getFormattedTime(durationSeconds)
+            val duration = getFormattedDuration(durationSeconds)
             ActionItem(
                 it.uid,
                 it.description,

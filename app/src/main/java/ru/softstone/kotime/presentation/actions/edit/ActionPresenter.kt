@@ -104,4 +104,12 @@ class ActionPresenter @Inject constructor(
         behavior.onDestroy()
         super.onDestroy()
     }
+
+    fun onMinusDurationClick() {
+        behavior.onMinusDurationClick()
+    }
+
+    fun onPlusDurationClick() {
+        behavior.onPlusDurationClick()
+    }
 }

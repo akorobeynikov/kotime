@@ -12,6 +12,7 @@ import ru.softstone.kotime.presentation.TIMER_SCREEN
 import ru.softstone.kotime.presentation.actions.edit.ActionView
 import ru.terrakok.cicerone.Router
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class EditSuggestionBehavior(
     private val state: EditSuggestionState,
@@ -32,6 +33,8 @@ class EditSuggestionBehavior(
     private lateinit var endTime: Date
 
     private lateinit var categories: List<Category>
+
+    private val calendar = Calendar.getInstance()
 
     override fun start() {
         showCategories()
@@ -67,6 +70,7 @@ class EditSuggestionBehavior(
                     initialEndTime = timeInteractor.getCurrentTime()
                     setStartTime(Date(initialStartTime))
                     setEndTime(Date(initialEndTime))
+                    updateDuration()
                 }, {
                     logger.error("Can't get start time", it)
                 })
@@ -99,11 +103,13 @@ class EditSuggestionBehavior(
     override fun startTimeChanged(date: Date) {
         val limitedTime = limitInInitialRange(date)
         setStartTime(limitedTime)
+        updateDuration()
     }
 
     override fun endTimeChanged(date: Date) {
         val limitedTime = limitInInitialRange(date)
         setEndTime(limitedTime)
+        updateDuration()
     }
 
     override fun onAddActionClick(description: String, categoryIndex: Int) {
@@ -119,6 +125,32 @@ class EditSuggestionBehavior(
                     logger.error("Can't add action", it)
                 })
         )
+    }
+
+    override fun onMinusDurationClick() {
+        changeEndTime(-5)
+    }
+
+    override fun onPlusDurationClick() {
+        changeEndTime(5)
+    }
+
+    private fun updateDuration() {
+        val seconds = getDurationSeconds().toInt()
+        if (seconds > 0) {
+            viewState.showDuration(seconds)
+        }
+    }
+
+    private fun getDurationSeconds(): Long {
+        val milliseconds = endTime.time - startTime.time
+        return TimeUnit.MILLISECONDS.toSeconds(milliseconds)
+    }
+
+    private fun changeEndTime(minutesAmount: Int) {
+        calendar.time = endTime
+        calendar.add(Calendar.MINUTE, minutesAmount)
+        endTimeChanged(calendar.time)
     }
 
     override fun onDestroy() {

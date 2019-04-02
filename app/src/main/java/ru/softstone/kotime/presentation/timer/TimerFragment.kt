@@ -11,7 +11,7 @@ import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_timer.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseFragment
-import ru.softstone.kotime.presentation.getFormattedTime
+import ru.softstone.kotime.presentation.getFormattedDuration
 
 class TimerFragment : BaseFragment<TimerPresenter>(), TimerView {
     companion object {
@@ -40,7 +40,7 @@ class TimerFragment : BaseFragment<TimerPresenter>(), TimerView {
     }
 
     override fun showTime(seconds: Int) {
-        timer_view.text = getFormattedTime(seconds)
+        timer_view.text = getFormattedDuration(seconds)
     }
 
     @ProvidePresenter

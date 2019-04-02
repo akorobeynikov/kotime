@@ -22,4 +22,7 @@ interface ActionView : BaseView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun showEndTime(date: Date)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun showDuration(seconds: Int)
 }
