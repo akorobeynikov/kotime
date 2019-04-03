@@ -7,6 +7,7 @@ import javax.inject.Inject
 //todo fragment scope?
 class CategoriesRvController @Inject constructor() : TypedEpoxyController<List<Category>>() {
     private var onDeleteClickListener: ((Int) -> Unit)? = null
+    private var onClickListener: ((Int) -> Unit)? = null
 
     override fun buildModels(items: List<Category>) {
         items.forEach {
@@ -16,11 +17,18 @@ class CategoriesRvController @Inject constructor() : TypedEpoxyController<List<C
                 deleteListener { model, _, _, _ ->
                     onDeleteClickListener?.invoke(model.id().toInt())
                 }
+                clickListener { model, _, _, _ ->
+                    onClickListener?.invoke(model.id().toInt())
+                }
             }
         }
     }
 
     fun setOnDeleteClickListener(listener: (Int) -> Unit) {
         onDeleteClickListener = listener
+    }
+
+    fun setOnClickListener(listener: (Int) -> Unit) {
+        onClickListener = listener
     }
 }

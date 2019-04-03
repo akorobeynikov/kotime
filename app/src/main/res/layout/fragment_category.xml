@@ -27,7 +27,6 @@
             android:id="@+id/none_goal_radio_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
             android:text="@string/none_goal" />
 
         <RadioButton

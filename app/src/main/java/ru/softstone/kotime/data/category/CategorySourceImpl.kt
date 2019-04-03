@@ -1,12 +1,10 @@
 package ru.softstone.kotime.data.category
 
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Observable
-import io.reactivex.Single
+import io.reactivex.*
 import ru.softstone.kotime.data.storage.AppDatabase
 import ru.softstone.kotime.domain.category.CategorySource
 import ru.softstone.kotime.domain.category.model.Category
+import ru.softstone.kotime.domain.category.model.CategoryGoalType
 import ru.softstone.kotime.domain.category.model.CategoryStatus
 import ru.softstone.kotime.domain.category.model.PositionOfCategory
 import javax.inject.Inject
@@ -15,9 +13,9 @@ class CategorySourceImpl @Inject constructor(
     private val categoryDao: CategoryDao,
     private val appDatabase: AppDatabase
 ) : CategorySource {
-    override fun addCategory(name: String): Completable {
+    override fun addCategory(name: String, goalType: CategoryGoalType): Completable {
         return categoryDao.getCount().flatMapCompletable { count ->
-            val entry = CategoryEntry(0, name, position = count, active = true)
+            val entry = CategoryEntry(0, name, goalType.id, position = count, active = true)
             categoryDao.insertAll(entry)
         }
     }
@@ -25,7 +23,7 @@ class CategorySourceImpl @Inject constructor(
     override fun addCategories(categoryNames: List<String>): Completable {
         return categoryDao.getCount().flatMapCompletable { count ->
             val entries = categoryNames
-                .mapIndexed { index, name -> CategoryEntry(0, name, count + index, true) }
+                .mapIndexed { index, name -> CategoryEntry(0, name, CategoryGoalType.NONE.id, count + index, true) }
             categoryDao.insertAll(entries)
         }
     }
@@ -37,7 +35,8 @@ class CategorySourceImpl @Inject constructor(
     }
 
     override fun observeActiveCategories(): Flowable<List<Category>> {
-        return categoryDao.getAllActive().map { entries -> entries.map { Category(it.uid, it.name) } }
+        return categoryDao.getAllActive()
+            .map { entries -> entries.map { Category(it.uid, it.name, CategoryGoalType.getById(it.goalType)) } }
     }
 
     override fun setStatus(categoryId: Int, active: Boolean): Completable {
@@ -69,6 +68,16 @@ class CategorySourceImpl @Inject constructor(
             )
     }
 
+    override fun setType(categoryId: Int, type: CategoryGoalType): Completable {
+        return categoryDao.setType(categoryId, type.id)
+            .flatMapCompletable { affectedRowsCount ->
+                if (affectedRowsCount == 1)
+                    Completable.complete()
+                else
+                    Completable.error(IllegalStateException("No entry was changed"))
+            }
+    }
+
     @Suppress("DEPRECATION")
     override fun updateAllPositions(positions: Set<PositionOfCategory>): Completable {
         return Observable.fromIterable(positions)
@@ -79,4 +88,13 @@ class CategorySourceImpl @Inject constructor(
     }
 
     override fun getCount(): Single<Int> = categoryDao.getCount()
+
+    override fun getCategoryById(id: Int): Single<Category> {
+        return categoryDao.findById(id).map { Category(it.uid, it.name, CategoryGoalType.getById(it.goalType)) }
+    }
+
+    override fun getCategoryByName(name: String): Maybe<Category> {
+        //todo вынести маппер категрии
+        return categoryDao.findByName(name).map { Category(it.uid, it.name, CategoryGoalType.getById(it.goalType)) }
+    }
 }

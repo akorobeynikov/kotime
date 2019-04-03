@@ -21,6 +21,9 @@ interface CategoryDao {
     @Query("SELECT * FROM category WHERE name = :name")
     fun findByName(name: String): Maybe<CategoryEntry>
 
+    @Query("SELECT * FROM category WHERE uid = :id")
+    fun findById(id: Int): Single<CategoryEntry>
+
     @Insert
     fun insertAll(vararg categories: CategoryEntry): Completable
 
@@ -37,6 +40,12 @@ interface CategoryDao {
     @Query("UPDATE category SET active = :active WHERE uid = :categoryId")
     fun setStatus(categoryId: Int, active: Boolean): Single<Int>
 
+    @Query("UPDATE category SET goalType = :goalType WHERE uid = :categoryId")
+    fun setType(categoryId: Int, goalType: Int): Single<Int>
+
     @Query("SELECT COUNT(uid) FROM category WHERE active = 1")
     fun getCount(): Single<Int>
+
+    @Query("SELECT COUNT(uid) FROM category WHERE name = :categoryName")
+    fun getCount(categoryName: String): Single<Int>
 }

@@ -85,6 +85,7 @@ class CategoriesFragment : BaseFragment<CategoriesPresenter>(),
                 }
             })
         rvController.setOnDeleteClickListener { categoryId -> presenter.onDeleteCategoryClick(categoryId) }
+        rvController.setOnClickListener { categoryId -> presenter.onCategoryClick(categoryId) }
         categories_rv.adapter = rvController.adapter
         categories_rv.layoutManager = LinearLayoutManager(context)
     }

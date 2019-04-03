@@ -12,10 +12,13 @@ abstract class CategoryItemModel : EpoxyModelWithHolder<CategoryViewHolder>() {
     lateinit var name: String
     @EpoxyAttribute
     lateinit var deleteListener: View.OnClickListener
+    @EpoxyAttribute
+    lateinit var clickListener: View.OnClickListener
 
     override fun bind(holder: CategoryViewHolder) {
         holder.nameView.text = name
         holder.deleteButton.setOnClickListener(deleteListener)
+        holder.container.setOnClickListener(clickListener)
     }
 }
 

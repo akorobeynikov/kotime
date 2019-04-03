@@ -7,6 +7,8 @@ import ru.softstone.kotime.architecture.presentation.BasePresenter
 import ru.softstone.kotime.domain.category.CategoryInteractor
 import ru.softstone.kotime.domain.category.model.Category
 import ru.softstone.kotime.domain.category.model.PositionOfCategory
+import ru.softstone.kotime.domain.category.state.AddCategoryState
+import ru.softstone.kotime.domain.category.state.EditCategoryState
 import ru.softstone.kotime.presentation.CATEGORY_SCREEN
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -37,7 +39,7 @@ class CategoriesPresenter @Inject constructor(
     }
 
     fun onAddCategoryClick() {
-        // todo добавить установку состояния
+        categoryInteractor.setCategoryState(AddCategoryState())
         router.navigateTo(CATEGORY_SCREEN)
     }
 
@@ -76,5 +78,10 @@ class CategoriesPresenter @Inject constructor(
                     { logger.error("Can't update positions of categories", it) }
                 )
         )
+    }
+
+    fun onCategoryClick(categoryId: Int) {
+        categoryInteractor.setCategoryState(EditCategoryState(categoryId))
+        router.navigateTo(CATEGORY_SCREEN)
     }
 }
