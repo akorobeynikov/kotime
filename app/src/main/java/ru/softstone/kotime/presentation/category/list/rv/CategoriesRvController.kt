@@ -14,6 +14,7 @@ class CategoriesRvController @Inject constructor() : TypedEpoxyController<List<C
             categoryItem {
                 id(it.id.toLong())
                 name(it.name)
+                goal(it.goalType)
                 deleteListener { model, _, _, _ ->
                     onDeleteClickListener?.invoke(model.id().toInt())
                 }
