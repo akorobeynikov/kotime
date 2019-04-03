@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/suggestions_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
     <EditText
         android:hint="@string/action_descriptions_hint"
         android:id="@+id/description_field"
@@ -12,11 +18,5 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         tools:ignore="Autofill" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/suggestions_rv"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
 
 </LinearLayout>

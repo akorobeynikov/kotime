@@ -69,6 +69,7 @@ class TimerPresenter @Inject constructor(
     }
 
     fun onAddRecordClick() {
+        //todo проверка, что таймер запущен. перед переходом на экран
         router.navigateTo(SUGGESTION_SCREEN)
     }
 
