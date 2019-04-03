@@ -37,19 +37,24 @@ class SuggestionInteractorImpl @Inject constructor(
                         t2
                     )
                 })
-            .map { pair ->
+            .map { data ->
+                val mostFrequent = data.first
+                val categories = data.second
+                var id = 0L
+
                 val suggestions = mutableListOf<Suggestion>()
-                suggestions.addAll(pair.first.mapIndexed { index, it ->
+                suggestions.addAll(mostFrequent.map {
                     Suggestion(
-                        index.toLong(),
+                        id++,
                         it.description,
                         it.categoryId,
                         it.categoryName
                     )
                 })
-                suggestions.addAll(pair.second
+                suggestions.addAll(
+                    categories
                     .map {
-                        Suggestion(it.id.toLong(), input, it.id, it.name)
+                        Suggestion(id++, input, it.id, it.name)
                     })
                 return@map suggestions
             }

@@ -136,14 +136,20 @@ class EditSuggestionBehavior(
     }
 
     private fun updateDuration() {
-        val seconds = getDurationSeconds().toInt()
-        if (seconds > 0) {
-            viewState.showDuration(seconds)
+        val durationSeconds = getDurationSeconds().toInt()
+        val correctionSeconds = getCorrectionSeconds().toInt()
+        if (durationSeconds >= 0) {
+            viewState.showDuration(durationSeconds, correctionSeconds)
         }
     }
 
     private fun getDurationSeconds(): Long {
         val milliseconds = endTime.time - startTime.time
+        return TimeUnit.MILLISECONDS.toSeconds(milliseconds)
+    }
+
+    private fun getCorrectionSeconds(): Long {
+        val milliseconds = endTime.time - initialEndTime
         return TimeUnit.MILLISECONDS.toSeconds(milliseconds)
     }
 

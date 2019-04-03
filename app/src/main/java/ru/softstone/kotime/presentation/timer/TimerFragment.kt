@@ -40,7 +40,7 @@ class TimerFragment : BaseFragment<TimerPresenter>(), TimerView {
     }
 
     override fun showTime(seconds: Int) {
-        timer_view.text = getFormattedDuration(seconds)
+        timer_view.text = getFormattedDuration(seconds, true)
     }
 
     @ProvidePresenter

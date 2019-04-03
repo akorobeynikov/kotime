@@ -59,8 +59,10 @@ class ActionFragment : BaseFragment<ActionPresenter>(), ActionView {
         plus_button.setOnClickListener { presenter.onPlusDurationClick() }
     }
 
-    override fun showDuration(seconds: Int) {
-        duration_view.text = getFormattedDuration(seconds)
+    override fun showDuration(seconds: Int, correctionSeconds: Int) {
+        val duration = getFormattedDuration(seconds)
+        val correction = getFormattedDuration(correctionSeconds, showSign = true)
+        duration_view.text = getString(R.string.duration_with_correction, duration, correction)
     }
 
     private fun showTimePicker(listener: (Date) -> Unit, title: String, default: Date?) {
