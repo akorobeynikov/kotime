@@ -7,7 +7,7 @@ import ru.softstone.kotime.data.action.model.ActionEntry
 import ru.softstone.kotime.data.category.CategoryDao
 import ru.softstone.kotime.data.category.CategoryEntry
 
-@Database(entities = [ActionEntry::class, CategoryEntry::class], version = 1)
+@Database(entities = [ActionEntry::class, CategoryEntry::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun categoryDao(): CategoryDao
     abstract fun actionDao(): ActionDao
