@@ -19,4 +19,5 @@
     <string name="decrease_goal">decrease spends</string>
     <string name="done_button">Done</string>
     <string name="duration_with_correction" translatable="false">%s (%s)</string>
+    <string name="total_time">Total %s</string>
 </resources>

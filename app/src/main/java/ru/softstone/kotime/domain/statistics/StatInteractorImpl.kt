@@ -2,13 +2,16 @@ package ru.softstone.kotime.domain.statistics
 
 import io.reactivex.Single
 import ru.softstone.kotime.domain.action.ActionSource
-import ru.softstone.kotime.domain.statistics.model.StatItem
+import ru.softstone.kotime.domain.category.model.CategoryGoalType
+import ru.softstone.kotime.domain.statistics.model.CategoryStatItem
+import ru.softstone.kotime.domain.statistics.model.GoalStatItem
+import ru.softstone.kotime.domain.statistics.model.Stats
 import java.util.*
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
 class StatInteractorImpl @Inject constructor(private val actionSource: ActionSource) : StatInteractor {
-    override fun getStatistics(date: Date): Single<List<StatItem>> {
+    override fun getStatistics(date: Date): Single<Stats> {
         // todo добавить настройки времени смены дня
         // todo вынести получение таймстампов
         val calendar = Calendar.getInstance()
@@ -26,19 +29,27 @@ class StatInteractorImpl @Inject constructor(private val actionSource: ActionSou
 
         return actionSource.observeActions(startTime, endTime).firstOrError().map { actions ->
             var totalDuration: Long = 0
-            val stats = mutableMapOf<String, Long>()
+            val categoriesStatsMap = mutableMapOf<String, Long>()
+            val goalStatsMap = mutableMapOf<CategoryGoalType, Long>()
             actions.forEach {
                 // изменяем время активности на случай, если активность выходит за пределы времени за которое необходимо получить статистику
                 val start = if (it.startTime < startTime) startTime else it.startTime
                 val end = if (it.endTime > endTime) endTime else it.endTime
 
                 val actionDuration = end - start
-                val categoryDurationSum = stats[it.categoryName] ?: 0
-                stats[it.categoryName] = categoryDurationSum + actionDuration
+                val categoryDurationSum = categoriesStatsMap[it.categoryName] ?: 0
+                categoriesStatsMap[it.categoryName] = categoryDurationSum + actionDuration
+                val goalDurationSum = goalStatsMap[it.goalType] ?: 0
+                goalStatsMap[it.goalType] = goalDurationSum + actionDuration
                 totalDuration += actionDuration
             }
-            stats.map { StatItem(it.key, it.value, (it.value.toFloat() / totalDuration * 100).roundToInt()) }
+            val categoryStats = categoriesStatsMap
+                .map { CategoryStatItem(it.key, it.value, (it.value.toFloat() / totalDuration * 100).roundToInt()) }
                 .sortedByDescending { it.duration }
+            val goalStats = goalStatsMap
+                .map { GoalStatItem(it.key, it.value, (it.value.toFloat() / totalDuration * 100).roundToInt()) }
+                .sortedByDescending { it.duration }
+            return@map Stats(categoryStats, goalStats, totalDuration)
         }
 
     }

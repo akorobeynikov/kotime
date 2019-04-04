@@ -8,6 +8,7 @@ import ru.softstone.kotime.domain.action.ActionSource
 import ru.softstone.kotime.domain.action.model.Action
 import ru.softstone.kotime.domain.action.model.ActionAndCategory
 import ru.softstone.kotime.domain.action.model.DesriptionAndCategory
+import ru.softstone.kotime.domain.category.model.CategoryGoalType
 import javax.inject.Inject
 
 class ActionSourceImpl @Inject constructor(private val actionDao: ActionDao) : ActionSource {
@@ -23,6 +24,7 @@ class ActionSourceImpl @Inject constructor(private val actionDao: ActionDao) : A
                 ActionAndCategory(
                     it.uid,
                     it.categoryName,
+                    CategoryGoalType.getById(it.goalTypeId),
                     it.startTime,
                     it.endTime,
                     it.description

@@ -14,4 +14,5 @@
     <string name="increase_goal">увеличить затраты</string>
     <string name="decrease_goal">Уменьшить затраты</string>
     <string name="done_button">Готово</string>
+    <string name="total_time">Всего %s</string>
 </resources>

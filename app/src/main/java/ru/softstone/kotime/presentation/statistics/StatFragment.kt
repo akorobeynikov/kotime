@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_stat.*
 import kotlinx.android.synthetic.main.part_date_chooser.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseFragment
-import ru.softstone.kotime.domain.statistics.model.StatItem
+import ru.softstone.kotime.domain.statistics.model.Stats
 import ru.softstone.kotime.presentation.statistics.rv.StatsRvController
 import java.text.DateFormat
 import java.util.*
@@ -54,7 +54,7 @@ class StatFragment : BaseFragment<StatPresenter>(), StatView {
         date_view.text = dateFormat.format(date)
     }
 
-    override fun showStats(stats: List<StatItem>) {
+    override fun showStats(stats: Stats) {
         rvController.setData(stats)
     }
 
