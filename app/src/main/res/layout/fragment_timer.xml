@@ -10,31 +10,41 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="2" />
 
     <TextView
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/timer_background"
         android:id="@+id/timer_view"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:gravity="center_horizontal"
+        android:layout_width="288dp"
+        android:layout_height="288dp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:lines="1"
+        android:elevation="4dp"
         app:autoSizeTextType="uniform"
-        tools:text="00:00" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/timer_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/timer_button" />
+        tools:text="00:00:00" />
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/add_record_button"
+    <CheckBox
+        android:button="@drawable/timer_button"
+        android:checked="true"
+        android:gravity="center"
+        android:background="@drawable/timer_background"
+        android:elevation="4dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/timer_button"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:contentDescription="@null"
-        android:text="@string/add_record_button" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 </LinearLayout>

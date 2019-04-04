@@ -33,11 +33,15 @@ class TimerFragment : BaseFragment<TimerPresenter>(), TimerView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         timer_button.setOnClickListener { presenter.onTimerClick() }
-        add_record_button.setOnClickListener { presenter.onAddRecordClick() }
+        timer_view.setOnClickListener { presenter.onAddRecordClick() }
     }
 
     override fun showTime(seconds: Int) {
         timer_view.text = getFormattedDuration(seconds, true)
+    }
+
+    override fun setIsRunning(running: Boolean) {
+        timer_button.isChecked = running
     }
 
     @ProvidePresenter

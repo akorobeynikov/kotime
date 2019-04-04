@@ -25,6 +25,17 @@ class TimerPresenter @Inject constructor(
         startTime = System.currentTimeMillis()
         updateTime(0)
         addDisposable(
+            timeInteractor.isStopped()
+                .subscribeOn(schedulerProvider.ioScheduler())
+                .observeOn(schedulerProvider.mainScheduler())
+                .subscribe(
+                    {
+                        viewState.setIsRunning(!it)
+                    },
+                    { logger.error("Can't get the timer state", it) }
+                )
+        )
+        addDisposable(
             Observable.interval(0, 1000, TimeUnit.MILLISECONDS)
                 .concatMapSingle { timeInteractor.getTimeFromStart() }
                 .subscribe { updateTime(it) }
@@ -39,11 +50,11 @@ class TimerPresenter @Inject constructor(
     fun onTimerClick() {
         addDisposable(
             timeInteractor.isStopped()
-                .flatMapCompletable { timerIsStopped ->
+                .flatMap { timerIsStopped ->
                     if (timerIsStopped) {
-                        timeInteractor.resetTimer()
+                        timeInteractor.resetTimer().toSingleDefault(timerIsStopped)
                     } else {
-                        timeInteractor.stopTimer()
+                        timeInteractor.stopTimer().toSingleDefault(timerIsStopped)
                     }
                 }
                 .subscribeOn(schedulerProvider.ioScheduler())
@@ -51,6 +62,7 @@ class TimerPresenter @Inject constructor(
                 .subscribe(
                     {
                         updateTime(0)
+                        viewState.setIsRunning(it)
                     },
                     { logger.error("Can't get the timer state", it) }
                 )

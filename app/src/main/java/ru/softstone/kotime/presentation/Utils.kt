@@ -10,9 +10,9 @@ fun getFormattedDuration(time: Int, showSeconds: Boolean = false, showSign: Bool
     val sign = if (time < 0) "-" else "+"
     val formatPrefix = if (showSign) sign else ""
     return if (showSeconds) {
-        "$formatPrefix%02d:%02d:%02d".format(hours, minutes, seconds)
+        "$formatPrefix%01d:%02d:%02d".format(hours, minutes, seconds)
     } else {
-        "$formatPrefix%02d:%02d".format(hours, minutes)
+        "$formatPrefix%01d:%02d".format(hours, minutes)
     }
 }
 
