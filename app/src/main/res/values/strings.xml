@@ -20,4 +20,8 @@
     <string name="done_button">Done</string>
     <string name="duration_with_correction" translatable="false">%s (%s)</string>
     <string name="total_time">Total %s</string>
+    <string name="timer_title">Timer</string>
+    <string name="records_title">Records</string>
+    <string name="stats_title">Statistics</string>
+    <string name="categories_title">Categories</string>
 </resources>

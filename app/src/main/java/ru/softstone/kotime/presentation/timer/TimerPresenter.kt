@@ -6,9 +6,6 @@ import ru.softstone.kotime.architecture.data.SchedulerProvider
 import ru.softstone.kotime.architecture.domain.Logger
 import ru.softstone.kotime.architecture.presentation.BasePresenter
 import ru.softstone.kotime.domain.time.TimeInteractor
-import ru.softstone.kotime.presentation.ACTIONS_SCREEN
-import ru.softstone.kotime.presentation.CATEGORIES_SCREEN
-import ru.softstone.kotime.presentation.STAT_SCREEN
 import ru.softstone.kotime.presentation.SUGGESTION_SCREEN
 import ru.terrakok.cicerone.Router
 import java.util.concurrent.TimeUnit
@@ -39,14 +36,6 @@ class TimerPresenter @Inject constructor(
         viewState.showTime(diffSeconds.toInt())
     }
 
-    fun onShowLogsClick() {
-        router.navigateTo(ACTIONS_SCREEN)
-    }
-
-    fun onShowCategoriesClick() {
-        router.navigateTo(CATEGORIES_SCREEN)
-    }
-
     fun onTimerClick() {
         addDisposable(
             timeInteractor.isStopped()
@@ -71,9 +60,5 @@ class TimerPresenter @Inject constructor(
     fun onAddRecordClick() {
         //todo проверка, что таймер запущен. перед переходом на экран
         router.navigateTo(SUGGESTION_SCREEN)
-    }
-
-    fun onShowStatsClick() {
-        router.navigateTo(STAT_SCREEN)
     }
 }

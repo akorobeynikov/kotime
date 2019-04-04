@@ -15,4 +15,8 @@
     <string name="decrease_goal">Уменьшить затраты</string>
     <string name="done_button">Готово</string>
     <string name="total_time">Всего %s</string>
+    <string name="timer_title">Таймер</string>
+    <string name="records_title">Записи</string>
+    <string name="stats_title">Статистика</string>
+    <string name="categories_title">" Категории"</string>
 </resources>

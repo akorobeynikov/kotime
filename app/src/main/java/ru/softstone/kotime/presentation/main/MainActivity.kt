@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.AndroidInjection
+import kotlinx.android.synthetic.main.activity_main.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseActivity
 import ru.softstone.kotime.architecture.presentation.SaveStateProvider
@@ -36,6 +37,15 @@ class MainActivity : BaseActivity<ActivityPresenter>(), ActivityView {
         } else {
             val states = savedInstanceState.getParcelableArray(STATE_KEY)
             saveStateProvider.setStates(states)
+        }
+        bottom_navigation.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.item_timer -> presenter.onShowTimerClick()
+                R.id.item_records -> presenter.onShowRecordsClick()
+                R.id.item_stats -> presenter.onShowStatsClick()
+                R.id.item_categories -> presenter.onShowCategoriesClick()
+            }
+            true
         }
     }
 

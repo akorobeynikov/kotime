@@ -32,11 +32,8 @@ class TimerFragment : BaseFragment<TimerPresenter>(), TimerView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        show_logs_button.setOnClickListener { presenter.onShowLogsClick() }
-        show_categories_button.setOnClickListener { presenter.onShowCategoriesClick() }
         timer_button.setOnClickListener { presenter.onTimerClick() }
         add_record_button.setOnClickListener { presenter.onAddRecordClick() }
-        show_stats_button.setOnClickListener { presenter.onShowStatsClick() }
     }
 
     override fun showTime(seconds: Int) {

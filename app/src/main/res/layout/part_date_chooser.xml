@@ -6,7 +6,7 @@
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/minus_date_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
         android:gravity="center_horizontal"
         tools:text="10 May" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/plus_date_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
