@@ -38,6 +38,7 @@ class TimerPresenter @Inject constructor(
         addDisposable(
             Observable.interval(0, 1000, TimeUnit.MILLISECONDS)
                 .concatMapSingle { timeInteractor.getTimeFromStart() }
+                .observeOn(schedulerProvider.mainScheduler())
                 .subscribe { updateTime(it) }
         )
     }

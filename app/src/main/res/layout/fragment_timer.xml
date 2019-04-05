@@ -12,18 +12,44 @@
         android:layout_height="0dp"
         android:layout_weight="2" />
 
-    <TextView
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/timer_background"
-        android:id="@+id/timer_view"
-        android:layout_width="288dp"
-        android:layout_height="288dp"
-        android:gravity="center"
-        android:padding="16dp"
-        android:lines="1"
-        android:elevation="4dp"
-        app:autoSizeTextType="uniform"
-        tools:text="00:00:00" />
+    <FrameLayout
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:layout_gravity="center_horizontal">
+
+        <View
+            android:id="@+id/pulse_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:background="@drawable/accent_color_circle" />
+
+        <TextView
+            android:id="@+id/timer_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:background="@drawable/primary_color_circle"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:lines="1"
+            android:padding="16dp"
+            app:autoSizeTextType="uniform"
+            tools:text="00:00:00" />
+
+        <TextView
+            android:id="@+id/add_record_label"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_width="wrap_content"
+            android:alpha="0"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="65dp"
+            android:text="@string/add_record_button"
+            android:textAllCaps="true"
+            android:elevation="4dp"
+            android:textColor="@color/colorAccent" />
+
+    </FrameLayout>
 
     <Space
         android:layout_width="match_parent"
@@ -31,17 +57,17 @@
         android:layout_weight="1" />
 
     <CheckBox
+        android:id="@+id/timer_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/primary_color_circle"
         android:button="@drawable/timer_button"
         android:checked="true"
-        android:gravity="center"
-        android:background="@drawable/timer_background"
         android:elevation="4dp"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/timer_button"
+        android:gravity="center"
         android:minWidth="0dp"
-        android:minHeight="0dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:minHeight="0dp" />
 
     <Space
         android:layout_width="match_parent"

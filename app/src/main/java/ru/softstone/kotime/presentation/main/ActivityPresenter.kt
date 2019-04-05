@@ -16,18 +16,18 @@ class ActivityPresenter @Inject constructor(private val router: Router) : BasePr
     }
 
     fun onShowTimerClick() {
-        router.navigateTo(TIMER_SCREEN)
+        router.newRootScreen(TIMER_SCREEN)
     }
 
     fun onShowRecordsClick() {
-        router.navigateTo(ACTIONS_SCREEN)
+        router.newRootScreen(ACTIONS_SCREEN)
     }
 
     fun onShowCategoriesClick() {
-        router.navigateTo(CATEGORIES_SCREEN)
+        router.newRootScreen(CATEGORIES_SCREEN)
     }
 
     fun onShowStatsClick() {
-        router.navigateTo(STAT_SCREEN)
+        router.newRootScreen(STAT_SCREEN)
     }
 }
