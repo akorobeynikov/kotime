@@ -12,10 +12,10 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_timer.*
 import ru.softstone.kotime.R
-import ru.softstone.kotime.architecture.presentation.BaseFragment
+import ru.softstone.kotime.architecture.presentation.BaseNavigationFragment
 import ru.softstone.kotime.presentation.getFormattedDuration
 
-class TimerFragment : BaseFragment<TimerPresenter>(), TimerView {
+class TimerFragment : BaseNavigationFragment<TimerPresenter>(), TimerView {
     companion object {
         fun newInstance() = TimerFragment()
         private const val DEFAUL_ANIMATION_DURATION = 200L

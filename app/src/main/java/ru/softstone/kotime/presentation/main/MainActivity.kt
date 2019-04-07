@@ -1,6 +1,7 @@
 package ru.softstone.kotime.presentation.main
 
 import android.os.Bundle
+import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.AndroidInjection
@@ -13,7 +14,7 @@ import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
 
-class MainActivity : BaseActivity<ActivityPresenter>(), ActivityView {
+class MainActivity : BaseActivity<ActivityPresenter>(), ActivityView, BottomNavigationActivity {
     companion object {
         private const val STATE_KEY = "KOTIME_STATE"
     }
@@ -62,6 +63,10 @@ class MainActivity : BaseActivity<ActivityPresenter>(), ActivityView {
     override fun onPause() {
         navigatorHolder.removeNavigator()
         super.onPause()
+    }
+
+    override fun showBottomNavigation(show: Boolean) {
+        bottom_navigation.visibility = if (show) View.VISIBLE else View.GONE
     }
 
 

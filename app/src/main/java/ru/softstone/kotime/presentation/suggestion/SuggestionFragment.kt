@@ -7,18 +7,22 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_suggestion.*
 import ru.softstone.kotime.R
-import ru.softstone.kotime.architecture.presentation.BaseFragment
+import ru.softstone.kotime.architecture.presentation.BaseNavigationFragment
+import ru.softstone.kotime.architecture.presentation.hideKeyboard
+import ru.softstone.kotime.architecture.presentation.showKeyboard
 import ru.softstone.kotime.presentation.suggestion.model.Suggestion
 import ru.softstone.kotime.presentation.suggestion.rv.SuggestionsRvController
 import javax.inject.Inject
 
-class SuggestionFragment : BaseFragment<SuggestionPresenter>(), SuggestionView {
+
+class SuggestionFragment : BaseNavigationFragment<SuggestionPresenter>(), SuggestionView {
     companion object {
         fun newInstance() = SuggestionFragment()
     }
@@ -40,6 +44,7 @@ class SuggestionFragment : BaseFragment<SuggestionPresenter>(), SuggestionView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        back_button.setOnClickListener { presenter.navigateBack() }
         description_field.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 presenter.onDescriptionChanged(s.toString())
@@ -57,16 +62,35 @@ class SuggestionFragment : BaseFragment<SuggestionPresenter>(), SuggestionView {
             presenter.onSuggestionClick(categoryId, description)
         }
 
-        rvController.setFastRecordListener { categoryId, description ->
-            presenter.onFastRecordClick(categoryId, description)
+        rvController.setEditListener { categoryId, description ->
+            presenter.onEditClick(categoryId, description)
         }
         suggestions_rv.adapter = rvController.adapter
-        suggestions_rv.layoutManager = LinearLayoutManager(context)
+        val layoutManager = LinearLayoutManager(context)
+        val dividerItemDecoration = DividerItemDecoration(
+            context,
+            layoutManager.getOrientation()
+        )
+        suggestions_rv.layoutManager = layoutManager
+        suggestions_rv.addItemDecoration(dividerItemDecoration)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        description_field.requestFocus()
+        showKeyboard(context!!)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        hideKeyboard(context!!)
     }
 
     override fun showSuggestions(suggestions: List<Suggestion>) {
         rvController.setData(suggestions)
     }
+
+    override fun getBottomNavigationVisibility() = false
 
     @ProvidePresenter
     override fun providePresenter(): SuggestionPresenter {

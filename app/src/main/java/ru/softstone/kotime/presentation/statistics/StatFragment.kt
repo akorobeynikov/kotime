@@ -12,14 +12,14 @@ import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_stat.*
 import kotlinx.android.synthetic.main.part_date_chooser.*
 import ru.softstone.kotime.R
-import ru.softstone.kotime.architecture.presentation.BaseFragment
+import ru.softstone.kotime.architecture.presentation.BaseNavigationFragment
 import ru.softstone.kotime.domain.statistics.model.Stats
 import ru.softstone.kotime.presentation.statistics.rv.StatsRvController
 import java.text.DateFormat
 import java.util.*
 import javax.inject.Inject
 
-class StatFragment : BaseFragment<StatPresenter>(), StatView {
+class StatFragment : BaseNavigationFragment<StatPresenter>(), StatView {
     companion object {
         fun newInstance() = StatFragment()
     }

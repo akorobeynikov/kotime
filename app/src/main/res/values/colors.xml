@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#181818</color>
-    <color name="colorPrimaryDark">#181818</color>
+    <color name="colorPrimary">#1f1f1f</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF5722</color>
     <color name="bottomNavigationItem">#919191</color>
     <color name="bottomNavigationItemChecked">#fff</color>
     <color name="textColor">#fff</color>
+
+    <color name="iconColorOnPrimary">#FFFFFF</color>
+
+    <!--todo удалить лишнее-->
+    <color name="colorBackground">#ffffff</color>
+    <color name="colorBackgroundDark">#f4f4f4</color>
+    <color name="colorBackgroundOnImage">#4c000000</color>
+
+    <color name="colorPrimaryLight">#FF8A80</color>
+
+    <color name="colorAccentDark">#BF360C</color>
+    <color name="colorAccentLight">#FF9E80</color>
+
+    <color name="colorDisabled">#878787</color>
+
+    <color name="textColorOnImage">#ffffff</color>
+    <color name="textColorOnBackground">#3b3b3b</color>
+    <color name="textColorOnPrimary">#FFFFFF</color>
+    <color name="textColorOnAccent">#fff</color>
+    <color name="textColorOnDisabled">#fff</color>
+
+    <color name="textColorSecondaryOnBackground">#888888</color>
+
+    <color name="iconColorOnBackground">#3b3b3b</color>
+    <color name="iconColorOnAccent">#fff</color>
+
+    <color name="divider">#b1b1b1</color>
+    <color name="link">#2196F3</color>
 </resources>

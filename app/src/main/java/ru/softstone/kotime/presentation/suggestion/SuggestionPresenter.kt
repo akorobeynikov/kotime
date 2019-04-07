@@ -74,12 +74,12 @@ class SuggestionPresenter @Inject constructor(
     }
 
     fun onSuggestionClick(categoryId: Int, description: String) {
-        actionInteractor.setActionState(EditSuggestionState(description, categoryId))
-        router.navigateTo(EDIT_ACTION_SCREEN)
+        saveAction(categoryId, description)
     }
 
-    fun onFastRecordClick(categoryId: Int, description: String) {
-        saveAction(categoryId, description)
+    fun onEditClick(categoryId: Int, description: String) {
+        actionInteractor.setActionState(EditSuggestionState(description, categoryId))
+        router.navigateTo(EDIT_ACTION_SCREEN)
     }
 
     private fun saveAction(categoryId: Int, description: String) {
@@ -95,5 +95,9 @@ class SuggestionPresenter @Inject constructor(
                     { logger.error("Can't log an action", it) }
                 )
         )
+    }
+
+    fun navigateBack() {
+        router.exit()
     }
 }

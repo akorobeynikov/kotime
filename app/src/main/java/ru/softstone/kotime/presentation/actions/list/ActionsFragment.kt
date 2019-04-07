@@ -12,7 +12,7 @@ import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_actions.*
 import kotlinx.android.synthetic.main.part_date_chooser.*
 import ru.softstone.kotime.R
-import ru.softstone.kotime.architecture.presentation.BaseFragment
+import ru.softstone.kotime.architecture.presentation.BaseNavigationFragment
 import ru.softstone.kotime.domain.action.model.ActionAndCategory
 import ru.softstone.kotime.presentation.actions.list.model.ActionItem
 import ru.softstone.kotime.presentation.actions.list.rv.ActionsRvController
@@ -22,7 +22,8 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class ActionsFragment : BaseFragment<ActionsPresenter>(),
+
+class ActionsFragment : BaseNavigationFragment<ActionsPresenter>(),
     ActionsView {
     companion object {
         fun newInstance() = ActionsFragment()
@@ -55,6 +56,12 @@ class ActionsFragment : BaseFragment<ActionsPresenter>(),
         add_record_button.setOnClickListener { presenter.onAddAction() }
         rvController.setDeleteListener { presenter.onDeleteAction(it) }
         rvController.setItemClickListener { presenter.onEditAction(it) }
+        //todo удалить
+//        (activity as AppCompatActivity).apply {
+//            setSupportActionBar(toolbar_view)
+////            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+////            supportActionBar?.title = "test"
+//        }
     }
 
     override fun showDate(date: Date) {

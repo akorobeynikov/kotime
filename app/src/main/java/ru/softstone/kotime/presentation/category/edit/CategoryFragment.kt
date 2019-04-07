@@ -10,10 +10,10 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_category.*
 import ru.softstone.kotime.R
-import ru.softstone.kotime.architecture.presentation.BaseFragment
+import ru.softstone.kotime.architecture.presentation.BaseNavigationFragment
 import ru.softstone.kotime.domain.category.model.CategoryGoalType
 
-class CategoryFragment : BaseFragment<CategoryPresenter>(), CategoryView {
+class CategoryFragment : BaseNavigationFragment<CategoryPresenter>(), CategoryView {
     companion object {
         fun newInstance() = CategoryFragment()
     }

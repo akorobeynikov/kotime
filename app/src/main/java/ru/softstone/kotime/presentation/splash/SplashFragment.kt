@@ -9,9 +9,9 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.support.AndroidSupportInjection
 import ru.softstone.kotime.R
-import ru.softstone.kotime.architecture.presentation.BaseFragment
+import ru.softstone.kotime.architecture.presentation.BaseNavigationFragment
 
-class SplashFragment : BaseFragment<SplashPresenter>(), SplashView {
+class SplashFragment : BaseNavigationFragment<SplashPresenter>(), SplashView {
     companion object {
         fun newInstance() = SplashFragment()
     }

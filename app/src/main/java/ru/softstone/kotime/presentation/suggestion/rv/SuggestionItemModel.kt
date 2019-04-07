@@ -17,13 +17,13 @@ abstract class SuggestionItemModel : EpoxyModelWithHolder<SuggestionViewHolder>(
     @EpoxyAttribute
     lateinit var clickListener: View.OnClickListener
     @EpoxyAttribute
-    lateinit var fastRecordListener: View.OnClickListener
+    lateinit var editListener: View.OnClickListener
 
     override fun bind(holder: SuggestionViewHolder) {
         holder.descriptionView.text = description
         holder.categoryView.text = category
         holder.container.setOnClickListener(clickListener)
-        holder.fastRecordButton.setOnClickListener(fastRecordListener)
+        holder.editButton.setOnClickListener(editListener)
     }
 }
 

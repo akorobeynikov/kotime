@@ -12,13 +12,13 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_categories.*
 import ru.softstone.kotime.R
-import ru.softstone.kotime.architecture.presentation.BaseFragment
+import ru.softstone.kotime.architecture.presentation.BaseNavigationFragment
 import ru.softstone.kotime.domain.category.model.Category
 import ru.softstone.kotime.presentation.category.list.rv.CategoriesRvController
 import ru.softstone.kotime.presentation.category.list.rv.CategoryItemModel
 import javax.inject.Inject
 
-class CategoriesFragment : BaseFragment<CategoriesPresenter>(),
+class CategoriesFragment : BaseNavigationFragment<CategoriesPresenter>(),
     CategoriesView {
     companion object {
         fun newInstance() = CategoriesFragment()
