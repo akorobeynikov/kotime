@@ -73,8 +73,13 @@ class SuggestionPresenter @Inject constructor(
         }
     }
 
-    fun onSuggestionClick(categoryId: Int, description: String) {
+    fun onFastRecordClick(categoryId: Int, description: String) {
         saveAction(categoryId, description)
+    }
+
+    fun onSuggestionClick(description: String) {
+        viewState.setSuggestionDescription(description)
+
     }
 
     fun onEditClick(categoryId: Int, description: String) {
@@ -100,4 +105,5 @@ class SuggestionPresenter @Inject constructor(
     fun navigateBack() {
         router.exit()
     }
+
 }

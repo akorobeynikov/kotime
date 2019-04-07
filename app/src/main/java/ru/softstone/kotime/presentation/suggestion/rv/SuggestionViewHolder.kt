@@ -11,5 +11,5 @@ class SuggestionViewHolder : KotlinEpoxyHolder() {
     val categoryView by bind<TextView>(R.id.category_view)
     val container by bind<View>(R.id.container)
     val editButton by bind<ImageButton>(R.id.edit_button)
-    val fastRecodButton by bind<ImageButton>(R.id.fast_record_button)
+    val fastRecordButton by bind<ImageButton>(R.id.fast_record_button)
 }

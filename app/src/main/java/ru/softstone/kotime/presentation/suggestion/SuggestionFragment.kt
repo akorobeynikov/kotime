@@ -58,10 +58,12 @@ class SuggestionFragment : BaseNavigationFragment<SuggestionPresenter>(), Sugges
                 // do nothing
             }
         })
-        rvController.setOnClickListener { categoryId, description ->
-            presenter.onSuggestionClick(categoryId, description)
+        rvController.setOnClickListener { _, description ->
+            presenter.onSuggestionClick(description)
         }
-
+        rvController.setFastRecordListener { categoryId, description ->
+            presenter.onFastRecordClick(categoryId, description)
+        }
         rvController.setEditListener { categoryId, description ->
             presenter.onEditClick(categoryId, description)
         }
@@ -88,6 +90,11 @@ class SuggestionFragment : BaseNavigationFragment<SuggestionPresenter>(), Sugges
 
     override fun showSuggestions(suggestions: List<Suggestion>) {
         rvController.setData(suggestions)
+    }
+
+    override fun setSuggestionDescription(description: String) {
+        description_field.setText(description)
+        description_field.setSelection(description_field.text?.length ?: 0)
     }
 
     override fun getBottomNavigationVisibility() = false

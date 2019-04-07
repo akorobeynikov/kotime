@@ -8,6 +8,7 @@ import javax.inject.Inject
 class SuggestionsRvController @Inject constructor() : TypedEpoxyController<List<Suggestion>>() {
     private var clickListener: ((Int, String) -> Unit)? = null
     private var editListener: ((Int, String) -> Unit)? = null
+    private var fastRecordListener: ((Int, String) -> Unit)? = null
 
     override fun buildModels(items: List<Suggestion>) {
         items.forEach {
@@ -22,6 +23,9 @@ class SuggestionsRvController @Inject constructor() : TypedEpoxyController<List<
                 editListener { model, _, _, _ ->
                     editListener?.invoke(model.categoryId(), model.description())
                 }
+                fastRecordListener { model, _, _, _ ->
+                    fastRecordListener?.invoke(model.categoryId(), model.description())
+                }
             }
         }
     }
@@ -32,5 +36,9 @@ class SuggestionsRvController @Inject constructor() : TypedEpoxyController<List<
 
     fun setEditListener(listener: (Int, String) -> Unit) {
         editListener = listener
+    }
+
+    fun setFastRecordListener(listener: (Int, String) -> Unit) {
+        fastRecordListener = listener
     }
 }
