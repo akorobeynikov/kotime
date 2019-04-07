@@ -24,6 +24,7 @@ abstract class SuggestionItemModel : EpoxyModelWithHolder<SuggestionViewHolder>(
         holder.categoryView.text = category
         holder.container.setOnClickListener(clickListener)
         holder.editButton.setOnClickListener(editListener)
+        holder.fastRecodButton.setOnClickListener(clickListener)
     }
 }
 
