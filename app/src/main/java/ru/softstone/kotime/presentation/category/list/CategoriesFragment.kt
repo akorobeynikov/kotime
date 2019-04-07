@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.epoxy.EpoxyTouchHelper
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -46,6 +47,36 @@ class CategoriesFragment : BaseNavigationFragment<CategoriesPresenter>(),
             presenter.onAddCategoryClick()
         }
 
+        initDragging()
+        initSwiping()
+        rvController.setOnClickListener { categoryId -> presenter.onCategoryClick(categoryId) }
+        categories_rv.adapter = rvController.adapter
+        val layoutManager = LinearLayoutManager(context)
+        categories_rv.layoutManager = layoutManager
+        categories_rv.addItemDecoration(DividerItemDecoration(context, layoutManager.orientation))
+    }
+
+    private fun initSwiping() {
+        EpoxyTouchHelper.initSwiping(categories_rv)
+            .leftAndRight()
+            .withTarget(CategoryItemModel::class.java)
+            .andCallbacks(object : EpoxyTouchHelper.SwipeCallbacks<CategoryItemModel>() {
+                override fun onSwipeCompleted(
+                    model: CategoryItemModel?,
+                    itemView: View?,
+                    position: Int,
+                    direction: Int
+                ) {
+                    val categoryId = model?.id()?.toInt()
+                    if (categoryId != null) {
+                        presenter.onDeleteCategoryClick(categoryId)
+                    }
+                }
+            })
+
+    }
+
+    private fun initDragging() {
         EpoxyTouchHelper.initDragging(rvController)
             .withRecyclerView(categories_rv)
             .forVerticalList()
@@ -84,10 +115,6 @@ class CategoriesFragment : BaseNavigationFragment<CategoriesPresenter>(),
                     presenter.onCategoryPositionChanged(categoryId, fromPosition, toPosition)
                 }
             })
-        rvController.setOnDeleteClickListener { categoryId -> presenter.onDeleteCategoryClick(categoryId) }
-        rvController.setOnClickListener { categoryId -> presenter.onCategoryClick(categoryId) }
-        categories_rv.adapter = rvController.adapter
-        categories_rv.layoutManager = LinearLayoutManager(context)
     }
 
     override fun showCategories(categories: List<Category>) {

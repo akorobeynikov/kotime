@@ -8,6 +8,7 @@
     <color name="textColor">#fff</color>
 
     <color name="iconColorOnPrimary">#FFFFFF</color>
+    <color name="iconColorOnBackground">#FFFFFF</color>
 
     <!--todo удалить лишнее-->
     <color name="colorBackground">#ffffff</color>
@@ -29,7 +30,6 @@
 
     <color name="textColorSecondaryOnBackground">#888888</color>
 
-    <color name="iconColorOnBackground">#3b3b3b</color>
     <color name="iconColorOnAccent">#fff</color>
 
     <color name="divider">#b1b1b1</color>

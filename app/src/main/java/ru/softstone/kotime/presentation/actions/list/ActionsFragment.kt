@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.airbnb.epoxy.EpoxyTouchHelper
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.support.AndroidSupportInjection
@@ -15,6 +17,7 @@ import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseNavigationFragment
 import ru.softstone.kotime.domain.action.model.ActionAndCategory
 import ru.softstone.kotime.presentation.actions.list.model.ActionItem
+import ru.softstone.kotime.presentation.actions.list.rv.ActionItemModel
 import ru.softstone.kotime.presentation.actions.list.rv.ActionsRvController
 import ru.softstone.kotime.presentation.getFormattedDate
 import ru.softstone.kotime.presentation.getFormattedDuration
@@ -47,11 +50,13 @@ class ActionsFragment : BaseNavigationFragment<ActionsPresenter>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         actions_rv.adapter = rvController.adapter
-        actions_rv.layoutManager = LinearLayoutManager(context)
+        val layoutManager = LinearLayoutManager(context)
+        actions_rv.layoutManager = layoutManager
+        actions_rv.addItemDecoration(DividerItemDecoration(context, layoutManager.orientation))
         plus_date_button.setOnClickListener { presenter.onPlusDateClick() }
         minus_date_button.setOnClickListener { presenter.onMinusDateClick() }
         add_record_button.setOnClickListener { presenter.onAddAction() }
-        rvController.setDeleteListener { presenter.onDeleteAction(it) }
+        initSwiping()
         rvController.setItemClickListener { presenter.onEditAction(it) }
         //todo удалить
 //        (activity as AppCompatActivity).apply {
@@ -79,6 +84,26 @@ class ActionsFragment : BaseNavigationFragment<ActionsPresenter>(),
                 "$duration ($statTime - $endTime)"
             )
         })
+    }
+
+    private fun initSwiping() {
+        EpoxyTouchHelper.initSwiping(actions_rv)
+            .leftAndRight()
+            .withTarget(ActionItemModel::class.java)
+            .andCallbacks(object : EpoxyTouchHelper.SwipeCallbacks<ActionItemModel>() {
+                override fun onSwipeCompleted(
+                    model: ActionItemModel?,
+                    itemView: View?,
+                    position: Int,
+                    direction: Int
+                ) {
+                    val actionId = model?.id()?.toInt()
+                    if (actionId != null) {
+                        presenter.onDeleteAction(actionId)
+                    }
+                }
+            })
+
     }
 
     @ProvidePresenter

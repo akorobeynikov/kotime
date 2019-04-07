@@ -14,19 +14,16 @@ abstract class CategoryItemModel : EpoxyModelWithHolder<CategoryViewHolder>() {
     @EpoxyAttribute
     lateinit var goal: CategoryGoalType
     @EpoxyAttribute
-    lateinit var deleteListener: View.OnClickListener
-    @EpoxyAttribute
     lateinit var clickListener: View.OnClickListener
 
     override fun bind(holder: CategoryViewHolder) {
-        val goalStringId = when (goal) {
-            CategoryGoalType.NONE -> R.string.none_goal
-            CategoryGoalType.INCREASE -> R.string.increase_goal
-            CategoryGoalType.DECREASE -> R.string.decrease_goal
+        val imageResourceId = when (goal) {
+            CategoryGoalType.NONE -> 0
+            CategoryGoalType.INCREASE -> R.drawable.ic_thumb_up
+            CategoryGoalType.DECREASE -> R.drawable.ic_thumb_down
         }
-        holder.goalView.setText(goalStringId)
+        holder.goalView.setImageResource(imageResourceId)
         holder.nameView.text = name
-        holder.deleteButton.setOnClickListener(deleteListener)
         holder.container.setOnClickListener(clickListener)
     }
 }
