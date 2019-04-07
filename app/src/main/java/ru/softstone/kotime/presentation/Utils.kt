@@ -1,5 +1,8 @@
 package ru.softstone.kotime.presentation
 
+import android.content.Context
+import android.text.format.DateUtils
+import java.util.*
 import kotlin.math.absoluteValue
 
 fun getFormattedDuration(time: Int, showSeconds: Boolean = false, showSign: Boolean = false): String {
@@ -16,3 +19,8 @@ fun getFormattedDuration(time: Int, showSeconds: Boolean = false, showSign: Bool
     }
 }
 
+fun getFormattedDate(context: Context, date: Date): String {
+    val flags =
+        DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NO_YEAR or DateUtils.FORMAT_ABBREV_WEEKDAY or DateUtils.FORMAT_SHOW_WEEKDAY
+    return DateUtils.formatDateTime(context, date.time, flags)
+}

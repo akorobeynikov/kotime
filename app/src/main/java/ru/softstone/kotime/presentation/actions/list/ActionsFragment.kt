@@ -16,8 +16,8 @@ import ru.softstone.kotime.architecture.presentation.BaseNavigationFragment
 import ru.softstone.kotime.domain.action.model.ActionAndCategory
 import ru.softstone.kotime.presentation.actions.list.model.ActionItem
 import ru.softstone.kotime.presentation.actions.list.rv.ActionsRvController
+import ru.softstone.kotime.presentation.getFormattedDate
 import ru.softstone.kotime.presentation.getFormattedDuration
-import java.text.DateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -29,8 +29,6 @@ class ActionsFragment : BaseNavigationFragment<ActionsPresenter>(),
         fun newInstance() = ActionsFragment()
     }
 
-    private lateinit var dateFormat: DateFormat
-
     @InjectPresenter
     lateinit var presenter: ActionsPresenter
 
@@ -40,7 +38,6 @@ class ActionsFragment : BaseNavigationFragment<ActionsPresenter>(),
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
-        dateFormat = android.text.format.DateFormat.getDateFormat(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -65,7 +62,7 @@ class ActionsFragment : BaseNavigationFragment<ActionsPresenter>(),
     }
 
     override fun showDate(date: Date) {
-        date_view.text = dateFormat.format(date)
+        date_view.text = getFormattedDate(context!!, date)
     }
 
     override fun showActions(actions: List<ActionAndCategory>) {

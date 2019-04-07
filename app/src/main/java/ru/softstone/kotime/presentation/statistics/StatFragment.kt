@@ -14,8 +14,8 @@ import kotlinx.android.synthetic.main.part_date_chooser.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseNavigationFragment
 import ru.softstone.kotime.domain.statistics.model.Stats
+import ru.softstone.kotime.presentation.getFormattedDate
 import ru.softstone.kotime.presentation.statistics.rv.StatsRvController
-import java.text.DateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -23,8 +23,6 @@ class StatFragment : BaseNavigationFragment<StatPresenter>(), StatView {
     companion object {
         fun newInstance() = StatFragment()
     }
-
-    private lateinit var dateFormat: DateFormat
 
     @InjectPresenter
     lateinit var presenter: StatPresenter
@@ -35,7 +33,6 @@ class StatFragment : BaseNavigationFragment<StatPresenter>(), StatView {
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
-        dateFormat = android.text.format.DateFormat.getDateFormat(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -51,7 +48,7 @@ class StatFragment : BaseNavigationFragment<StatPresenter>(), StatView {
     }
 
     override fun showDate(date: Date) {
-        date_view.text = dateFormat.format(date)
+        date_view.text = getFormattedDate(context!!, date)
     }
 
     override fun showStats(stats: Stats) {
