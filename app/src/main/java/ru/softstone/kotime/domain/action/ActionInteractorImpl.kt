@@ -36,7 +36,6 @@ class ActionInteractorImpl @Inject constructor(
 
     override fun addAction(categoryId: Int, startTime: Long, endTime: Long, description: String): Completable {
         return actionSource.addAction(categoryId, startTime, endTime, description)
-            .andThen(timeInteractor.setStartTime(endTime))
     }
 
     override fun observeActions(date: Date): Flowable<List<ActionAndCategory>> {

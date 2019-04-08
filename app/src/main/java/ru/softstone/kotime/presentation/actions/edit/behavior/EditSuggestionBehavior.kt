@@ -116,6 +116,7 @@ class EditSuggestionBehavior(
         val categoryId = categories[selectedCategoryIndex].id
         disposeManager.addDisposable(
             actionInteractor.addAction(categoryId, startTime.time, endTime.time, description)
+                .andThen(timeInteractor.setStartTime(endTime.time))
                 .subscribeOn(schedulerProvider.ioScheduler())
                 .observeOn(schedulerProvider.mainScheduler())
                 .subscribe({
