@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:hint="@string/category_field_hint"
+        android:hint="@string/category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

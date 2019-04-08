@@ -33,27 +33,27 @@ class EditSuggestionBehavior(
     private lateinit var endTime: Date
 
     private lateinit var categories: List<Category>
+    private var selectedCategoryIndex = 0
 
     private val calendar = Calendar.getInstance()
 
     override fun start() {
-        showCategories()
+        viewState.setDescription(state.description)
+        getCategories()
         showTime()
     }
 
-    private fun showCategories() {
+    private fun getCategories() {
         disposeManager.addDisposable(
             categoryInteractor.observeActiveCategories()
                 .subscribeOn(schedulerProvider.ioScheduler())
                 .observeOn(schedulerProvider.mainScheduler())
                 .subscribe({ categories ->
                     this.categories = categories
-
-                    viewState.showCategories(categories.map { category -> category.name })
                     val selectedCategoryId = state.categoryId
-                    val index = categories.indexOfFirst { category -> category.id == selectedCategoryId }
-                    viewState.setSelectedCategory(index)
-                    viewState.setDescription(state.description)
+                    //todo упадет если категория будет неактивная
+                    selectedCategoryIndex = categories.indexOfFirst { category -> category.id == selectedCategoryId }
+                    viewState.showSelectedCategory(categories[selectedCategoryIndex].name)
                 }, {
                     logger.error("Can't observe active categories", it)
                 })
@@ -112,8 +112,8 @@ class EditSuggestionBehavior(
         updateDuration()
     }
 
-    override fun onAddActionClick(description: String, categoryIndex: Int) {
-        val categoryId = categories[categoryIndex].id
+    override fun onAddActionClick(description: String) {
+        val categoryId = categories[selectedCategoryIndex].id
         disposeManager.addDisposable(
             actionInteractor.addAction(categoryId, startTime.time, endTime.time, description)
                 .subscribeOn(schedulerProvider.ioScheduler())
@@ -133,6 +133,16 @@ class EditSuggestionBehavior(
 
     override fun onPlusDurationClick() {
         changeEndTime(5)
+    }
+
+    override fun onCategoryClick() {
+        //todo может успасть, если пользователь кликнет до получения списка категорий
+        viewState.showCategories(categories.map { it.name })
+    }
+
+    override fun onCategorySelected(index: Int) {
+        selectedCategoryIndex = index
+        viewState.showSelectedCategory(categories[selectedCategoryIndex].name)
     }
 
     private fun updateDuration() {

@@ -26,6 +26,7 @@ class EditActionBehavior(
 ) : ActionBehavior {
     private val disposeManager = DisposeManager()
     private lateinit var categories: List<Category>
+    private var selectedCategoryIndex = 0
 
     private lateinit var startTime: Date
     private lateinit var endTime: Date
@@ -43,10 +44,10 @@ class EditActionBehavior(
                     val action = it.second
                     this.categories = categories
 
-                    viewState.showCategories(categories.map { category -> category.name })
                     val selectedCategoryId = action.categoryId
-                    val index = categories.indexOfFirst { category -> category.id == selectedCategoryId }
-                    viewState.setSelectedCategory(index)
+                    //todo упадет если категория будет неактивная
+                    selectedCategoryIndex = categories.indexOfFirst { category -> category.id == selectedCategoryId }
+                    viewState.showSelectedCategory(categories[selectedCategoryIndex].name)
                     viewState.setDescription(action.description)
                     setStartTime(Date(action.startTime))
                     setEndTime(Date(action.endTime))
@@ -54,6 +55,16 @@ class EditActionBehavior(
                     logger.error("Can't get categories or an action", it)
                 })
         )
+    }
+
+    override fun onCategoryClick() {
+        //todo может успасть, если пользователь кликнет до получения списка категорий
+        viewState.showCategories(categories.map { it.name })
+    }
+
+    override fun onCategorySelected(index: Int) {
+        selectedCategoryIndex = index
+        viewState.showSelectedCategory(categories[selectedCategoryIndex].name)
     }
 
     private fun setStartTime(date: Date) {
@@ -66,8 +77,8 @@ class EditActionBehavior(
         viewState.showEndTime(date)
     }
 
-    override fun onAddActionClick(description: String, categoryIndex: Int) {
-        val categoryId = categories[categoryIndex].id
+    override fun onAddActionClick(description: String) {
+        val categoryId = categories[selectedCategoryIndex].id
         val action = Action(state.actionId, categoryId, startTime.time, endTime.time, description)
         disposeManager.addDisposable(
             actionInteractor.updateActiveAction(action)

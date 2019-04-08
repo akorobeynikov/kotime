@@ -8,7 +8,7 @@
     <string name="fast_record_button">Быстрая запись</string>
     <string name="start_time_picker_title">Начало</string>
     <string name="end_time_picker_title">Завершение</string>
-    <string name="category_field_hint">Категория</string>
+    <string name="category">Категория</string>
     <string name="goal_label">Цель</string>
     <string name="none_goal">нет</string>
     <string name="increase_goal">увеличить затраты</string>
@@ -19,4 +19,7 @@
     <string name="records_title">Записи</string>
     <string name="stats_title">Статистика</string>
     <string name="categories_title">" Категории"</string>
+    <string name="time_from">Начало</string>
+    <string name="time_to">Завершение</string>
+    <string name="Duration">Продолжительность</string>
 </resources>

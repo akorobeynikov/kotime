@@ -7,11 +7,7 @@ import ru.softstone.kotime.architecture.presentation.BaseView
 import java.util.*
 
 interface ActionView : BaseView {
-    //todo сохранять выбранную пользователм категорию при повороте экрана
-    @StateStrategyType(AddToEndSingleStrategy::class)
-    fun setSelectedCategory(index: Int)
-
-    @StateStrategyType(AddToEndSingleStrategy::class)
+    @StateStrategyType(OneExecutionStateStrategy::class)
     fun showCategories(categories: List<String>)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
@@ -25,4 +21,7 @@ interface ActionView : BaseView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun showDuration(seconds: Int, correctionSeconds: Int)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun showSelectedCategory(categoryName: String)
 }

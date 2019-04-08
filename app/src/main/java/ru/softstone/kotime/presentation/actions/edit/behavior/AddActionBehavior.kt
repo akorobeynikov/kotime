@@ -26,24 +26,35 @@ class AddActionBehavior(
     private lateinit var endTime: Date
 
     private lateinit var categories: List<Category>
+    private var selectedCategoryIndex = 0
 
     override fun start() {
-        showCategories()
+        getCategories()
         showTime()
     }
 
-    private fun showCategories() {
+    private fun getCategories() {
         disposeManager.addDisposable(
             categoryInteractor.observeActiveCategories()
                 .subscribeOn(schedulerProvider.ioScheduler())
                 .observeOn(schedulerProvider.mainScheduler())
                 .subscribe({ categories ->
                     this.categories = categories
-                    viewState.showCategories(categories.map { category -> category.name })
+                    viewState.showSelectedCategory(categories.firstOrNull()?.name ?: "")
                 }, {
                     logger.error("Can't observe active categories", it)
                 })
         )
+    }
+
+    override fun onCategoryClick() {
+        //todo может успасть, если пользователь кликнет до получения списка категорий
+        viewState.showCategories(categories.map { it.name })
+    }
+
+    override fun onCategorySelected(index: Int) {
+        selectedCategoryIndex = index
+        viewState.showSelectedCategory(categories[selectedCategoryIndex].name)
     }
 
     private fun showTime() {
@@ -72,8 +83,8 @@ class AddActionBehavior(
         setEndTime(date)
     }
 
-    override fun onAddActionClick(description: String, categoryIndex: Int) {
-        val categoryId = categories[categoryIndex].id
+    override fun onAddActionClick(description: String) {
+        val categoryId = categories[selectedCategoryIndex].id
         disposeManager.addDisposable(
             actionInteractor.addAction(categoryId, startTime.time, endTime.time, description)
                 .subscribeOn(schedulerProvider.ioScheduler())

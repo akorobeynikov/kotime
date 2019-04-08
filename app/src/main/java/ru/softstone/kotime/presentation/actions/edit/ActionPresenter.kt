@@ -84,9 +84,6 @@ class ActionPresenter @Inject constructor(
         }
     }
 
-
-
-
     fun startTimeChanged(date: Date) {
         behavior.startTimeChanged(date)
     }
@@ -96,8 +93,8 @@ class ActionPresenter @Inject constructor(
         behavior.endTimeChanged(date)
     }
 
-    fun onAddActionClick(description: String, categoryIndex: Int) {
-        behavior.onAddActionClick(description, categoryIndex)
+    fun onAddActionClick(description: String) {
+        behavior.onAddActionClick(description)
     }
 
     override fun onDestroy() {
@@ -111,5 +108,17 @@ class ActionPresenter @Inject constructor(
 
     fun onPlusDurationClick() {
         behavior.onPlusDurationClick()
+    }
+
+    fun onBackPressed() {
+        router.exit()
+    }
+
+    fun onCategoryClick() {
+        behavior.onCategoryClick()
+    }
+
+    fun onCategorySelected(index: Int) {
+        behavior.onCategorySelected(index)
     }
 }
