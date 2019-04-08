@@ -1,22 +1,18 @@
 <resources>
     <string name="app_name" translatable="false">Kotime</string>
-    <string name="show_logs_button_text">Records</string>
-    <string name="categories">Categories</string>
-    <string name="timer_button">Start/Reset</string>
     <string name="add_record_button">Add record</string>
     <string name="action_descriptions_hint">Description</string>
     <string name="stats">Statistics</string>
     <string name="precentage" translatable="false">%d%%</string>
     <string name="minus" translatable="false">-5</string>
     <string name="plus" translatable="false">+5</string>
-    <string name="fast_record_button">Fast record</string>
     <string name="start_time_picker_title">Start</string>
     <string name="end_time_picker_title">End</string>
     <string name="category">Category</string>
     <string name="goal_label">Goal:</string>
-    <string name="none_goal">none</string>
-    <string name="increase_goal">increase spends</string>
-    <string name="decrease_goal">decrease spends</string>
+    <string name="none_goal">Without goal</string>
+    <string name="increase_goal">Increase spends</string>
+    <string name="decrease_goal">Decrease spends</string>
     <string name="done_button">Done</string>
     <string name="duration_with_correction" translatable="false">%s (%s)</string>
     <string name="total_time">Total %s</string>
@@ -27,4 +23,6 @@
     <string name="time_from">From</string>
     <string name="time_to">To</string>
     <string name="Duration">Duration</string>
+    <string name="goal_stats_header">Goals</string>
+    <string name="category_stats_header">Categories</string>
 </resources>

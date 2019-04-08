@@ -21,6 +21,7 @@ abstract class StatItemModel : EpoxyModelWithHolder<StatViewHolder>() {
     override fun bind(holder: StatViewHolder) {
         val context = holder.categoryView.context
         holder.percentageView.text = context.getString(R.string.precentage, percentage)
+        holder.progressView.progress = percentage
         holder.timeView.text = getFormattedDuration(TimeUnit.MILLISECONDS.toSeconds(time).toInt())
         holder.categoryView.text = category
     }
