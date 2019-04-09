@@ -6,14 +6,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">@color/textColor</item>
-        <item name="android:toolbarStyle">@style/ToolbarStyle</item>
-        <item name="toolbarStyle">@style/ToolbarStyle</item>
         <item name="android:fontFamily">@font/open_sans_regular</item>
+        <item name="android:textColor">@color/textColor</item>
     </style>
 
-    <style name="ToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">
+    <style name="DateToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">
         <item name="contentInsetStart">0dp</item>
         <item name="android:contentInsetStart">0dp</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.MaterialComponents">
+        <item name="android:fontFamily">@font/open_sans_light</item>
     </style>
 </resources>

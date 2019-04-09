@@ -20,4 +20,5 @@
     <string name="Duration">Продолжительность</string>
     <string name="goal_stats_header">Цели</string>
     <string name="category_stats_header">Категории</string>
+    <string name="app_name" translatable="false">Хронометраж</string>
 </resources>

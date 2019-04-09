@@ -42,7 +42,6 @@ class CategoriesFragment : BaseNavigationFragment<CategoriesPresenter>(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         add_category_button.setOnClickListener {
             presenter.onAddCategoryClick()
         }

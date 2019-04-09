@@ -19,8 +19,8 @@ abstract class CategoryItemModel : EpoxyModelWithHolder<CategoryViewHolder>() {
     override fun bind(holder: CategoryViewHolder) {
         val imageResourceId = when (goal) {
             CategoryGoalType.NONE -> 0
-            CategoryGoalType.INCREASE -> R.drawable.ic_thumb_up
-            CategoryGoalType.DECREASE -> R.drawable.ic_thumb_down
+            CategoryGoalType.INCREASE -> R.drawable.ic_trending_up
+            CategoryGoalType.DECREASE -> R.drawable.ic_trending_down
         }
         holder.goalView.setImageResource(imageResourceId)
         holder.nameView.text = name
