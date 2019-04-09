@@ -9,8 +9,11 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_category.*
+import kotlinx.android.synthetic.main.part_edit_text_toolbar.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseNavigationFragment
+import ru.softstone.kotime.architecture.presentation.hideKeyboard
+import ru.softstone.kotime.architecture.presentation.showSoftKeyboard
 import ru.softstone.kotime.domain.category.model.CategoryGoalType
 
 class CategoryFragment : BaseNavigationFragment<CategoryPresenter>(), CategoryView {
@@ -32,10 +35,17 @@ class CategoryFragment : BaseNavigationFragment<CategoryPresenter>(), CategoryVi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        text_field.setHint(R.string.category)
         next_button.setOnClickListener {
-            val categoryName = category_field.text.toString()
+            hideKeyboard(context!!)
+            val categoryName = text_field.text.toString()
             presenter.onNextClick(categoryName, getSelectedGoalType())
         }
+        back_button.setOnClickListener {
+            hideKeyboard(context!!)
+            presenter.onBackPressed()
+        }
+        showSoftKeyboard(text_field)
     }
 
     private fun getSelectedGoalType(): CategoryGoalType {
@@ -48,7 +58,7 @@ class CategoryFragment : BaseNavigationFragment<CategoryPresenter>(), CategoryVi
     }
 
     override fun showCategoryName(name: String) {
-        category_field.setText(name)
+        text_field.setText(name)
     }
 
     override fun showGoalType(categoryGoalType: CategoryGoalType) {
@@ -64,4 +74,7 @@ class CategoryFragment : BaseNavigationFragment<CategoryPresenter>(), CategoryVi
         return super.providePresenter()
     }
 
+    override fun getBottomNavigationVisibility(): Boolean {
+        return false
+    }
 }

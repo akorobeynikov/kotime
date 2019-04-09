@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_suggestion.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseNavigationFragment
 import ru.softstone.kotime.architecture.presentation.hideKeyboard
-import ru.softstone.kotime.architecture.presentation.showKeyboard
+import ru.softstone.kotime.architecture.presentation.showSoftKeyboard
 import ru.softstone.kotime.presentation.suggestion.model.Suggestion
 import ru.softstone.kotime.presentation.suggestion.rv.SuggestionsRvController
 import javax.inject.Inject
@@ -44,8 +44,12 @@ class SuggestionFragment : BaseNavigationFragment<SuggestionPresenter>(), Sugges
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        back_button.setOnClickListener { presenter.navigateBack() }
-        description_field.addTextChangedListener(object : TextWatcher {
+        back_button.setOnClickListener {
+            hideKeyboard(context!!)
+            presenter.navigateBack()
+        }
+        showSoftKeyboard(text_field)
+        text_field.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 presenter.onDescriptionChanged(s.toString())
             }
@@ -62,6 +66,7 @@ class SuggestionFragment : BaseNavigationFragment<SuggestionPresenter>(), Sugges
             presenter.onSuggestionClick(description)
         }
         rvController.setFastRecordListener { categoryId, description ->
+            hideKeyboard(context!!)
             presenter.onFastRecordClick(categoryId, description)
         }
         rvController.setEditListener { categoryId, description ->
@@ -77,24 +82,14 @@ class SuggestionFragment : BaseNavigationFragment<SuggestionPresenter>(), Sugges
         suggestions_rv.addItemDecoration(dividerItemDecoration)
     }
 
-    override fun onResume() {
-        super.onResume()
-        description_field.requestFocus()
-        showKeyboard(context!!)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        hideKeyboard(context!!)
-    }
 
     override fun showSuggestions(suggestions: List<Suggestion>) {
         rvController.setData(suggestions)
     }
 
     override fun setSuggestionDescription(description: String) {
-        description_field.setText(description)
-        description_field.setSelection(description_field.text?.length ?: 0)
+        text_field.setText(description)
+        text_field.setSelection(text_field.text?.length ?: 0)
     }
 
     override fun getBottomNavigationVisibility() = false

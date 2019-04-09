@@ -15,15 +15,16 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_edit_action.*
+import kotlinx.android.synthetic.main.part_edit_text_toolbar.*
 import ru.softstone.kotime.R
-import ru.softstone.kotime.architecture.presentation.BaseFragment
+import ru.softstone.kotime.architecture.presentation.BaseNavigationFragment
 import ru.softstone.kotime.architecture.presentation.hideKeyboard
-import ru.softstone.kotime.architecture.presentation.showKeyboard
+import ru.softstone.kotime.architecture.presentation.showSoftKeyboard
 import ru.softstone.kotime.presentation.getFormattedDuration
 import java.util.*
 
 
-class ActionFragment : BaseFragment<ActionPresenter>(), ActionView {
+class ActionFragment : BaseNavigationFragment<ActionPresenter>(), ActionView {
     companion object {
         fun newInstance() = ActionFragment()
     }
@@ -57,8 +58,9 @@ class ActionFragment : BaseFragment<ActionPresenter>(), ActionView {
         end_date_view.setOnClickListener {
             showDatePicker({ presenter.endTimeChanged(it) }, endTime)
         }
-        add_record_button.setOnClickListener {
-            val description = description_field.text.toString()
+        next_button.setOnClickListener {
+            hideKeyboard(context!!)
+            val description = text_field.text.toString()
             presenter.onAddActionClick(description)
         }
         category_layout.setOnClickListener {
@@ -66,18 +68,12 @@ class ActionFragment : BaseFragment<ActionPresenter>(), ActionView {
         }
         minus_button.setOnClickListener { presenter.onMinusDurationClick() }
         plus_button.setOnClickListener { presenter.onPlusDurationClick() }
-        description_field.requestFocus()
-        back_button.setOnClickListener { presenter.onBackPressed() }
-    }
+        showSoftKeyboard(text_field)
+        back_button.setOnClickListener {
+            hideKeyboard(context!!)
+            presenter.onBackPressed()
+        }
 
-    override fun onResume() {
-        super.onResume()
-        showKeyboard(context!!)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        hideKeyboard(context!!)
     }
 
     override fun showDuration(seconds: Int, correctionSeconds: Int) {
@@ -121,8 +117,8 @@ class ActionFragment : BaseFragment<ActionPresenter>(), ActionView {
     }
 
     override fun setDescription(description: String) {
-        description_field.setText(description)
-        description_field.setSelection(description_field.text?.length ?: 0)
+        text_field.setText(description)
+        text_field.setSelection(text_field.text?.length ?: 0)
     }
 
     override fun showCategories(categories: List<String>) {
@@ -154,4 +150,7 @@ class ActionFragment : BaseFragment<ActionPresenter>(), ActionView {
         return super.providePresenter()
     }
 
+    override fun getBottomNavigationVisibility(): Boolean {
+        return false
+    }
 }

@@ -34,7 +34,7 @@
                     android:tint="@color/iconColorOnPrimary" />
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/description_field"
+                    android:id="@+id/text_field"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"

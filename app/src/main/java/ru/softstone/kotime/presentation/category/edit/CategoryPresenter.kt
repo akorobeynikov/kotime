@@ -70,4 +70,8 @@ class CategoryPresenter @Inject constructor(
         }
 
     }
+
+    fun onBackPressed() {
+        router.exit()
+    }
 }

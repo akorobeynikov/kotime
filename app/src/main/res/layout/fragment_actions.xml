@@ -19,7 +19,7 @@
             android:layout_height="match_parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_record_button"
+            android:id="@+id/next_button"
             android:layout_width="wrap_content"
             style="@style/Widget.MaterialComponents.FloatingActionButton"
             android:layout_gravity="bottom|right"

@@ -4,56 +4,46 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:hint="@string/category"
+    <include layout="@layout/part_edit_text_toolbar" />
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/category_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/goal_label" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <RadioGroup
-        android:id="@+id/goal_radio_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RadioButton
-            android:id="@+id/none_goal_radio_button"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/none_goal" />
+            android:fontFamily="@font/open_sans_semibold"
+            android:text="@string/goal_label"
+            android:textSize="16sp" />
 
-        <RadioButton
-            android:id="@+id/increase_goal_radio_button"
+        <RadioGroup
+            android:id="@+id/goal_radio_group"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/increase_goal" />
+            android:layout_height="wrap_content">
 
-        <RadioButton
-            android:id="@+id/decrease_goal_radio_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/decrease_goal" />
+            <RadioButton
+                android:id="@+id/none_goal_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/none_goal" />
 
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/increase_goal_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/increase_goal" />
 
-    <Space
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp" />
+            <RadioButton
+                android:id="@+id/decrease_goal_radio_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/decrease_goal" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/next_button"
-        android:text="@string/done_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        </RadioGroup>
+
+    </LinearLayout>
 
 </LinearLayout>

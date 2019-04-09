@@ -2,8 +2,10 @@ package ru.softstone.kotime.architecture.presentation
 
 import android.app.Activity
 import android.content.Context
+import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 
 fun hideKeyboard(context: Context) {
     try {
@@ -25,4 +27,11 @@ fun showKeyboard(context: Context) {
         InputMethodManager.SHOW_FORCED,
         InputMethodManager.HIDE_IMPLICIT_ONLY
     )
+}
+
+fun showSoftKeyboard(view: View) {
+    if (view.requestFocus()) {
+        val imm = getSystemService(view.context, InputMethodManager::class.java)
+        imm?.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+    }
 }

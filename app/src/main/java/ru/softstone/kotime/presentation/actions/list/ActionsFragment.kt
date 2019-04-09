@@ -55,7 +55,7 @@ class ActionsFragment : BaseNavigationFragment<ActionsPresenter>(),
         actions_rv.addItemDecoration(DividerItemDecoration(context, layoutManager.orientation))
         plus_date_button.setOnClickListener { presenter.onPlusDateClick() }
         minus_date_button.setOnClickListener { presenter.onMinusDateClick() }
-        add_record_button.setOnClickListener { presenter.onAddAction() }
+        next_button.setOnClickListener { presenter.onAddAction() }
         initSwiping()
         rvController.setItemClickListener { presenter.onEditAction(it) }
         //todo удалить
