@@ -77,6 +77,10 @@ class ActionFragment : BaseNavigationFragment<ActionPresenter>(), ActionView {
     }
 
     override fun showDuration(seconds: Int, correctionSeconds: Int) {
+        if (!duration_layout.isShown) {
+            duration_layout.visibility = View.VISIBLE
+            duration_divider.visibility = View.VISIBLE
+        }
         val duration = getFormattedDuration(seconds)
         val correction = getFormattedDuration(correctionSeconds, showSign = true)
         duration_view.text = getString(R.string.duration_with_correction, duration, correction)

@@ -39,7 +39,7 @@ class TimerFragment : BaseNavigationFragment<TimerPresenter>(), TimerView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        timer_button.setOnClickListener { presenter.onTimerClick() }
+        timer_button.setOnClickListener { presenter.onTimerControlClick() }
         timer_view.setOnClickListener { presenter.onAddRecordClick() }
     }
 
@@ -66,6 +66,7 @@ class TimerFragment : BaseNavigationFragment<TimerPresenter>(), TimerView {
 
     override fun setIsRunning(running: Boolean) {
         isTimerRunning = running
+        timer_view.isClickable = running
         if (running) {
             add_record_label.animate().apply {
                 alpha(1f)

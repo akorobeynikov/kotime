@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="default_categories">
-        <item>work</item>
-        <item>projects</item>
-        <item>study</item>
-        <item>planing</item>
-        <item>on the way</item>
-        <item>household</item>
-        <item>sport</item>
-        <item>entertainment</item>
-        <item>idle</item>
-        <item>personal</item>
-        <item>family</item>
-        <item>social</item>
-        <item>rest</item>
+        <item>Work</item>
+        <item>Projects</item>
+        <item>Study</item>
+        <item>Planing</item>
+        <item>On the way</item>
+        <item>Household</item>
+        <item>Sport</item>
+        <item>Entertainment</item>
+        <item>Idle</item>
+        <item>Personal</item>
+        <item>Hobby</item>
+        <item>Family</item>
+        <item>Social</item>
+        <item>Rest</item>
     </string-array>
 </resources>

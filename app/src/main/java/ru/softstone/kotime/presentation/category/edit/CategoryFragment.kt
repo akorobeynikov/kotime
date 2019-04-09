@@ -59,6 +59,7 @@ class CategoryFragment : BaseNavigationFragment<CategoryPresenter>(), CategoryVi
 
     override fun showCategoryName(name: String) {
         text_field.setText(name)
+        text_field.setSelection(text_field.text?.length ?: 0)
     }
 
     override fun showGoalType(categoryGoalType: CategoryGoalType) {

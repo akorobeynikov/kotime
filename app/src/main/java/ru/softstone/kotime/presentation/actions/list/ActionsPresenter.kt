@@ -79,4 +79,14 @@ class ActionsPresenter @Inject constructor(
         actionInteractor.setActionState(AddActionState())
         router.navigateTo(EDIT_ACTION_SCREEN)
     }
+
+    fun onCalendarClick() {
+        viewState.showDateDialog(calendar.time)
+    }
+
+    fun onDateSelected(date: Date?) {
+        calendar.time = date
+        viewState.showDate(calendar.time)
+        showActions(calendar.time)
+    }
 }

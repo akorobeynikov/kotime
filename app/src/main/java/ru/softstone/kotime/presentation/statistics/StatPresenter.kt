@@ -50,4 +50,14 @@ class StatPresenter @Inject constructor(
                 })
         )
     }
+
+    fun onCalendarClick() {
+        viewState.showDateDialog(calendar.time)
+    }
+
+    fun onDateSelected(date: Date?) {
+        calendar.time = date
+        viewState.showDate(calendar.time)
+        showStats(calendar.time)
+    }
 }

@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.datetime.datePicker
 import com.airbnb.epoxy.EpoxyTouchHelper
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -56,14 +58,18 @@ class ActionsFragment : BaseNavigationFragment<ActionsPresenter>(),
         plus_date_button.setOnClickListener { presenter.onPlusDateClick() }
         minus_date_button.setOnClickListener { presenter.onMinusDateClick() }
         next_button.setOnClickListener { presenter.onAddAction() }
+        calendar_button.setOnClickListener { presenter.onCalendarClick() }
         initSwiping()
         rvController.setItemClickListener { presenter.onEditAction(it) }
-        //todo удалить
-//        (activity as AppCompatActivity).apply {
-//            setSupportActionBar(toolbar_view)
-////            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-////            supportActionBar?.title = "test"
-//        }
+    }
+
+    override fun showDateDialog(date: Date) {
+        val calendar = Calendar.getInstance().apply { time = date }
+        MaterialDialog(context!!).show {
+            datePicker(currentDate = calendar) { _, datetime ->
+                presenter.onDateSelected(datetime.time)
+            }
+        }
     }
 
     override fun showDate(date: Date) {

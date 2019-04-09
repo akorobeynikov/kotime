@@ -48,7 +48,7 @@ class TimerPresenter @Inject constructor(
         viewState.showTime(diffSeconds.toInt())
     }
 
-    fun onTimerClick() {
+    fun onTimerControlClick() {
         addDisposable(
             timeInteractor.isStopped()
                 .flatMap { timerIsStopped ->

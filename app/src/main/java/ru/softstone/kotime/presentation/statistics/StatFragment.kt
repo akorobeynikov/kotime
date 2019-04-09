@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.datetime.datePicker
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.support.AndroidSupportInjection
@@ -43,6 +45,7 @@ class StatFragment : BaseNavigationFragment<StatPresenter>(), StatView {
         super.onViewCreated(view, savedInstanceState)
         stats_rv.adapter = rvController.adapter
         stats_rv.layoutManager = LinearLayoutManager(context)
+        calendar_button.setOnClickListener { presenter.onCalendarClick() }
         plus_date_button.setOnClickListener { presenter.onPlusDateClick() }
         minus_date_button.setOnClickListener { presenter.onMinusDateClick() }
     }
@@ -53,6 +56,15 @@ class StatFragment : BaseNavigationFragment<StatPresenter>(), StatView {
 
     override fun showStats(stats: Stats) {
         rvController.setData(stats)
+    }
+
+    override fun showDateDialog(date: Date) {
+        val calendar = Calendar.getInstance().apply { time = date }
+        MaterialDialog(context!!).show {
+            datePicker(currentDate = calendar) { _, datetime ->
+                presenter.onDateSelected(datetime.time)
+            }
+        }
     }
 
     @ProvidePresenter

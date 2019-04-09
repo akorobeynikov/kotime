@@ -1,6 +1,7 @@
 package ru.softstone.kotime.presentation.actions.list
 
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
+import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import ru.softstone.kotime.architecture.presentation.BaseView
 import ru.softstone.kotime.domain.action.model.ActionAndCategory
@@ -12,4 +13,7 @@ interface ActionsView : BaseView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun showDate(date: Date)
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun showDateDialog(date: Date)
 }
