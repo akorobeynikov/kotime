@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/open_sans_regular</item>
         <item name="android:textColor">@color/textColor</item>
+        <item name="md_color_button_text">@color/colorAccent</item>
+        <item name="md_font_button">@font/open_sans_bold</item>
     </style>
 
     <style name="DateToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">
