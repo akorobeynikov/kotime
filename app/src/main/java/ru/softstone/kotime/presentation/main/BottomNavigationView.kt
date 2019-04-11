@@ -1,5 +1,5 @@
 package ru.softstone.kotime.presentation.main
 
-interface BottomNavigationActivity {
+interface BottomNavigationView {
     fun showBottomNavigation(show: Boolean)
 }

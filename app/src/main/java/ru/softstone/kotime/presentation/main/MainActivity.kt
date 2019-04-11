@@ -14,7 +14,7 @@ import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
 
-class MainActivity : BaseActivity<ActivityPresenter>(), ActivityView, BottomNavigationActivity {
+class MainActivity : BaseActivity<ActivityPresenter>(), ActivityView, BottomNavigationView {
     companion object {
         private const val STATE_KEY = "KOTIME_STATE"
     }

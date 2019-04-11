@@ -10,6 +10,8 @@ import ru.softstone.kotime.presentation.category.edit.CategoryFragment
 import ru.softstone.kotime.presentation.category.edit.CategoryModule
 import ru.softstone.kotime.presentation.category.list.CategoriesFragment
 import ru.softstone.kotime.presentation.category.list.CategoriesModule
+import ru.softstone.kotime.presentation.error.ErrorFragment
+import ru.softstone.kotime.presentation.error.ErrorModule
 import ru.softstone.kotime.presentation.splash.SplashFragment
 import ru.softstone.kotime.presentation.splash.SplashModule
 import ru.softstone.kotime.presentation.statistics.StatFragment
@@ -44,4 +46,7 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector(modules = [StatModule::class])
     internal abstract fun bindStatFragment(): StatFragment
+
+    @ContributesAndroidInjector(modules = [ErrorModule::class])
+    internal abstract fun bindErrorFragment(): ErrorFragment
 }
