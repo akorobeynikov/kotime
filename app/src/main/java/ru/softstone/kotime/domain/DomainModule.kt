@@ -6,6 +6,8 @@ import ru.softstone.kotime.domain.action.ActionInteractor
 import ru.softstone.kotime.domain.action.ActionInteractorImpl
 import ru.softstone.kotime.domain.category.CategoryInteractor
 import ru.softstone.kotime.domain.category.CategoryInteractorImpl
+import ru.softstone.kotime.domain.error.ErrorInteractor
+import ru.softstone.kotime.domain.error.ErrorInteractorImpl
 import ru.softstone.kotime.domain.statistics.StatInteractor
 import ru.softstone.kotime.domain.statistics.StatInteractorImpl
 import ru.softstone.kotime.domain.suggestion.SuggestionInteractor
@@ -37,5 +39,9 @@ class DomainModule {
         @Binds
         @Singleton
         fun bindStatInteractor(interactorImpl: StatInteractorImpl): StatInteractor
+
+        @Binds
+        @Singleton
+        fun bindErrornteractor(interactorImpl: ErrorInteractorImpl): ErrorInteractor
     }
 }

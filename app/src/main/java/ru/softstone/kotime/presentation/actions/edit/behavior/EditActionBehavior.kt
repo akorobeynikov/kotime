@@ -9,7 +9,9 @@ import ru.softstone.kotime.domain.action.model.Action
 import ru.softstone.kotime.domain.action.state.EditActionState
 import ru.softstone.kotime.domain.category.CategoryInteractor
 import ru.softstone.kotime.domain.category.model.Category
+import ru.softstone.kotime.domain.error.ErrorInteractor
 import ru.softstone.kotime.domain.time.TimeInteractor
+import ru.softstone.kotime.presentation.ERROR_SCREEN
 import ru.softstone.kotime.presentation.actions.edit.ActionView
 import ru.terrakok.cicerone.Router
 import java.util.*
@@ -20,7 +22,8 @@ class EditActionBehavior(
     private val categoryInteractor: CategoryInteractor,
     private val schedulerProvider: SchedulerProvider,
     private val actionInteractor: ActionInteractor,
-    private val timeInteractor: TimeInteractor,
+    private val timeInteractor: TimeInteractor,//удалить если не пригодится
+    private val errorInteractor: ErrorInteractor,
     private val router: Router,
     private val logger: Logger
 ) : ActionBehavior {
@@ -52,7 +55,10 @@ class EditActionBehavior(
                     setStartTime(Date(action.startTime))
                     setEndTime(Date(action.endTime))
                 }, {
-                    logger.error("Can't get categories or an action", it)
+                    val wtf = "Can't get categories or an action"
+                    logger.error(wtf, it)
+                    errorInteractor.setLastError(wtf, it)
+                    router.navigateTo(ERROR_SCREEN)
                 })
         )
     }
@@ -88,7 +94,10 @@ class EditActionBehavior(
                     logger.debug("Action updated")
                     router.exit()
                 }, {
-                    logger.error("Can't update action", it)
+                    val wtf = "Can't update action"
+                    logger.error(wtf, it)
+                    errorInteractor.setLastError(wtf, it)
+                    router.navigateTo(ERROR_SCREEN)
                 })
         )
     }

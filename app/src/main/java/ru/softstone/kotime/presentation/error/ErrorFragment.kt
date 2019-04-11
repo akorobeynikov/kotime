@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.fragment_error.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseNavigationFragment
 
@@ -26,6 +27,12 @@ class ErrorFragment : BaseNavigationFragment<ErrorPresenter>(), ErrorView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_error, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        next_button.setOnClickListener { presenter.onNextButtonClick() }
+        send_report_button.setOnClickListener { presenter.sendReport() }
     }
 
     @ProvidePresenter

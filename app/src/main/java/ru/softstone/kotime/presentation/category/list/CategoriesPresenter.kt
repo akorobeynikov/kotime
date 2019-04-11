@@ -9,13 +9,16 @@ import ru.softstone.kotime.domain.category.model.Category
 import ru.softstone.kotime.domain.category.model.PositionOfCategory
 import ru.softstone.kotime.domain.category.state.AddCategoryState
 import ru.softstone.kotime.domain.category.state.EditCategoryState
+import ru.softstone.kotime.domain.error.ErrorInteractor
 import ru.softstone.kotime.presentation.CATEGORY_SCREEN
+import ru.softstone.kotime.presentation.ERROR_SCREEN
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 @InjectViewState
 class CategoriesPresenter @Inject constructor(
     private val categoryInteractor: CategoryInteractor,
+    private val errorInteractor: ErrorInteractor,
     private val schedulerProvider: SchedulerProvider,
     private val router: Router,
     private val logger: Logger
@@ -33,7 +36,10 @@ class CategoriesPresenter @Inject constructor(
                     this.categories = it.toMutableList()
                     viewState.showCategories(categories!!)
                 }, {
-                    logger.error("Can't observe categories", it)
+                    val wtf = "Can't observe categories"
+                    logger.error(wtf, it)
+                    errorInteractor.setLastError(wtf, it)
+                    router.navigateTo(ERROR_SCREEN)
                 })
         )
     }
@@ -50,7 +56,12 @@ class CategoriesPresenter @Inject constructor(
                 .observeOn(schedulerProvider.mainScheduler())
                 .subscribe(
                     { logger.debug("Category disabled") },
-                    { logger.error("Can't disable category", it) }
+                    {
+                        val wtf = "Can't disable category"
+                        logger.error(wtf, it)
+                        errorInteractor.setLastError(wtf, it)
+                        router.navigateTo(ERROR_SCREEN)
+                    }
                 )
         )
     }
@@ -75,7 +86,12 @@ class CategoriesPresenter @Inject constructor(
                 .observeOn(schedulerProvider.mainScheduler())
                 .subscribe(
                     { logger.debug("Order changed") },
-                    { logger.error("Can't update positions of categories", it) }
+                    {
+                        val wtf = "Can't update positions of categories"
+                        logger.error(wtf, it)
+                        errorInteractor.setLastError(wtf, it)
+                        router.navigateTo(ERROR_SCREEN)
+                    }
                 )
         )
     }

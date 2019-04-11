@@ -25,6 +25,7 @@ class DatabasePopulater @Inject constructor(
             .subscribe({
                 logger.debug("Categories populated")
             }, {
+                // todo отправить событие
                 logger.error("Can't populate categories", it)
             })
     }

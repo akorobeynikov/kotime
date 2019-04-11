@@ -4,13 +4,18 @@ import com.arellomobile.mvp.InjectViewState
 import ru.softstone.kotime.architecture.data.SchedulerProvider
 import ru.softstone.kotime.architecture.domain.Logger
 import ru.softstone.kotime.architecture.presentation.BasePresenter
+import ru.softstone.kotime.domain.error.ErrorInteractor
 import ru.softstone.kotime.domain.statistics.StatInteractor
+import ru.softstone.kotime.presentation.ERROR_SCREEN
+import ru.terrakok.cicerone.Router
 import java.util.*
 import javax.inject.Inject
 
 @InjectViewState
 class StatPresenter @Inject constructor(
     private val statInteractor: StatInteractor,
+    private val errorInteractor: ErrorInteractor,
+    private val router: Router,
     private val schedulerProvider: SchedulerProvider,
     private val logger: Logger
 ) : BasePresenter<StatView>() {
@@ -47,7 +52,10 @@ class StatPresenter @Inject constructor(
                     viewState.showStats(it)
                     logger.debug("getStatistics")
                 }, {
-                    logger.error("Can't get statistics", it)
+                    val wtf = "Can't get statistics"
+                    logger.error(wtf, it)
+                    errorInteractor.setLastError(wtf, it)
+                    router.navigateTo(ERROR_SCREEN)
                 })
         )
     }

@@ -10,7 +10,9 @@ import ru.softstone.kotime.domain.action.state.AddActionState
 import ru.softstone.kotime.domain.action.state.EditActionState
 import ru.softstone.kotime.domain.action.state.EditSuggestionState
 import ru.softstone.kotime.domain.category.CategoryInteractor
+import ru.softstone.kotime.domain.error.ErrorInteractor
 import ru.softstone.kotime.domain.time.TimeInteractor
+import ru.softstone.kotime.presentation.ERROR_SCREEN
 import ru.softstone.kotime.presentation.actions.edit.behavior.ActionBehavior
 import ru.softstone.kotime.presentation.actions.edit.behavior.AddActionBehavior
 import ru.softstone.kotime.presentation.actions.edit.behavior.EditActionBehavior
@@ -25,6 +27,7 @@ class ActionPresenter @Inject constructor(
     private val schedulerProvider: SchedulerProvider,
     private val actionInteractor: ActionInteractor,
     private val timeInteractor: TimeInteractor,
+    private val errorInteractor: ErrorInteractor,
     private val router: Router,
     private val logger: Logger
 ) : BasePresenter<ActionView>() {
@@ -41,7 +44,10 @@ class ActionPresenter @Inject constructor(
                     behavior = getBehavior(state)
                     behavior.start()
                 }, {
-                    logger.error("Can't get start time", it)
+                    val wtf = "Can't get start time"
+                    logger.error(wtf, it)
+                    errorInteractor.setLastError(wtf, it)
+                    router.navigateTo(ERROR_SCREEN)
                 })
         )
     }
@@ -55,6 +61,7 @@ class ActionPresenter @Inject constructor(
                 schedulerProvider,
                 actionInteractor,
                 timeInteractor,
+                errorInteractor,
                 router,
                 logger
             )
@@ -66,6 +73,7 @@ class ActionPresenter @Inject constructor(
                 schedulerProvider,
                 actionInteractor,
                 timeInteractor,
+                errorInteractor,
                 router,
                 logger
             )
@@ -77,6 +85,7 @@ class ActionPresenter @Inject constructor(
                 schedulerProvider,
                 actionInteractor,
                 timeInteractor,
+                errorInteractor,
                 router,
                 logger
             )

@@ -22,6 +22,6 @@
     <string name="category_stats_header">Категории</string>
     <string name="app_name" translatable="false">Хронометраж</string>
     <string name="error_screen_title">Что-то пошло не так</string>
-    <string name="error_screen_text">Перезапустите приложение и попробуйсте снова</string>
+    <string name="error_screen_text">Перезапустите приложение\nи попробуйсте еще раз</string>
     <string name="send_report">Отправить отчет</string>
 </resources>

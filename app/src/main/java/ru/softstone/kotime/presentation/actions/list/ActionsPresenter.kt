@@ -7,7 +7,9 @@ import ru.softstone.kotime.architecture.presentation.BasePresenter
 import ru.softstone.kotime.domain.action.ActionInteractor
 import ru.softstone.kotime.domain.action.state.AddActionState
 import ru.softstone.kotime.domain.action.state.EditActionState
+import ru.softstone.kotime.domain.error.ErrorInteractor
 import ru.softstone.kotime.presentation.EDIT_ACTION_SCREEN
+import ru.softstone.kotime.presentation.ERROR_SCREEN
 import ru.terrakok.cicerone.Router
 import java.util.*
 import javax.inject.Inject
@@ -16,6 +18,7 @@ import javax.inject.Inject
 class ActionsPresenter @Inject constructor(
     private val actionInteractor: ActionInteractor,
     private val schedulerProvider: SchedulerProvider,
+    private val errorInteractor: ErrorInteractor,
     private val router: Router,
     private val logger: Logger
 ) : BasePresenter<ActionsView>() {
@@ -51,7 +54,10 @@ class ActionsPresenter @Inject constructor(
                 .subscribe({
                     viewState.showActions(it)
                 }, {
-                    logger.error("Can't observe actions", it)
+                    val wtf = "Can't observe actions"
+                    logger.error(wtf, it)
+                    errorInteractor.setLastError(wtf, it)
+                    router.navigateTo(ERROR_SCREEN)
                 })
         )
     }
@@ -65,7 +71,10 @@ class ActionsPresenter @Inject constructor(
                 .subscribe({
                     logger.debug("Action deleted")
                 }, {
-                    logger.error("Can't delete action", it)
+                    val wtf = "Can't delete action"
+                    logger.error(wtf, it)
+                    errorInteractor.setLastError(wtf, it)
+                    router.navigateTo(ERROR_SCREEN)
                 })
         )
     }

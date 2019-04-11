@@ -9,6 +9,8 @@ import ru.softstone.kotime.domain.category.model.CategoryGoalType
 import ru.softstone.kotime.domain.category.state.AddCategoryState
 import ru.softstone.kotime.domain.category.state.CategoryState
 import ru.softstone.kotime.domain.category.state.EditCategoryState
+import ru.softstone.kotime.domain.error.ErrorInteractor
+import ru.softstone.kotime.presentation.ERROR_SCREEN
 import ru.softstone.kotime.presentation.category.edit.behavior.AddCategoryBehavior
 import ru.softstone.kotime.presentation.category.edit.behavior.CategoryBehavior
 import ru.softstone.kotime.presentation.category.edit.behavior.EditCategoryBehavior
@@ -19,6 +21,7 @@ import javax.inject.Inject
 class CategoryPresenter @Inject constructor(
     private val categoryInteractor: CategoryInteractor,
     private val schedulerProvider: SchedulerProvider,
+    private val errorInteractor: ErrorInteractor,
     private val router: Router,
     private val logger: Logger
 ) : BasePresenter<CategoryView>() {
@@ -35,7 +38,12 @@ class CategoryPresenter @Inject constructor(
                         behavior = getBehavior(it)
                         behavior.start()
                     },
-                    { logger.error("Can't get state", it) }
+                    {
+                        val wtf = "Can't get state"
+                        logger.error(wtf, it)
+                        errorInteractor.setLastError(wtf, it)
+                        router.navigateTo(ERROR_SCREEN)
+                    }
                 )
         )
     }
@@ -53,6 +61,7 @@ class CategoryPresenter @Inject constructor(
             is AddCategoryState -> AddCategoryBehavior(
                 viewState,
                 categoryInteractor,
+                errorInteractor,
                 schedulerProvider,
                 router,
                 logger
@@ -62,6 +71,7 @@ class CategoryPresenter @Inject constructor(
                 state.categoryId,
                 viewState,
                 categoryInteractor,
+                errorInteractor,
                 schedulerProvider,
                 router,
                 logger

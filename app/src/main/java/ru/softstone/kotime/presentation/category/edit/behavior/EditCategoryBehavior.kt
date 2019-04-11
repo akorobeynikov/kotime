@@ -6,6 +6,8 @@ import ru.softstone.kotime.architecture.presentation.DisposeManager
 import ru.softstone.kotime.domain.category.CategoryInteractor
 import ru.softstone.kotime.domain.category.model.Category
 import ru.softstone.kotime.domain.category.model.CategoryGoalType
+import ru.softstone.kotime.domain.error.ErrorInteractor
+import ru.softstone.kotime.presentation.ERROR_SCREEN
 import ru.softstone.kotime.presentation.category.edit.CategoryView
 import ru.terrakok.cicerone.Router
 
@@ -13,6 +15,7 @@ class EditCategoryBehavior(
     private val categoryId: Int,
     private val viewState: CategoryView,
     private val categoryInteractor: CategoryInteractor,
+    private val errorInteractor: ErrorInteractor,
     private val schedulerProvider: SchedulerProvider,
     private val router: Router,
     private val logger: Logger
@@ -27,7 +30,10 @@ class EditCategoryBehavior(
                     viewState.showCategoryName(it.name)
                     viewState.showGoalType(it.goalType)
                 }, {
-                    logger.error("Can't get category by id $categoryId", it)
+                    val wtf = "Can't get category by id $categoryId"
+                    logger.error(wtf, it)
+                    errorInteractor.setLastError(wtf, it)
+                    router.navigateTo(ERROR_SCREEN)
                 })
         )
     }
@@ -40,7 +46,10 @@ class EditCategoryBehavior(
                 .subscribe({
                     router.exit()
                 }, {
-                    logger.error("Can't update category $categoryId", it)
+                    val wtf = "Can't update category $categoryId"
+                    logger.error(wtf, it)
+                    errorInteractor.setLastError(wtf, it)
+                    router.navigateTo(ERROR_SCREEN)
                 })
         )
     }

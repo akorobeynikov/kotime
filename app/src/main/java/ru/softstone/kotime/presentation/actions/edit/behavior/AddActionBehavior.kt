@@ -6,7 +6,9 @@ import ru.softstone.kotime.architecture.presentation.DisposeManager
 import ru.softstone.kotime.domain.action.ActionInteractor
 import ru.softstone.kotime.domain.category.CategoryInteractor
 import ru.softstone.kotime.domain.category.model.Category
+import ru.softstone.kotime.domain.error.ErrorInteractor
 import ru.softstone.kotime.domain.time.TimeInteractor
+import ru.softstone.kotime.presentation.ERROR_SCREEN
 import ru.softstone.kotime.presentation.actions.edit.ActionView
 import ru.terrakok.cicerone.Router
 import java.util.*
@@ -17,6 +19,7 @@ class AddActionBehavior(
     private val schedulerProvider: SchedulerProvider,
     private val actionInteractor: ActionInteractor,
     private val timeInteractor: TimeInteractor,
+    private val errorInteractor: ErrorInteractor,
     private val router: Router,
     private val logger: Logger
 ) : ActionBehavior {
@@ -42,7 +45,10 @@ class AddActionBehavior(
                     this.categories = categories
                     viewState.showSelectedCategory(categories.firstOrNull()?.name ?: "")
                 }, {
-                    logger.error("Can't observe active categories", it)
+                    val wtf = "Can't observe active categories"
+                    logger.error(wtf, it)
+                    errorInteractor.setLastError(wtf, it)
+                    router.navigateTo(ERROR_SCREEN)
                 })
         )
     }
@@ -93,7 +99,10 @@ class AddActionBehavior(
                     logger.debug("Action added")
                     router.exit()
                 }, {
-                    logger.error("Can't add action", it)
+                    val wtf = "Can't add action"
+                    logger.error(wtf, it)
+                    errorInteractor.setLastError(wtf, it)
+                    router.navigateTo(ERROR_SCREEN)
                 })
         )
     }

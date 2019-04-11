@@ -7,7 +7,9 @@ import ru.softstone.kotime.domain.action.ActionInteractor
 import ru.softstone.kotime.domain.action.state.EditSuggestionState
 import ru.softstone.kotime.domain.category.CategoryInteractor
 import ru.softstone.kotime.domain.category.model.Category
+import ru.softstone.kotime.domain.error.ErrorInteractor
 import ru.softstone.kotime.domain.time.TimeInteractor
+import ru.softstone.kotime.presentation.ERROR_SCREEN
 import ru.softstone.kotime.presentation.TIMER_SCREEN
 import ru.softstone.kotime.presentation.actions.edit.ActionView
 import ru.terrakok.cicerone.Router
@@ -21,6 +23,7 @@ class EditSuggestionBehavior(
     private val schedulerProvider: SchedulerProvider,
     private val actionInteractor: ActionInteractor,
     private val timeInteractor: TimeInteractor,
+    private val errorInteractor: ErrorInteractor,
     private val router: Router,
     private val logger: Logger
 ) : ActionBehavior {
@@ -55,7 +58,10 @@ class EditSuggestionBehavior(
                     selectedCategoryIndex = categories.indexOfFirst { category -> category.id == selectedCategoryId }
                     viewState.showSelectedCategory(categories[selectedCategoryIndex].name)
                 }, {
-                    logger.error("Can't observe active categories", it)
+                    val wtf = "Can't observe active categories"
+                    logger.error(wtf, it)
+                    errorInteractor.setLastError(wtf, it)
+                    router.navigateTo(ERROR_SCREEN)
                 })
         )
     }
@@ -72,7 +78,10 @@ class EditSuggestionBehavior(
                     setEndTime(Date(initialEndTime))
                     updateDuration()
                 }, {
-                    logger.error("Can't get start time", it)
+                    val wtf = "Can't get start time"
+                    logger.error(wtf, it)
+                    errorInteractor.setLastError(wtf, it)
+                    router.navigateTo(ERROR_SCREEN)
                 })
         )
     }
@@ -123,7 +132,10 @@ class EditSuggestionBehavior(
                     logger.debug("Action added")
                     router.newRootScreen(TIMER_SCREEN)
                 }, {
-                    logger.error("Can't add action", it)
+                    val wtf = "Can't add action"
+                    logger.error(wtf, it)
+                    errorInteractor.setLastError(wtf, it)
+                    router.navigateTo(ERROR_SCREEN)
                 })
         )
     }
