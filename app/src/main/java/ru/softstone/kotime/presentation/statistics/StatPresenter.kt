@@ -15,7 +15,8 @@ class StatPresenter @Inject constructor(
     private val logger: Logger
 ) : BasePresenter<StatView>() {
 
-    private val calendar = Calendar.getInstance()
+    //todo вынести в настройки
+    private val calendar = Calendar.getInstance().apply { add(Calendar.HOUR_OF_DAY, -4) }
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

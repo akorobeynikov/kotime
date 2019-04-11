@@ -43,9 +43,9 @@ class ActionInteractorImpl @Inject constructor(
         // todo вынести получение таймстампов
         val calendar = Calendar.getInstance()
         calendar.time = date
-        if (calendar.get(Calendar.HOUR_OF_DAY) < 4) {
-            calendar.add(Calendar.DATE, -1)
-        }
+//        if (calendar.get(Calendar.HOUR_OF_DAY) < 4) {
+//            calendar.add(Calendar.DATE, -1)
+//        }
         calendar.set(Calendar.HOUR_OF_DAY, 4)
         calendar.set(Calendar.MINUTE, 0)
         calendar.set(Calendar.SECOND, 0)

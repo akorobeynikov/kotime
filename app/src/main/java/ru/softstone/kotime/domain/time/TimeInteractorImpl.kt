@@ -15,7 +15,7 @@ class TimeInteractorImpl @Inject constructor(private val timeSource: TimeSource)
     }
 
     override fun getTimeFromStart(): Single<Long> {
-        return timeSource.getStartTime().map { startTime ->
+        return getStartTime().map { startTime ->
             if (startTime == STOPPED_TIMER_VALUE) {
                 0
             } else {
@@ -25,7 +25,13 @@ class TimeInteractorImpl @Inject constructor(private val timeSource: TimeSource)
     }
 
     override fun getStartTime(): Single<Long> {
-        return timeSource.getStartTime()
+        return timeSource.getStartTime().flatMap { statTime ->
+            return@flatMap if (statTime > getCurrentTime()) {
+                resetTimer().toSingleDefault(getCurrentTime())
+            } else {
+                Single.just(statTime)
+            }
+        }
     }
 
     override fun isStopped(): Single<Boolean> {

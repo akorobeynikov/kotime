@@ -20,7 +20,8 @@ class ActionsPresenter @Inject constructor(
     private val logger: Logger
 ) : BasePresenter<ActionsView>() {
 
-    private val calendar = Calendar.getInstance()
+    //todo вынести в настройки
+    private val calendar = Calendar.getInstance().apply { add(Calendar.HOUR_OF_DAY, -4) }
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
