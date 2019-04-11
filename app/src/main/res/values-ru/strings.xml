@@ -24,4 +24,7 @@
     <string name="error_screen_title">Что-то пошло не так</string>
     <string name="error_screen_text">Перезапустите приложение\nи попробуйсте еще раз</string>
     <string name="send_report">Отправить отчет</string>
+    <string name="email_chooser_title">Отправить Email</string>
+    <string name="support_email_subject">Отчет об ошибке</string>
+    <string name="support_email_body">Пожалуйста расскажите об ошибке или просто отправьте этот stacktrace.\n\nКратное описание ошибки:\n\nШаги воспроизведения ошибки:\n\nStacktrace:\n%s</string>
 </resources>

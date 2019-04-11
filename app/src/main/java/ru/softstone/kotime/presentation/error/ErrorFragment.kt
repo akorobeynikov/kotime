@@ -1,6 +1,8 @@
 package ru.softstone.kotime.presentation.error
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_error.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseNavigationFragment
+
 
 class ErrorFragment : BaseNavigationFragment<ErrorPresenter>(), ErrorView {
     companion object {
@@ -42,6 +45,25 @@ class ErrorFragment : BaseNavigationFragment<ErrorPresenter>(), ErrorView {
 
     override fun getBottomNavigationVisibility(): Boolean {
         return false
+    }
+
+    override fun showError(text: String) {
+        error_view.visibility = View.VISIBLE
+        error_view.text = text
+    }
+
+    override fun sendEmail(body: String) {
+        val address = getString(R.string.support_email)
+        val subject = getString(R.string.support_email_subject)
+        val chooserTitle = getString(R.string.email_chooser_title)
+        val emailIntent = Intent(
+            Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto", address, null
+            )
+        )
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        emailIntent.putExtra(Intent.EXTRA_TEXT, body)
+        startActivity(Intent.createChooser(emailIntent, chooserTitle))
     }
 
 }

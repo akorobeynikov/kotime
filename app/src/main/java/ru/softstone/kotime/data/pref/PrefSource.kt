@@ -16,9 +16,6 @@ class PrefSource @Inject constructor(private val pref: SharedPreferences) {
 
     fun getStartTime(defaultValue: Long): Single<Long> {
         return Single.fromCallable {
-            if (defaultValue > -10) {
-                throw IllegalArgumentException("test")
-            }
             pref.getLong(START_TIME_PREF, defaultValue)
         }
     }

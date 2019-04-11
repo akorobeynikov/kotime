@@ -29,4 +29,8 @@
     <string name="error_screen_text">Sorry. There is some technical issues.\nTry to restart the app.</string>
     <string name="send_report">Send report</string>
     <string name="ok" translatable="false" tools:ignore="ButtonCase">Ok</string>
+    <string name="support_email" translatable="false">dev.alex.cor@gmail.com</string>
+    <string name="support_email_subject">Bug report</string>
+    <string name="support_email_body">Please tell me about the bug or just send me this stacktrace.\n\nSummary:\n\nSteps to reproduce:\n\nStacktrace:\n%s</string>
+    <string name="email_chooser_title">Send Email</string>
 </resources>
