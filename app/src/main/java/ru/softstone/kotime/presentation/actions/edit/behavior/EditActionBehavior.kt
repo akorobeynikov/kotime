@@ -28,7 +28,7 @@ class EditActionBehavior(
     private val logger: Logger
 ) : ActionBehavior {
     private val disposeManager = DisposeManager()
-    private lateinit var categories: List<Category>
+    private var categories: List<Category>? = null
     private var selectedCategoryIndex = 0
 
     private lateinit var startTime: Date
@@ -48,8 +48,11 @@ class EditActionBehavior(
                     this.categories = categories
 
                     val selectedCategoryId = action.categoryId
-                    //todo упадет если категория будет неактивная
+
                     selectedCategoryIndex = categories.indexOfFirst { category -> category.id == selectedCategoryId }
+                    if (selectedCategoryIndex == -1) {
+                        selectedCategoryIndex = 0 //если категория отключена
+                    }
                     viewState.showSelectedCategory(categories[selectedCategoryIndex].name)
                     viewState.setDescription(action.description)
                     setStartTime(Date(action.startTime))
@@ -64,13 +67,16 @@ class EditActionBehavior(
     }
 
     override fun onCategoryClick() {
-        //todo может успасть, если пользователь кликнет до получения списка категорий
-        viewState.showCategories(categories.map { it.name })
+        categories?.let { categories ->
+            viewState.showCategories(categories.map { it.name })
+        }
     }
 
     override fun onCategorySelected(index: Int) {
         selectedCategoryIndex = index
-        viewState.showSelectedCategory(categories[selectedCategoryIndex].name)
+        categories?.let { categories ->
+            viewState.showSelectedCategory(categories[selectedCategoryIndex].name)
+        }
     }
 
     private fun setStartTime(date: Date) {
@@ -84,22 +90,24 @@ class EditActionBehavior(
     }
 
     override fun onAddActionClick(description: String) {
-        val categoryId = categories[selectedCategoryIndex].id
-        val action = Action(state.actionId, categoryId, startTime.time, endTime.time, description)
-        disposeManager.addDisposable(
-            actionInteractor.updateActiveAction(action)
-                .subscribeOn(schedulerProvider.ioScheduler())
-                .observeOn(schedulerProvider.mainScheduler())
-                .subscribe({
-                    logger.debug("Action updated")
-                    router.exit()
-                }, {
-                    val wtf = "Can't update action"
-                    logger.error(wtf, it)
-                    errorInteractor.setLastError(wtf, it)
-                    router.navigateTo(ERROR_SCREEN)
-                })
-        )
+        categories?.let { categories ->
+            val categoryId = categories[selectedCategoryIndex].id
+            val action = Action(state.actionId, categoryId, startTime.time, endTime.time, description)
+            disposeManager.addDisposable(
+                actionInteractor.updateActiveAction(action)
+                    .subscribeOn(schedulerProvider.ioScheduler())
+                    .observeOn(schedulerProvider.mainScheduler())
+                    .subscribe({
+                        logger.debug("Action updated")
+                        router.exit()
+                    }, {
+                        val wtf = "Can't update action"
+                        logger.error(wtf, it)
+                        errorInteractor.setLastError(wtf, it)
+                        router.navigateTo(ERROR_SCREEN)
+                    })
+            )
+        }
     }
 
     override fun startTimeChanged(date: Date) {

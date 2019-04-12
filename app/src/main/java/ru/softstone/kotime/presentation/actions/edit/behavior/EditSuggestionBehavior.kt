@@ -35,7 +35,7 @@ class EditSuggestionBehavior(
     private lateinit var startTime: Date
     private lateinit var endTime: Date
 
-    private lateinit var categories: List<Category>
+    private var categories: List<Category>? = null
     private var selectedCategoryIndex = 0
 
     private val calendar = Calendar.getInstance()
@@ -54,8 +54,10 @@ class EditSuggestionBehavior(
                 .subscribe({ categories ->
                     this.categories = categories
                     val selectedCategoryId = state.categoryId
-                    //todo упадет если категория будет неактивная
                     selectedCategoryIndex = categories.indexOfFirst { category -> category.id == selectedCategoryId }
+                    if (selectedCategoryIndex == -1) {
+                        selectedCategoryIndex = 0 //если категория отключена
+                    }
                     viewState.showSelectedCategory(categories[selectedCategoryIndex].name)
                 }, {
                     val wtf = "Can't observe active categories"
@@ -122,22 +124,24 @@ class EditSuggestionBehavior(
     }
 
     override fun onAddActionClick(description: String) {
-        val categoryId = categories[selectedCategoryIndex].id
-        disposeManager.addDisposable(
-            actionInteractor.addAction(categoryId, startTime.time, endTime.time, description)
-                .andThen(timeInteractor.setStartTime(endTime.time))
-                .subscribeOn(schedulerProvider.ioScheduler())
-                .observeOn(schedulerProvider.mainScheduler())
-                .subscribe({
-                    logger.debug("Action added")
-                    router.newRootScreen(TIMER_SCREEN)
-                }, {
-                    val wtf = "Can't add action"
-                    logger.error(wtf, it)
-                    errorInteractor.setLastError(wtf, it)
-                    router.navigateTo(ERROR_SCREEN)
-                })
-        )
+        categories?.let { categories ->
+            val categoryId = categories[selectedCategoryIndex].id
+            disposeManager.addDisposable(
+                actionInteractor.addAction(categoryId, startTime.time, endTime.time, description)
+                    .andThen(timeInteractor.setStartTime(endTime.time))
+                    .subscribeOn(schedulerProvider.ioScheduler())
+                    .observeOn(schedulerProvider.mainScheduler())
+                    .subscribe({
+                        logger.debug("Action added")
+                        router.newRootScreen(TIMER_SCREEN)
+                    }, {
+                        val wtf = "Can't add action"
+                        logger.error(wtf, it)
+                        errorInteractor.setLastError(wtf, it)
+                        router.navigateTo(ERROR_SCREEN)
+                    })
+            )
+        }
     }
 
     override fun onMinusDurationClick() {
@@ -149,13 +153,16 @@ class EditSuggestionBehavior(
     }
 
     override fun onCategoryClick() {
-        //todo может успасть, если пользователь кликнет до получения списка категорий
-        viewState.showCategories(categories.map { it.name })
+        categories?.let { categories ->
+            viewState.showCategories(categories.map { it.name })
+        }
     }
 
     override fun onCategorySelected(index: Int) {
         selectedCategoryIndex = index
-        viewState.showSelectedCategory(categories[selectedCategoryIndex].name)
+        categories?.let { categories ->
+            viewState.showSelectedCategory(categories[selectedCategoryIndex].name)
+        }
     }
 
     private fun updateDuration() {

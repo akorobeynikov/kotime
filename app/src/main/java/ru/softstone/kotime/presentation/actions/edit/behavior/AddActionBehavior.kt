@@ -28,7 +28,7 @@ class AddActionBehavior(
     private lateinit var startTime: Date
     private lateinit var endTime: Date
 
-    private lateinit var categories: List<Category>
+    private var categories: List<Category>? = null
     private var selectedCategoryIndex = 0
 
     override fun start() {
@@ -54,13 +54,16 @@ class AddActionBehavior(
     }
 
     override fun onCategoryClick() {
-        //todo может успасть, если пользователь кликнет до получения списка категорий
-        viewState.showCategories(categories.map { it.name })
+        categories?.let { categories ->
+            viewState.showCategories(categories.map { it.name })
+        }
     }
 
     override fun onCategorySelected(index: Int) {
         selectedCategoryIndex = index
-        viewState.showSelectedCategory(categories[selectedCategoryIndex].name)
+        categories?.let {
+            viewState.showSelectedCategory(it[selectedCategoryIndex].name)
+        }
     }
 
     private fun showTime() {
@@ -90,21 +93,23 @@ class AddActionBehavior(
     }
 
     override fun onAddActionClick(description: String) {
-        val categoryId = categories[selectedCategoryIndex].id
-        disposeManager.addDisposable(
-            actionInteractor.addAction(categoryId, startTime.time, endTime.time, description)
-                .subscribeOn(schedulerProvider.ioScheduler())
-                .observeOn(schedulerProvider.mainScheduler())
-                .subscribe({
-                    logger.debug("Action added")
-                    router.exit()
-                }, {
-                    val wtf = "Can't add action"
-                    logger.error(wtf, it)
-                    errorInteractor.setLastError(wtf, it)
-                    router.navigateTo(ERROR_SCREEN)
-                })
-        )
+        categories?.let { categories ->
+            val categoryId = categories[selectedCategoryIndex].id
+            disposeManager.addDisposable(
+                actionInteractor.addAction(categoryId, startTime.time, endTime.time, description)
+                    .subscribeOn(schedulerProvider.ioScheduler())
+                    .observeOn(schedulerProvider.mainScheduler())
+                    .subscribe({
+                        logger.debug("Action added")
+                        router.exit()
+                    }, {
+                        val wtf = "Can't add action"
+                        logger.error(wtf, it)
+                        errorInteractor.setLastError(wtf, it)
+                        router.navigateTo(ERROR_SCREEN)
+                    })
+            )
+        }
     }
 
     override fun onMinusDurationClick() {

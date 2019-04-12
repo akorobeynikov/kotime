@@ -38,6 +38,7 @@ class CategoryInteractorImpl @Inject constructor(
     }
 
     override fun observeActiveCategories(): Flowable<List<Category>> {
+        //todo кинуть исключение если пустой list
         return categorySource.observeActiveCategories()
     }
 
