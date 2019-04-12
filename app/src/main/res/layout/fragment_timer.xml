@@ -1,77 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/part_toolbar" />
+    <include
+        android:id="@+id/toolbar_layout"
+        layout="@layout/part_toolbar" />
 
-    <Space
-        android:layout_width="match_parent"
+
+    <View
+        android:id="@+id/pulse_view"
+        android:layout_width="288dp"
+        android:layout_height="288dp"
+        android:background="@drawable/accent_color_circle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_layout"
+        tools:scaleX="1.02"
+        tools:scaleY="1.02" />
+
+    <TextView
+        android:id="@+id/timer_view"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="2" />
+        android:background="@drawable/primary_color_circle"
+        android:elevation="4dp"
+        android:gravity="center"
+        android:lines="1"
+        android:padding="16dp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="@id/pulse_view"
+        app:layout_constraintLeft_toLeftOf="@id/pulse_view"
+        app:layout_constraintRight_toRightOf="@id/pulse_view"
+        app:layout_constraintTop_toTopOf="@id/pulse_view"
+        tools:text="00:00:00" />
 
-    <FrameLayout
-        android:layout_width="320dp"
-        android:layout_height="320dp"
-        android:layout_gravity="center_horizontal">
+    <TextView
+        android:id="@+id/add_record_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:elevation="4dp"
+        android:fontFamily="@font/open_sans_bold"
+        android:text="@string/add_record_button"
+        android:textAllCaps="true"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="@id/pulse_view"
+        app:layout_constraintLeft_toLeftOf="@id/pulse_view"
+        app:layout_constraintRight_toRightOf="@id/pulse_view"
+        app:layout_constraintTop_toTopOf="@id/pulse_view"
+        app:layout_constraintVertical_bias="0.83"
+        tools:alpha="1" />
 
-        <View
-            android:id="@+id/pulse_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp"
-            android:background="@drawable/accent_color_circle" />
-
-        <TextView
-            android:id="@+id/timer_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp"
-            android:background="@drawable/primary_color_circle"
-            android:elevation="4dp"
-            android:gravity="center"
-            android:lines="1"
-            android:padding="16dp"
-            app:autoSizeTextType="uniform"
-            tools:text="00:00:00" />
-
-        <TextView
-            android:id="@+id/add_record_label"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_width="wrap_content"
-            android:alpha="0"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="65dp"
-            android:text="@string/add_record_button"
-            android:textAllCaps="true"
-            android:elevation="4dp"
-            android:textColor="@color/colorAccent" />
-
-    </FrameLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <CheckBox
+    <ImageButton
         android:id="@+id/timer_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:background="@drawable/primary_color_circle"
-        android:button="@drawable/timer_button"
-        android:checked="true"
+        android:contentDescription="@null"
         android:elevation="4dp"
         android:gravity="center"
         android:minWidth="0dp"
-        android:minHeight="0dp" />
+        android:minHeight="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pulse_view"
+        tools:src="@drawable/ic_start" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

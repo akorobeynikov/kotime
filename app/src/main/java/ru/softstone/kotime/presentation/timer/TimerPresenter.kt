@@ -67,19 +67,15 @@ class TimerPresenter @Inject constructor(
     fun onTimerControlClick() {
         addDisposable(
             timeInteractor.isStopped()
-                .flatMap { timerIsStopped ->
-                    if (timerIsStopped) {
-                        timeInteractor.resetTimer().toSingleDefault(timerIsStopped)
-                    } else {
-                        timeInteractor.stopTimer().toSingleDefault(timerIsStopped)
-                    }
-                }
                 .subscribeOn(schedulerProvider.ioScheduler())
                 .observeOn(schedulerProvider.mainScheduler())
                 .subscribe(
-                    {
-                        updateTime(0)
-                        viewState.setIsRunning(it)
+                    { isStopped ->
+                        if (isStopped) {
+                            startTimer()
+                        } else {
+                            viewState.showStopTimerDialog()
+                        }
                     },
                     {
                         val wtf = "Can't get the timer state"
@@ -91,8 +87,51 @@ class TimerPresenter @Inject constructor(
         )
     }
 
+    private fun startTimer() {
+        addDisposable(
+            timeInteractor.resetTimer()
+                .subscribeOn(schedulerProvider.ioScheduler())
+                .observeOn(schedulerProvider.mainScheduler())
+                .subscribe(
+                    {
+                        updateTime(0)
+                        viewState.setIsRunning(true)
+                    },
+                    {
+                        val wtf = "Can't start the timer"
+                        logger.error(wtf, it)
+                        errorInteractor.setLastError(wtf, it)
+                        router.navigateTo(ERROR_SCREEN)
+                    }
+                )
+        )
+    }
+
+    private fun stopTimer() {
+        addDisposable(
+            timeInteractor.stopTimer()
+                .subscribeOn(schedulerProvider.ioScheduler())
+                .observeOn(schedulerProvider.mainScheduler())
+                .subscribe(
+                    {
+                        updateTime(0)
+                        viewState.setIsRunning(false)
+                    },
+                    {
+                        val wtf = "Can't stop the timer"
+                        logger.error(wtf, it)
+                        errorInteractor.setLastError(wtf, it)
+                        router.navigateTo(ERROR_SCREEN)
+                    }
+                )
+        )
+    }
+
     fun onAddRecordClick() {
-        //todo проверка, что таймер запущен. перед переходом на экран
         router.navigateTo(SUGGESTION_SCREEN)
+    }
+
+    fun onStopTimer() {
+        stopTimer()
     }
 }

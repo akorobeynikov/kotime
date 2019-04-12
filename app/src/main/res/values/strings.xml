@@ -33,4 +33,6 @@
     <string name="support_email_subject">Bug report</string>
     <string name="support_email_body">Please tell me about the bug or just send me this stacktrace.\n\nSummary:\n\nSteps to reproduce:\n\nStacktrace:\n%s</string>
     <string name="email_chooser_title">Send Email</string>
+    <string name="stop_timer_dialog_title">Stop the timer?</string>
+    <string name="stop_timer_dialog_message">The timer will be reset</string>
 </resources>

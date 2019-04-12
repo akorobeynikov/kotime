@@ -27,4 +27,6 @@
     <string name="email_chooser_title">Отправить Email</string>
     <string name="support_email_subject">Отчет об ошибке</string>
     <string name="support_email_body">Пожалуйста расскажите об ошибке или просто отправьте этот stacktrace.\n\nКратное описание ошибки:\n\nШаги воспроизведения ошибки:\n\nStacktrace:\n%s</string>
+    <string name="stop_timer_dialog_title">Остановить таймер?</string>
+    <string name="stop_timer_dialog_message">Таймер будет обнулен</string>
 </resources>

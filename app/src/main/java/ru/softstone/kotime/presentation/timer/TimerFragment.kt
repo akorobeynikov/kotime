@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.support.AndroidSupportInjection
@@ -18,7 +19,7 @@ import ru.softstone.kotime.presentation.getFormattedDuration
 class TimerFragment : BaseNavigationFragment<TimerPresenter>(), TimerView {
     companion object {
         fun newInstance() = TimerFragment()
-        private const val DEFAUL_ANIMATION_DURATION = 200L
+        private const val DEFAULT_ANIMATION_DURATION = 200L
     }
 
     private lateinit var pulseAnimator: Animator
@@ -53,42 +54,55 @@ class TimerFragment : BaseNavigationFragment<TimerPresenter>(), TimerView {
         pulseAnimator.pause()
     }
 
-    private fun startPulseAnimation() {
-        pulseAnimator.apply {
-            setTarget(pulse_view)
-            start()
-        }
-    }
-
     override fun showTime(seconds: Int) {
         timer_view.text = getFormattedDuration(seconds, true)
+    }
+
+    override fun showStopTimerDialog() {
+        MaterialDialog(context!!).show {
+            title(R.string.stop_timer_dialog_title)
+            message(R.string.stop_timer_dialog_message)
+            negativeButton(android.R.string.no)
+            positiveButton(android.R.string.yes) {
+                presenter.onStopTimer()
+            }
+        }
     }
 
     override fun setIsRunning(running: Boolean) {
         isTimerRunning = running
         timer_view.isClickable = running
         if (running) {
-            add_record_label.animate().apply {
-                alpha(1f)
-                duration = DEFAUL_ANIMATION_DURATION
-            }.start()
-            pulseAnimator.apply {
-                setTarget(pulse_view)
-                start()
-            }
+            timer_button.setImageResource(R.drawable.ic_stop)
+            startAnimation()
         } else {
-            pulseAnimator.cancel()
-            pulse_view.animate().apply {
-                scaleX(1f)
-                scaleY(1f)
-                duration = DEFAUL_ANIMATION_DURATION
-            }.start()
-            add_record_label.animate().apply {
-                alpha(0f)
-                duration = DEFAUL_ANIMATION_DURATION
-            }.start()
+            timer_button.setImageResource(R.drawable.ic_start)
+            stopAnimation()
         }
-        timer_button.isChecked = running
+    }
+
+    private fun startAnimation() {
+        add_record_label.animate().apply {
+            alpha(1f)
+            duration = DEFAULT_ANIMATION_DURATION
+        }.start()
+        pulseAnimator.apply {
+            setTarget(pulse_view)
+            start()
+        }
+    }
+
+    private fun stopAnimation() {
+        pulseAnimator.cancel()
+        pulse_view.animate().apply {
+            scaleX(1f)
+            scaleY(1f)
+            duration = DEFAULT_ANIMATION_DURATION
+        }.start()
+        add_record_label.animate().apply {
+            alpha(0f)
+            duration = DEFAULT_ANIMATION_DURATION
+        }.start()
     }
 
     @ProvidePresenter
