@@ -24,4 +24,16 @@ interface ActionView : BaseView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun showSelectedCategory(categoryName: String)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun showStartTimeError(text: String?)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun showEndTimeError(text: String?)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun enableNextButton(enabled: Boolean)
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun showOverlapWarning()
 }

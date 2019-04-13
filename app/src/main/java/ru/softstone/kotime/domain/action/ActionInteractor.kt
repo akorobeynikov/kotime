@@ -17,4 +17,5 @@ interface ActionInteractor {
     fun getActionState(): Single<ActionState>
     fun getAction(actionId: Int): Single<Action>
     fun updateActiveAction(action: Action): Completable
+    fun checkOverlap(startTime: Date, endTime: Date, exceptActionId: Int?): Single<Boolean>
 }

@@ -6,6 +6,8 @@ import dagger.Component
 import ru.softstone.kotime.data.DataModule
 import ru.softstone.kotime.domain.DomainModule
 import ru.softstone.kotime.presentation.PresentationModule
+import ru.softstone.kotime.presentation.actions.edit.delegate.di.ActionDelegateComponent
+import ru.softstone.kotime.presentation.actions.edit.delegate.di.ActionDelegateModule
 import javax.inject.Singleton
 
 
@@ -28,6 +30,8 @@ interface AppComponent {
 
         fun build(): AppComponent
     }
+
+    fun actionDelegateComponent(module: ActionDelegateModule): ActionDelegateComponent
 
     fun inject(app: App)
 }

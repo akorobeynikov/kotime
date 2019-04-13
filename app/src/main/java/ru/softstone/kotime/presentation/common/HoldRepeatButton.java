@@ -27,10 +27,21 @@ public final class HoldRepeatButton extends MaterialButton {
         init();
     }
 
+    @Override
+    public void setEnabled(boolean enabled) {
+        if (!enabled) {
+            removeCallbacks(repeatClickWhileButtonHeldRunnable);
+            setPressed(false);
+        }
+        super.setEnabled(enabled);
+    }
+
     private void init() {
         repeatClickWhileButtonHeldRunnable = () -> {
-            performClick();
-            postDelayed(repeatClickWhileButtonHeldRunnable, REPEAT_INTERVAL);
+            if (isEnabled()) {
+                performClick();
+                postDelayed(repeatClickWhileButtonHeldRunnable, REPEAT_INTERVAL);
+            }
         };
         setOnTouchListener((v, event) -> {
             int action = event.getAction();

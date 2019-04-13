@@ -7,6 +7,7 @@ import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.datetime.timePicker
@@ -61,7 +62,7 @@ class ActionFragment : BaseNavigationFragment<ActionPresenter>(), ActionView {
         next_button.setOnClickListener {
             hideKeyboard(context!!)
             val description = text_field.text.toString()
-            presenter.onAddActionClick(description)
+            presenter.checkOverlapAddAction(description)
         }
         category_layout.setOnClickListener {
             presenter.onCategoryClick()
@@ -81,6 +82,8 @@ class ActionFragment : BaseNavigationFragment<ActionPresenter>(), ActionView {
             duration_layout.visibility = View.VISIBLE
             duration_divider.visibility = View.VISIBLE
         }
+        plus_button.isEnabled = correctionSeconds <= -300 // todo магические 5 минут
+        minus_button.isEnabled = seconds >= 300 // todo магические 5 минут
         val duration = getFormattedDuration(seconds)
         val correction = getFormattedDuration(correctionSeconds, showSign = true)
         duration_view.text = getString(R.string.duration_with_correction, duration, correction)
@@ -93,7 +96,12 @@ class ActionFragment : BaseNavigationFragment<ActionPresenter>(), ActionView {
             timePicker(
                 currentTime = calendar,
                 show24HoursView = DateFormat.is24HourFormat(context)
-            ) { _, datetime -> listener.invoke(datetime.time) }
+            ) { _, datetime ->
+                calendar.set(Calendar.HOUR_OF_DAY, datetime.get(Calendar.HOUR_OF_DAY))
+                calendar.set(Calendar.MINUTE, datetime.get(Calendar.MINUTE))
+                calendar.set(Calendar.SECOND, datetime.get(Calendar.SECOND))
+                listener.invoke(calendar.time)
+            }
         }
     }
 
@@ -101,7 +109,7 @@ class ActionFragment : BaseNavigationFragment<ActionPresenter>(), ActionView {
         hideKeyboard(context!!)
         val calendar = Calendar.getInstance().apply { time = default ?: Date() }
         MaterialDialog(context!!).show {
-            datePicker(currentDate = calendar) { _, datetime ->
+            datePicker(currentDate = calendar, maxDate = Calendar.getInstance()) { _, datetime ->
                 calendar.set(datetime.get(Calendar.YEAR), datetime.get(Calendar.MONTH), datetime.get(Calendar.DATE))
                 listener.invoke(calendar.time)
             }
@@ -137,6 +145,39 @@ class ActionFragment : BaseNavigationFragment<ActionPresenter>(), ActionView {
 
     override fun showSelectedCategory(categoryName: String) {
         category_view.text = categoryName
+    }
+
+    override fun showStartTimeError(text: String?) {
+        showErrorOn(from_date_error_view, text)
+    }
+
+    override fun showEndTimeError(text: String?) {
+        showErrorOn(to_date_error_view, text)
+    }
+
+    private fun showErrorOn(view: TextView, text: String?) {
+        if (text.isNullOrBlank()) {
+            view.visibility = View.GONE
+        } else {
+            view.text = text
+            view.visibility = View.VISIBLE
+        }
+    }
+
+    override fun enableNextButton(enabled: Boolean) {
+        next_button.isEnabled = enabled
+    }
+
+    override fun showOverlapWarning() {
+        val description = text_field.text.toString()
+        MaterialDialog(context!!).show {
+            title(R.string.overlap_dialog_title)
+            message(R.string.overlap_dialog_message)
+            negativeButton(android.R.string.no)
+            positiveButton(R.string.overlap_dialog_positive_button) {
+                presenter.addAction(description)
+            }
+        }
     }
 
     private fun getFormattedTime(date: Date): String {

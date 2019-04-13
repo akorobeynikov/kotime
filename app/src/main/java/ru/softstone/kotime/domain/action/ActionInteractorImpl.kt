@@ -43,9 +43,6 @@ class ActionInteractorImpl @Inject constructor(
         // todo вынести получение таймстампов
         val calendar = Calendar.getInstance()
         calendar.time = date
-//        if (calendar.get(Calendar.HOUR_OF_DAY) < 4) {
-//            calendar.add(Calendar.DATE, -1)
-//        }
         calendar.set(Calendar.HOUR_OF_DAY, 4)
         calendar.set(Calendar.MINUTE, 0)
         calendar.set(Calendar.SECOND, 0)
@@ -75,5 +72,10 @@ class ActionInteractorImpl @Inject constructor(
 
     override fun updateActiveAction(action: Action): Completable {
         return actionSource.updateActiveAction(action)
+    }
+
+    override fun checkOverlap(startTime: Date, endTime: Date, exceptActionId: Int?): Single<Boolean> {
+        return actionSource.getOverlapCount(exceptActionId, startTime.time, endTime.time)
+            .map { count -> count > 0 }
     }
 }

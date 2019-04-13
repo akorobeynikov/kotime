@@ -13,6 +13,7 @@
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
     <color name="divider">#575757</color>
     <color name="error">#FF0000</color>
+    <color name="disabled">#929292</color>
 
     <!--todo удалить лишнее-->
     <color name="colorBackground">#ffffff</color>

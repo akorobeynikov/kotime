@@ -74,4 +74,10 @@ interface ActionDao {
 
     @Query("UPDATE `action` SET active = :active WHERE uid = :actionId")
     fun setStatus(actionId: Int, active: Boolean): Completable
+
+    @Query("SELECT COUNT(uid) FROM `action` WHERE active = 1 AND end_time > :startTime AND start_time < :endTime")
+    fun getOverlapCount(startTime: Long, endTime: Long): Single<Int>
+
+    @Query("SELECT COUNT(uid) FROM `action` WHERE active = 1 AND end_time > :startTime AND start_time < :endTime AND uid <> :exceptActionId")
+    fun getOverlapCount(exceptActionId: Int, startTime: Long, endTime: Long): Single<Int>
 }

@@ -67,4 +67,13 @@ class ActionSourceImpl @Inject constructor(private val actionDao: ActionDao) : A
             )
         )
     }
+
+    override fun getOverlapCount(exceptActionId: Int?, startTime: Long, endTime: Long): Single<Int> {
+        return if (exceptActionId != null) {
+            actionDao.getOverlapCount(exceptActionId, startTime, endTime)
+        } else {
+            actionDao.getOverlapCount(startTime, endTime)
+        }
+    }
+
 }

@@ -30,6 +30,7 @@
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/button_background"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/open_sans_semibold"
             android:minHeight="0dp"

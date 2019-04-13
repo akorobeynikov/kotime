@@ -15,4 +15,5 @@ interface ActionSource {
     fun setStatus(actionId: Int, active: Boolean): Completable
     fun getAction(actionId: Int): Single<Action>
     fun updateActiveAction(action: Action): Completable
+    fun getOverlapCount(exceptActionId: Int?, startTime: Long, endTime: Long): Single<Int>
 }
