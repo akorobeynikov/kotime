@@ -31,6 +31,8 @@ class CategoriesFragment : BaseNavigationFragment<CategoriesPresenter>(),
     @Inject
     lateinit var rvController: CategoriesRvController
 
+    private var swipeEnabled = false
+
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
@@ -60,6 +62,10 @@ class CategoriesFragment : BaseNavigationFragment<CategoriesPresenter>(),
             .leftAndRight()
             .withTarget(CategoryItemModel::class.java)
             .andCallbacks(object : EpoxyTouchHelper.SwipeCallbacks<CategoryItemModel>() {
+                override fun isSwipeEnabledForModel(model: CategoryItemModel?): Boolean {
+                    return super.isSwipeEnabledForModel(model) and swipeEnabled
+                }
+
                 override fun onSwipeCompleted(
                     model: CategoryItemModel?,
                     itemView: View?,
@@ -117,6 +123,8 @@ class CategoriesFragment : BaseNavigationFragment<CategoriesPresenter>(),
     }
 
     override fun showCategories(categories: List<Category>) {
+        swipeEnabled =
+            categories.count() > 1 // запрещаем удалять свайпом, если осталась одна категория //todo это бизнес логика. лучше вынести из фрагмента
         rvController.setData(categories)
     }
 
