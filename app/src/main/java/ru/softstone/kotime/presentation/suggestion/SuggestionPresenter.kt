@@ -78,7 +78,7 @@ class SuggestionPresenter @Inject constructor(
         if (description.isBlank()) {
             showGeneralSuggestions()
         } else {
-            showSuggestionsFor(description)
+            showSuggestionsFor(description.trim())
         }
     }
 

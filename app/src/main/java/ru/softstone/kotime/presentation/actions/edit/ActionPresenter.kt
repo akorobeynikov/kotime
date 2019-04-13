@@ -214,7 +214,7 @@ class ActionPresenter @Inject constructor(
         val categories = this.categories
         if (!hasError && delegate != null && categories != null) {
             addDisposable(
-                delegate.saveAction(categories[selectedCategoryIndex].id, description, startDate, endDate)
+                delegate.saveAction(categories[selectedCategoryIndex].id, description.trim(), startDate, endDate)
                     .subscribeOn(schedulerProvider.ioScheduler())
                     .observeOn(schedulerProvider.mainScheduler())
                     .subscribe({

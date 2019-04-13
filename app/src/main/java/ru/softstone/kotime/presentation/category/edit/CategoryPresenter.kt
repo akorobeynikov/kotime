@@ -53,7 +53,7 @@ class CategoryPresenter @Inject constructor(
         categoryName: String,
         selectedGoalType: CategoryGoalType
     ) {
-        behavior.onNextClick(categoryName, selectedGoalType)
+        behavior.onNextClick(categoryName.trim(), selectedGoalType)
     }
 
     private fun getBehavior(state: CategoryState): CategoryBehavior {
