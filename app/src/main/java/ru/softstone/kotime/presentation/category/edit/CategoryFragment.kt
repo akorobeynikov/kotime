@@ -2,6 +2,8 @@ package ru.softstone.kotime.presentation.category.edit
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,7 +47,24 @@ class CategoryFragment : BaseNavigationFragment<CategoryPresenter>(), CategoryVi
             hideKeyboard(context!!)
             presenter.onBackPressed()
         }
+        text_field.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                presenter.onCategoryNameChange(s.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // do nothing
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // do nothing
+            }
+        })
         showSoftKeyboard(text_field)
+    }
+
+    override fun enableNextButton(enabled: Boolean) {
+        next_button.isEnabled = enabled
     }
 
     private fun getSelectedGoalType(): CategoryGoalType {

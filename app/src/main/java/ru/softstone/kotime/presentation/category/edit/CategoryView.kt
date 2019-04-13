@@ -11,4 +11,7 @@ interface CategoryView : BaseView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun showGoalType(categoryGoalType: CategoryGoalType)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun enableNextButton(enabled: Boolean)
 }

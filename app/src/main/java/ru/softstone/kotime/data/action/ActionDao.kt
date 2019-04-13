@@ -24,6 +24,7 @@ interface ActionDao {
         FROM `action`
         INNER JOIN category ON `action`.category_id = category.uid
         WHERE `action`.active = 1 AND end_time > :startTime AND start_time < :endTime
+        ORDER BY `action`.end_time ASC
         """
     )
     fun getActiveBetween(startTime: Long, endTime: Long): Flowable<List<ActionAndCategoryData>>

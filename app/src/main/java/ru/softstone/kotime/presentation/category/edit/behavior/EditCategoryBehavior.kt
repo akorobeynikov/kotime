@@ -27,6 +27,7 @@ class EditCategoryBehavior(
                 .subscribeOn(schedulerProvider.ioScheduler())
                 .observeOn(schedulerProvider.mainScheduler())
                 .subscribe({
+                    viewState.enableNextButton(true)
                     viewState.showCategoryName(it.name)
                     viewState.showGoalType(it.goalType)
                 }, {

@@ -46,6 +46,7 @@ class CategoryPresenter @Inject constructor(
                     }
                 )
         )
+        viewState.enableNextButton(false)
     }
 
     fun onNextClick(
@@ -83,5 +84,9 @@ class CategoryPresenter @Inject constructor(
 
     fun onBackPressed() {
         router.exit()
+    }
+
+    fun onCategoryNameChange(text: String) {
+        viewState.enableNextButton(!text.isBlank())
     }
 }
