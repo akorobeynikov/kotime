@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.support.AndroidSupportInjection
@@ -60,6 +61,15 @@ class CategoryFragment : BaseNavigationFragment<CategoryPresenter>(), CategoryVi
                 // do nothing
             }
         })
+        text_field.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val categoryName = text_field.text.toString()
+                presenter.onNextClick(categoryName, getSelectedGoalType())
+                true
+            } else {
+                false
+            }
+        }
         showSoftKeyboard(text_field)
     }
 

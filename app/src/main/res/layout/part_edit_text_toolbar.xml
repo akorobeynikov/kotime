@@ -42,9 +42,12 @@
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/text_field"
         android:layout_width="match_parent"
+        android:imeOptions="actionDone"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:lines="1"
+        android:inputType="text"
         android:layout_marginBottom="16dp"
         android:background="@color/colorPrimary"
         android:hint="@string/action_descriptions_hint" />

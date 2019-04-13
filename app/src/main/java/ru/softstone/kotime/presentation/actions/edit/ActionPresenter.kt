@@ -187,24 +187,27 @@ class ActionPresenter @Inject constructor(
     }
 
     fun checkOverlapAddAction(description: String) {
-        delegate?.let {
-            addDisposable(
-                it.checkOverlap(startDate, endDate)
-                    .subscribeOn(schedulerProvider.ioScheduler())
-                    .observeOn(schedulerProvider.mainScheduler())
-                    .subscribe({ hasOverlap ->
-                        if (hasOverlap) {
-                            viewState.showOverlapWarning()
-                        } else {
-                            addAction(description)
-                        }
-                    }, {
-                        val wtf = "Can't check overlap"
-                        logger.error(wtf, it)
-                        errorInteractor.setLastError(wtf, it)
-                        router.navigateTo(ERROR_SCREEN)
-                    })
-            )
+        val hasError = validateAndShowErrors()
+        if (!hasError) {
+            delegate?.let {
+                addDisposable(
+                    it.checkOverlap(startDate, endDate)
+                        .subscribeOn(schedulerProvider.ioScheduler())
+                        .observeOn(schedulerProvider.mainScheduler())
+                        .subscribe({ hasOverlap ->
+                            if (hasOverlap) {
+                                viewState.showOverlapWarning()
+                            } else {
+                                addAction(description)
+                            }
+                        }, {
+                            val wtf = "Can't check overlap"
+                            logger.error(wtf, it)
+                            errorInteractor.setLastError(wtf, it)
+                            router.navigateTo(ERROR_SCREEN)
+                        })
+                )
+            }
         }
     }
 

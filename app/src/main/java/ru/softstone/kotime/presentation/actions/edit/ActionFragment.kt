@@ -7,6 +7,7 @@ import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
@@ -74,7 +75,15 @@ class ActionFragment : BaseNavigationFragment<ActionPresenter>(), ActionView {
             hideKeyboard(context!!)
             presenter.onBackPressed()
         }
-
+        text_field.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val description = text_field.text.toString()
+                presenter.checkOverlapAddAction(description)
+                true
+            } else {
+                false
+            }
+        }
     }
 
     override fun showDuration(seconds: Int, correctionSeconds: Int) {
