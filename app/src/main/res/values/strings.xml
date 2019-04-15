@@ -37,7 +37,10 @@
     <string name="stop_timer_dialog_message">The timer will be reset</string>
     <string name="furure_time_error">Must be in the past.</string>
     <string name="start_before_end_error">Must start before the end.</string>
-    <string name="overlap_dialog_title">overlap_dialog_title</string>
-    <string name="overlap_dialog_message">overlap_dialog_message</string>
+    <string name="overlap_dialog_title">todo</string>
+    <string name="overlap_dialog_message">todo</string>
     <string name="overlap_dialog_positive_button">overlap it</string>
+    <string name="contribute_title">Contribute</string>
+    <string name="contribute_text1">This app helps me to be more productive and less lazy. I hope it\'s same for you.\nI\'ll be greatly appreciate any help. If you would like to support this project, there is a several options:</string>
+    <string name="rate_button">Rate</string>
 </resources>

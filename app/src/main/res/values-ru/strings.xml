@@ -34,4 +34,7 @@
     <string name="overlap_dialog_title">Наложнение записей</string>
     <string name="overlap_dialog_message">Выбранное время совпадает с временем прошлих записей.\\nЗаписать в любом случае?</string>
     <string name="overlap_dialog_positive_button">Записать</string>
+    <string name="contribute_title">todo</string>
+    <string name="contribute_text1">todo</string>
+    <string name="rate_button">Оценить</string>
 </resources>
