@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -12,39 +12,39 @@
         android:layout_height="?attr/actionBarSize">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
 
             <ImageButton
                 android:id="@+id/back_button"
                 android:layout_width="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
                 android:layout_height="match_parent"
                 android:background="?android:selectableItemBackgroundBorderless"
                 android:contentDescription="@null"
-                android:tint="@color/iconColorOnPrimary"
-                android:src="@drawable/ic_arrow_back" />
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:src="@drawable/ic_arrow_back"
+                android:tint="@color/iconColorOnPrimary" />
 
             <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:text="@string/contribute_title"
-                android:textSize="18sp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
-        android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_margin="16dp"
         android:text="@string/contribute_text1" />
 
     <com.google.android.material.button.MaterialButton
@@ -52,13 +52,13 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:text="@string/rate_button"
-        android:fontFamily="@font/open_sans_semibold"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="@null"
+        android:fontFamily="@font/open_sans_semibold"
+        android:text="@string/rate_button"
+        android:textAllCaps="false"
         android:textColor="@color/button_background"
         android:textSize="16sp"
         app:strokeColor="@color/button_background" />
@@ -68,47 +68,61 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        tools:text="9.99 $"
-        android:fontFamily="@font/open_sans_semibold"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="@null"
+        android:fontFamily="@font/open_sans_semibold"
+        android:textAllCaps="false"
         android:textColor="@color/button_background"
         android:textSize="16sp"
-        app:strokeColor="@color/button_background" />
+        android:visibility="gone"
+        app:strokeColor="@color/button_background"
+        tools:text="9.99 $"
+        tools:visibility="visible" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/donate2_button"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        tools:text="4,99 $"
-        android:fontFamily="@font/open_sans_semibold"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="@null"
+        android:fontFamily="@font/open_sans_semibold"
+        android:textAllCaps="false"
         android:textColor="@color/button_background"
         android:textSize="16sp"
-        app:strokeColor="@color/button_background" />
+        android:visibility="gone"
+        app:strokeColor="@color/button_background"
+        tools:text="4,99 $"
+        tools:visibility="visible" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/donate1_button"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        tools:text="2,99 $"
-        android:fontFamily="@font/open_sans_semibold"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:contentDescription="@null"
+        android:fontFamily="@font/open_sans_semibold"
+        android:textAllCaps="false"
         android:textColor="@color/button_background"
         android:textSize="16sp"
-        app:strokeColor="@color/button_background" />
+        android:visibility="gone"
+        app:strokeColor="@color/button_background"
+        tools:text="2,99 $"
+        tools:visibility="visible" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/contribute_text2" />
 
 </LinearLayout>

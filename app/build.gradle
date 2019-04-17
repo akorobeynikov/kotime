@@ -34,7 +34,9 @@ android {
             applicationIdSuffix ".debug"
         }
         release {
-            minifyEnabled false
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
@@ -109,6 +111,9 @@ dependencies {
     implementation "com.afollestad.material-dialogs:core:$dialog_version"
     //noinspection GradleDependency
     implementation "com.afollestad.material-dialogs:datetime:$dialog_version"
+
+    // Google Play Billing
+    implementation 'com.android.billingclient:billing:1.2.2'
 }
 
 kapt {

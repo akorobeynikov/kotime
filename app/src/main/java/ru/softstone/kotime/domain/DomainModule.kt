@@ -4,6 +4,8 @@ import dagger.Binds
 import dagger.Module
 import ru.softstone.kotime.domain.action.ActionInteractor
 import ru.softstone.kotime.domain.action.ActionInteractorImpl
+import ru.softstone.kotime.domain.billing.BillingInteractor
+import ru.softstone.kotime.domain.billing.BillingInteractorImpl
 import ru.softstone.kotime.domain.category.CategoryInteractor
 import ru.softstone.kotime.domain.category.CategoryInteractorImpl
 import ru.softstone.kotime.domain.error.ErrorInteractor
@@ -43,5 +45,9 @@ class DomainModule {
         @Binds
         @Singleton
         fun bindErrornteractor(interactorImpl: ErrorInteractorImpl): ErrorInteractor
+
+        @Binds
+        @Singleton
+        fun bindBillingInteractor(interactorImpl: BillingInteractorImpl): BillingInteractor
     }
 }

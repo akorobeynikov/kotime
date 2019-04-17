@@ -14,6 +14,7 @@ import ru.softstone.kotime.architecture.data.StateStorageImpl
 import ru.softstone.kotime.architecture.domain.Logger
 import ru.softstone.kotime.architecture.domain.StateStorage
 import ru.softstone.kotime.data.action.ActionSourceImpl
+import ru.softstone.kotime.data.billing.ReactivePlayBilling
 import ru.softstone.kotime.data.category.CategorySourceImpl
 import ru.softstone.kotime.data.storage.AppDatabase
 import ru.softstone.kotime.data.storage.DatabasePopulater
@@ -21,6 +22,7 @@ import ru.softstone.kotime.data.storage.MIGRATION_1_2
 import ru.softstone.kotime.data.string.StringProviderImpl
 import ru.softstone.kotime.data.time.TimeSourceImpl
 import ru.softstone.kotime.domain.action.ActionSource
+import ru.softstone.kotime.domain.billing.BillingSource
 import ru.softstone.kotime.domain.category.CategorySource
 import ru.softstone.kotime.domain.common.StringProvider
 import ru.softstone.kotime.domain.time.TimeSource
@@ -62,6 +64,10 @@ class DataModule {
         @Binds
         @Singleton
         fun bindStringProvider(provider: StringProviderImpl): StringProvider
+
+        @Binds
+        @Singleton
+        fun bindBillingSource(source: ReactivePlayBilling): BillingSource
     }
 
     @Provides

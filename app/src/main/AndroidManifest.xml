@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ru.softstone.kotime">
 
+    <uses-permission android:name="com.android.vending.BILLING" />
     <!--todo implement adaptive icon https://proandroiddev.com/android-adaptive-icons-are-easier-than-you-think-3c66be2dd4dd-->
     <application
         android:name=".App"

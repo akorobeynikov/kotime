@@ -29,7 +29,7 @@
     <string name="error_screen_text">Sorry. There is some technical issues.\nTry to restart the app.</string>
     <string name="send_report">Send report</string>
     <string name="ok" translatable="false" tools:ignore="ButtonCase">Ok</string>
-    <string name="support_email" translatable="false">dev.alex.cor@gmail.com</string>
+    <string name="support_email" translatable="false">dev.alex.kor@gmail.com</string>
     <string name="support_email_subject">Bug report</string>
     <string name="support_email_body">Please tell me about the bug or just send me this stacktrace.\n\nSummary:\n\nSteps to reproduce:\n\nStacktrace:\n%s</string>
     <string name="email_chooser_title">Send Email</string>
@@ -41,6 +41,7 @@
     <string name="overlap_dialog_message">todo</string>
     <string name="overlap_dialog_positive_button">overlap it</string>
     <string name="contribute_title">Contribute</string>
-    <string name="contribute_text1">This app helps me to be more productive and less lazy. I hope it\'s same for you.\nI\'ll be greatly appreciate any help. If you would like to support this project, there is a several options:</string>
+    <string name="contribute_text1">If you would like to support this project, there is a several options:</string>
+    <string name="contribute_text2">I\'ll be greatly appreciate any help. Thank\u00A0you!</string>
     <string name="rate_button">Rate</string>
 </resources>
