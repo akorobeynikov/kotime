@@ -43,6 +43,7 @@ class TimerFragment : BaseNavigationFragment<TimerPresenter>(), TimerView {
         timer_button.setOnClickListener { presenter.onTimerControlClick() }
         timer_view.setOnClickListener { presenter.onAddRecordClick() }
         contribute_button.setOnClickListener { presenter.onContributeClick() }
+        about_button.setOnClickListener { presenter.onAboutClick() }
     }
 
     override fun onResume() {

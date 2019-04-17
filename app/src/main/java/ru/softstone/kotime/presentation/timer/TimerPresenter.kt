@@ -7,6 +7,7 @@ import ru.softstone.kotime.architecture.domain.Logger
 import ru.softstone.kotime.architecture.presentation.BasePresenter
 import ru.softstone.kotime.domain.error.ErrorInteractor
 import ru.softstone.kotime.domain.time.TimeInteractor
+import ru.softstone.kotime.presentation.ABOUT_SCREEN
 import ru.softstone.kotime.presentation.CONTRIBUTE_SCREEN
 import ru.softstone.kotime.presentation.ERROR_SCREEN
 import ru.softstone.kotime.presentation.SUGGESTION_SCREEN
@@ -138,5 +139,9 @@ class TimerPresenter @Inject constructor(
 
     fun onContributeClick() {
         router.navigateTo(CONTRIBUTE_SCREEN)
+    }
+
+    fun onAboutClick() {
+        router.navigateTo(ABOUT_SCREEN)
     }
 }

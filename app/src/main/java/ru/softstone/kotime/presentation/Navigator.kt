@@ -4,6 +4,7 @@ import android.app.Activity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import ru.softstone.kotime.architecture.presentation.BaseNavigator
+import ru.softstone.kotime.presentation.about.AboutFragment
 import ru.softstone.kotime.presentation.actions.edit.ActionFragment
 import ru.softstone.kotime.presentation.actions.list.ActionsFragment
 import ru.softstone.kotime.presentation.category.edit.CategoryFragment
@@ -29,6 +30,7 @@ class Navigator(activity: Activity, containerId: Int, fragmentManager: FragmentM
         STAT_SCREEN -> StatFragment.newInstance()
         ERROR_SCREEN -> ErrorFragment.newInstance()
         CONTRIBUTE_SCREEN -> ContributeFragment.newInstance()
+        ABOUT_SCREEN -> AboutFragment.newInstance()
         else -> throw IllegalStateException("Unknown screenKey: $screenKey")
     }
 }

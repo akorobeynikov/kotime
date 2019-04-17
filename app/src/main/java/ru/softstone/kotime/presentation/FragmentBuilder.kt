@@ -2,6 +2,8 @@ package ru.softstone.kotime.presentation
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import ru.softstone.kotime.presentation.about.AboutFragment
+import ru.softstone.kotime.presentation.about.AboutModule
 import ru.softstone.kotime.presentation.actions.edit.ActionFragment
 import ru.softstone.kotime.presentation.actions.edit.ActionModule
 import ru.softstone.kotime.presentation.actions.list.ActionsFragment
@@ -54,4 +56,7 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector(modules = [ContributeModule::class])
     internal abstract fun bindContributeFragment(): ContributeFragment
+
+    @ContributesAndroidInjector(modules = [AboutModule::class])
+    internal abstract fun bindActionFragment(): AboutFragment
 }
