@@ -35,13 +35,21 @@
     <string name="email_chooser_title">Send Email</string>
     <string name="stop_timer_dialog_title">Stop the timer?</string>
     <string name="stop_timer_dialog_message">The timer will be reset</string>
-    <string name="furure_time_error">Must be in the past.</string>
+    <string name="future_time_error">Must be in the past.</string>
     <string name="start_before_end_error">Must start before the end.</string>
-    <string name="overlap_dialog_title">todo</string>
-    <string name="overlap_dialog_message">todo</string>
+    <string name="overlap_dialog_title">Overlap</string>
+    <string name="overlap_dialog_message">This record will overlap some other records. Continue?</string>
     <string name="overlap_dialog_positive_button">overlap it</string>
     <string name="contribute_title">Contribute</string>
     <string name="contribute_text1">If you would like to support this project, there is a several options:</string>
     <string name="contribute_text2">I\'ll be greatly appreciate any help. Thank\u00A0you!</string>
     <string name="rate_button">Rate</string>
+    <string name="about_title">About</string>
+    <string name="share_button">Share</string>
+    <string name="version">Version %s</string>
+    <string name="about_description">This app helps me to be more productive and less lazy. I\u00A0hope it would be useful for you too.</string>
+    <string name="suggest_improvement_button">Suggest improvement</string>
+    <string name="improvement_email_subject" translatable="false">Improvement suggestion</string>
+    <string name="developer">Developer</string>
+
 </resources>

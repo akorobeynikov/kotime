@@ -29,7 +29,7 @@
     <string name="support_email_body">Пожалуйста расскажите об ошибке или просто отправьте этот stacktrace.\n\nКратное описание ошибки:\n\nШаги воспроизведения ошибки:\n\nStacktrace:\n%s</string>
     <string name="stop_timer_dialog_title">Остановить таймер?</string>
     <string name="stop_timer_dialog_message">Таймер будет обнулен</string>
-    <string name="furure_time_error">Должно быть в прошлом.</string>
+    <string name="future_time_error">Должно быть в прошлом.</string>
     <string name="start_before_end_error">Активность должна начинаться до завершения.</string>
     <string name="overlap_dialog_title">Наложнение записей</string>
     <string name="overlap_dialog_message">Выбранное время совпадает с временем прошлих записей.\\nЗаписать в любом случае?</string>
@@ -38,4 +38,10 @@
     <string name="contribute_text1">todo</string>
     <string name="rate_button">Оценить</string>
     <string name="contribute_text2">todo</string>
+    <string name="about_title">О приложении</string>
+    <string name="version">Версия %s</string>
+    <string name="share_button">Рассказать друзьям</string>
+    <string name="about_description">todo</string>
+    <string name="suggest_improvement_button">Предложить улучшение</string>
+    <string name="developer">Разработчик</string>
 </resources>

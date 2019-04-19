@@ -47,6 +47,29 @@ class ContributeFragment : BaseNavigationFragment<ContributePresenter>(), Contri
             intent.data = Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}")
             startActivity(intent)
         }
+        share_button.setOnClickListener {
+            val sendIntent = Intent()
+            sendIntent.action = Intent.ACTION_SEND
+            sendIntent.putExtra(
+                Intent.EXTRA_TEXT,
+                "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}"
+            )
+            sendIntent.type = "text/plain"
+            startActivity(sendIntent)
+        }
+        suggest_button.setOnClickListener {
+            val address = getString(R.string.support_email)
+            val subject = getString(R.string.improvement_email_subject)
+            val chooserTitle = getString(R.string.email_chooser_title)
+            val emailIntent = Intent(
+                Intent.ACTION_SENDTO, Uri.fromParts(
+                    "mailto", address, null
+                )
+            )
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+            startActivity(Intent.createChooser(emailIntent, chooserTitle))
+
+        }
     }
 
     override fun showPrices(price1: String, price2: String, price3: String) {

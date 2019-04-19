@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
@@ -48,6 +48,22 @@
         android:text="@string/contribute_text1" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/suggest_button"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@null"
+        android:fontFamily="@font/open_sans_semibold"
+        android:text="@string/suggest_improvement_button"
+        android:textAllCaps="false"
+        android:textColor="@color/button_background"
+        android:textSize="16sp"
+        app:strokeColor="@color/button_background" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/rate_button"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
@@ -58,6 +74,22 @@
         android:contentDescription="@null"
         android:fontFamily="@font/open_sans_semibold"
         android:text="@string/rate_button"
+        android:textAllCaps="false"
+        android:textColor="@color/button_background"
+        android:textSize="16sp"
+        app:strokeColor="@color/button_background" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/share_button"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@null"
+        android:fontFamily="@font/open_sans_semibold"
+        android:text="@string/share_button"
         android:textAllCaps="false"
         android:textColor="@color/button_background"
         android:textSize="16sp"

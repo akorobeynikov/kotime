@@ -128,11 +128,11 @@ class ActionPresenter @Inject constructor(
         var hasError = false
         if (isFuture(startDate)) {
             hasError = true
-            startTimeError += stringProvider.getString(R.string.furure_time_error) + " "
+            startTimeError += stringProvider.getString(R.string.future_time_error) + " "
         }
         if (isFuture(endDate)) {
             hasError = true
-            endTimeError += stringProvider.getString(R.string.furure_time_error) + " "
+            endTimeError += stringProvider.getString(R.string.future_time_error) + " "
         }
         if (startDate > endDate) {
             hasError = true
