@@ -51,5 +51,6 @@
     <string name="suggest_improvement_button">Suggest improvement</string>
     <string name="improvement_email_subject" translatable="false">Improvement suggestion</string>
     <string name="developer">Developer</string>
+    <string name="special_thanks">Special thanks:\n-</string>
 
 </resources>
