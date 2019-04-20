@@ -105,8 +105,7 @@ dependencies {
 
     // Material Dialogs
     // не обновлять до 2.7.0. там бага, календарь не помещается в диалог на экране 360dp
-    // да похуй! нужна фича из 2.7.0 с максимальной датой в календаре. пусть страдают...
-    def dialog_version = "2.7.0" //todo форкнуть 2.7.0 и исправить баг
+    def dialog_version = "2.6.0"
     //noinspection GradleDependency
     implementation "com.afollestad.material-dialogs:core:$dialog_version"
     //noinspection GradleDependency

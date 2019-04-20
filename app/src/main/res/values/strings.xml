@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Time Tracker</string>
+    <string name="app_name">Kotime</string>
     <string name="add_record_button">Add record</string>
     <string name="action_descriptions_hint">Description</string>
     <string name="stats">Statistics</string>

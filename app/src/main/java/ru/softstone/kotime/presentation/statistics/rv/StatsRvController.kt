@@ -12,20 +12,6 @@ class StatsRvController @Inject constructor() : TypedEpoxyController<Stats>() {
             id(id++)
             time(stats.totalTime)
         }
-        if (stats.goalStats.isNotEmpty()) {
-            headerItem {
-                id(id++)
-                header(R.string.goal_stats_header)
-            }
-            stats.goalStats.forEach {
-                goalStatItem {
-                    id(id++)
-                    percentage(it.percentage)
-                    time(it.duration)
-                    goal(it.goalType)
-                }
-            }
-        }
         if (stats.categoryStats.isNotEmpty()) {
             headerItem {
                 id(id++)
@@ -37,6 +23,20 @@ class StatsRvController @Inject constructor() : TypedEpoxyController<Stats>() {
                     percentage(it.percentage)
                     time(it.duration)
                     category(it.categoryName)
+                }
+            }
+        }
+        if (stats.goalStats.isNotEmpty()) {
+            headerItem {
+                id(id++)
+                header(R.string.goal_stats_header)
+            }
+            stats.goalStats.forEach {
+                goalStatItem {
+                    id(id++)
+                    percentage(it.percentage)
+                    time(it.duration)
+                    goal(it.goalType)
                 }
             }
         }

@@ -118,7 +118,7 @@ class ActionFragment : BaseNavigationFragment<ActionPresenter>(), ActionView {
         hideKeyboard(context!!)
         val calendar = Calendar.getInstance().apply { time = default ?: Date() }
         MaterialDialog(context!!).show {
-            datePicker(currentDate = calendar, maxDate = Calendar.getInstance()) { _, datetime ->
+            datePicker(currentDate = calendar) { _, datetime ->
                 calendar.set(datetime.get(Calendar.YEAR), datetime.get(Calendar.MONTH), datetime.get(Calendar.DATE))
                 listener.invoke(calendar.time)
             }
