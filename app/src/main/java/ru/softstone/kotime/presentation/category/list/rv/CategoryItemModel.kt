@@ -14,6 +14,8 @@ abstract class CategoryItemModel : EpoxyModelWithHolder<CategoryViewHolder>() {
     @EpoxyAttribute
     lateinit var goal: CategoryGoalType
     @EpoxyAttribute
+    var color: Int = 0
+    @EpoxyAttribute
     lateinit var clickListener: View.OnClickListener
 
     override fun bind(holder: CategoryViewHolder) {
@@ -25,6 +27,7 @@ abstract class CategoryItemModel : EpoxyModelWithHolder<CategoryViewHolder>() {
         holder.goalView.setImageResource(imageResourceId)
         holder.nameView.text = name
         holder.container.setOnClickListener(clickListener)
+        holder.colorView.setBackgroundColor(color)
     }
 }
 

@@ -10,4 +10,5 @@ class ActionViewHolder : KotlinEpoxyHolder() {
     val descriptionView by bind<TextView>(R.id.description_view)
     val timeView by bind<TextView>(R.id.time_view)
     val categoryView by bind<TextView>(R.id.category_view)
+    val colorView by bind<View>(R.id.category_color_view)
 }

@@ -1,5 +1,6 @@
 package ru.softstone.kotime.presentation.category.edit.behavior
 
+import android.graphics.Color
 import ru.softstone.kotime.architecture.data.SchedulerProvider
 import ru.softstone.kotime.architecture.domain.Logger
 import ru.softstone.kotime.architecture.presentation.DisposeManager
@@ -19,6 +20,7 @@ class AddCategoryBehavior(
     private val logger: Logger
 ) : CategoryBehavior {
     private val disposeManager = DisposeManager()
+    private var color:Int = Color.GRAY
 
     override fun start() {
         viewState.showGoalType(CategoryGoalType.NONE)
@@ -26,7 +28,7 @@ class AddCategoryBehavior(
 
     override fun onNextClick(categoryName: String, categoryGoalType: CategoryGoalType) {
         disposeManager.addDisposable(
-            categoryInteractor.addCategory(categoryName, categoryGoalType)
+            categoryInteractor.addCategory(categoryName, categoryGoalType, color)
                 .subscribeOn(schedulerProvider.ioScheduler())
                 .observeOn(schedulerProvider.mainScheduler())
                 .subscribe(
@@ -42,6 +44,10 @@ class AddCategoryBehavior(
                     }
                 )
         )
+    }
+
+    override fun setCategoryColor(color: Int) {
+        this.color = color
     }
 
     override fun onDestroy() {

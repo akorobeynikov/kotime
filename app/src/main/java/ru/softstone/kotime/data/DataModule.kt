@@ -19,6 +19,7 @@ import ru.softstone.kotime.data.category.CategorySourceImpl
 import ru.softstone.kotime.data.storage.AppDatabase
 import ru.softstone.kotime.data.storage.DatabasePopulater
 import ru.softstone.kotime.data.storage.MIGRATION_1_2
+import ru.softstone.kotime.data.storage.MIGRATION_2_3
 import ru.softstone.kotime.data.string.StringProviderImpl
 import ru.softstone.kotime.data.time.TimeSourceImpl
 import ru.softstone.kotime.domain.action.ActionSource
@@ -75,6 +76,7 @@ class DataModule {
     fun provideDatabase(context: Context, databasePopulaterProvider: Provider<DatabasePopulater>) =
         Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
             .addMigrations(MIGRATION_1_2)
+            .addMigrations(MIGRATION_2_3)
             .addCallback(object : RoomDatabase.Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)

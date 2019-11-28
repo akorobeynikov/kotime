@@ -6,4 +6,5 @@ interface CategoryBehavior {
     fun start()
     fun onNextClick(categoryName: String, categoryGoalType: CategoryGoalType)
     fun onDestroy()
+    fun setCategoryColor(color: Int)
 }

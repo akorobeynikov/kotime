@@ -21,6 +21,7 @@ class EditCategoryBehavior(
     private val logger: Logger
 ) : CategoryBehavior {
     private val disposeManager = DisposeManager()
+    private var categoryColor = 0
     override fun start() {
         disposeManager.addDisposable(
             categoryInteractor.getCategoryById(categoryId)
@@ -30,6 +31,8 @@ class EditCategoryBehavior(
                     viewState.enableNextButton(true)
                     viewState.showCategoryName(it.name)
                     viewState.showGoalType(it.goalType)
+                    viewState.showColor(it.color)
+                    categoryColor = it.color
                 }, {
                     val wtf = "Can't get category by id $categoryId"
                     logger.error(wtf, it)
@@ -41,7 +44,14 @@ class EditCategoryBehavior(
 
     override fun onNextClick(categoryName: String, categoryGoalType: CategoryGoalType) {
         disposeManager.addDisposable(
-            categoryInteractor.updateActiveCategory(Category(categoryId, categoryName, categoryGoalType))
+            categoryInteractor.updateActiveCategory(
+                Category(
+                    categoryId,
+                    categoryName,
+                    categoryGoalType,
+                    categoryColor
+                )
+            )
                 .subscribeOn(schedulerProvider.ioScheduler())
                 .observeOn(schedulerProvider.mainScheduler())
                 .subscribe({
@@ -53,6 +63,10 @@ class EditCategoryBehavior(
                     router.navigateTo(ERROR_SCREEN)
                 })
         )
+    }
+
+    override fun setCategoryColor(color: Int) {
+        this.categoryColor = color
     }
 
     override fun onDestroy() {

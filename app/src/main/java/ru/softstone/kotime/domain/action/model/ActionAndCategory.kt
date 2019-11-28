@@ -8,5 +8,6 @@ data class ActionAndCategory(
     val goalType: CategoryGoalType,
     val startTime: Long,
     val endTime: Long,
-    val description: String
+    val description: String,
+    val color: Int
 )

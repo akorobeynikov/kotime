@@ -10,6 +10,9 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.skydoves.colorpickerview.ColorEnvelope
+import com.skydoves.colorpickerview.ColorPickerDialog
+import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_category.*
 import kotlinx.android.synthetic.main.part_edit_text_toolbar.*
@@ -32,7 +35,11 @@ class CategoryFragment : BaseNavigationFragment<CategoryPresenter>(), CategoryVi
         super.onAttach(context)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_category, container, false)
     }
 
@@ -47,6 +54,9 @@ class CategoryFragment : BaseNavigationFragment<CategoryPresenter>(), CategoryVi
         back_button.setOnClickListener {
             hideKeyboard(context!!)
             presenter.onBackPressed()
+        }
+        color_view.setOnClickListener {
+            showColorDialog()
         }
         text_field.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -71,6 +81,26 @@ class CategoryFragment : BaseNavigationFragment<CategoryPresenter>(), CategoryVi
             }
         }
         showSoftKeyboard(text_field)
+    }
+
+    private fun showColorDialog() {
+        ColorPickerDialog.Builder(activity)
+            .setTitle("ColorPicker Dialog")
+            .setPreferenceName("MyColorPickerDialog")
+            .setPositiveButton(getString(R.string.ok), object : ColorEnvelopeListener {
+                override fun onColorSelected(envelope: ColorEnvelope?, fromUser: Boolean) {
+                    if (fromUser && envelope != null) {
+                        presenter.onColorSelected(envelope.color)
+                    }
+                }
+            })
+            .attachAlphaSlideBar(false) // default is true. If false, do not show the AlphaSlideBar.
+            .attachBrightnessSlideBar(true)  // default is true. If false, do not show the BrightnessSlideBar.
+            .show()
+    }
+
+    override fun showColor(color: Int) {
+        color_view.setBackgroundColor(color)
     }
 
     override fun enableNextButton(enabled: Boolean) {

@@ -14,4 +14,7 @@ interface CategoryView : BaseView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun enableNextButton(enabled: Boolean)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun showColor(color: Int)
 }

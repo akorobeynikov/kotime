@@ -10,7 +10,7 @@ import ru.softstone.kotime.domain.category.model.CategoryStatus
 import ru.softstone.kotime.domain.category.model.PositionOfCategory
 
 interface CategorySource {
-    fun addCategory(name: String, goalType: CategoryGoalType): Completable
+    fun addCategory(name: String, goalType: CategoryGoalType, color: Int): Completable
     fun addCategories(categoryNames: List<String>): Completable
     fun observeActiveCategories(): Flowable<List<Category>>
     fun getCategoryStatusByName(name: String): Single<CategoryStatus>
@@ -18,6 +18,6 @@ interface CategorySource {
     fun getCount(): Single<Int>
     fun updateAllPositions(positions: Set<PositionOfCategory>): Completable
     fun getCategoryById(id: Int): Single<Category>
-    fun setType(categoryId: Int, type: CategoryGoalType): Completable
+    fun setType(categoryId: Int, type: CategoryGoalType, color: Int): Completable
     fun getCategoryByName(name: String): Maybe<Category>
 }

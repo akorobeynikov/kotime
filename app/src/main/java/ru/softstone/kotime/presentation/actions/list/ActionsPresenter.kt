@@ -1,15 +1,18 @@
 package ru.softstone.kotime.presentation.actions.list
 
 import com.arellomobile.mvp.InjectViewState
+import io.reactivex.disposables.Disposable
 import ru.softstone.kotime.architecture.data.SchedulerProvider
 import ru.softstone.kotime.architecture.domain.Logger
 import ru.softstone.kotime.architecture.presentation.BasePresenter
 import ru.softstone.kotime.domain.action.ActionInteractor
+import ru.softstone.kotime.domain.action.model.ActionAndCategory
 import ru.softstone.kotime.domain.action.state.AddActionState
 import ru.softstone.kotime.domain.action.state.EditActionState
 import ru.softstone.kotime.domain.error.ErrorInteractor
 import ru.softstone.kotime.presentation.EDIT_ACTION_SCREEN
 import ru.softstone.kotime.presentation.ERROR_SCREEN
+import ru.softstone.kotime.presentation.customview.chart.ChartItem
 import ru.terrakok.cicerone.Router
 import java.util.*
 import javax.inject.Inject
@@ -25,6 +28,8 @@ class ActionsPresenter @Inject constructor(
 
     //todo вынести в настройки
     private val calendar = Calendar.getInstance().apply { add(Calendar.HOUR_OF_DAY, -4) }
+
+    private var actionDisposable: Disposable? = null
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -47,19 +52,32 @@ class ActionsPresenter @Inject constructor(
     }
 
     private fun showActions(date: Date) {
-        addDisposable(
-            actionInteractor.observeActions(date)
-                .subscribeOn(schedulerProvider.ioScheduler())
-                .observeOn(schedulerProvider.mainScheduler())
-                .subscribe({
-                    viewState.showActions(it)
-                }, {
-                    val wtf = "Can't observe actions"
-                    logger.error(wtf, it)
-                    errorInteractor.setLastError(wtf, it)
-                    router.navigateTo(ERROR_SCREEN)
-                })
-        )
+        actionDisposable?.dispose()
+        actionDisposable = actionInteractor.observeActions(date)
+            .subscribeOn(schedulerProvider.ioScheduler())
+            .observeOn(schedulerProvider.mainScheduler())
+            .subscribe({
+                viewState.showActions(it)
+                viewState.showChart(mapActionsToChatItems(it))
+            }, {
+                val wtf = "Can't observe actions"
+                logger.error(wtf, it)
+                errorInteractor.setLastError(wtf, it)
+                router.navigateTo(ERROR_SCREEN)
+            })
+        addDisposable(actionDisposable!!)
+    }
+
+    private fun mapActionsToChatItems(action: List<ActionAndCategory>): List<ChartItem> {
+        val startCalendar = calendar.clone() as Calendar
+        startCalendar.set(Calendar.HOUR_OF_DAY, 4)
+        startCalendar.set(Calendar.MINUTE, 0)
+        val startChartTime = startCalendar.time.time
+        return action.map {
+            val startTime = (it.startTime - startChartTime) / 60000
+            val endTime = (it.endTime - startChartTime) / 60000
+            ChartItem(startTime.toInt(), endTime.toInt(), it.color)
+        }
     }
 
     fun onDeleteAction(actionId: Int) {

@@ -91,4 +91,9 @@ class CategoryPresenter @Inject constructor(
     fun onCategoryNameChange(text: String) {
         viewState.enableNextButton(!text.isBlank())
     }
+
+    fun onColorSelected(color: Int) {
+        viewState.showColor(color)
+        behavior.setCategoryColor(color)
+    }
 }

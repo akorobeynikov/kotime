@@ -14,6 +14,7 @@ class ActionsRvController @Inject constructor() : TypedEpoxyController<List<Acti
                 description(it.description)
                 time(it.time)
                 category(it.category)
+                color(it.color)
                 itemClickListener { model, _, _, _ -> onItemClickListener?.invoke(model.id().toInt()) }
             }
         }

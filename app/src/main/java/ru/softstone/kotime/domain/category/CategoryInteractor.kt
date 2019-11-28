@@ -10,7 +10,7 @@ import ru.softstone.kotime.domain.category.model.PositionOfCategory
 import ru.softstone.kotime.domain.category.state.CategoryState
 
 interface CategoryInteractor {
-    fun addCategory(name: String, goalType: CategoryGoalType): Single<AddResult>
+    fun addCategory(name: String, goalType: CategoryGoalType, color: Int): Single<AddResult>
     fun observeActiveCategories(): Flowable<List<Category>>
     fun disableCategory(categoryId: Int): Completable
     fun updateAllPositions(positions: Set<PositionOfCategory>): Completable

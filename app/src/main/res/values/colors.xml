@@ -30,7 +30,7 @@
     <color name="textColorOnImage">#ffffff</color>
     <color name="textColorOnBackground">#3b3b3b</color>
     <color name="textColorOnPrimary">#FFFFFF</color>
-    <color name="textColorOnAccent">#fff</color>
+    <color name="textColorOnAccent">#000</color>
     <color name="textColorOnDisabled">#fff</color>
 
     <color name="textColorSecondaryOnBackground">#888888</color>

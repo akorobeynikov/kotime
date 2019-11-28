@@ -27,7 +27,8 @@ class ActionSourceImpl @Inject constructor(private val actionDao: ActionDao) : A
                     CategoryGoalType.getById(it.goalTypeId),
                     it.startTime,
                     it.endTime,
-                    it.description
+                    it.description,
+                    it.color
                 )
             }
         }

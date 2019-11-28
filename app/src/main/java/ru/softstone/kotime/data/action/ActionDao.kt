@@ -20,7 +20,8 @@ interface ActionDao {
         `action`.end_time,
         `action`.description,
         category.name AS category_name,
-        category.goalType AS category_goal
+        category.goalType AS category_goal,
+        category.color AS category_color
         FROM `action`
         INNER JOIN category ON `action`.category_id = category.uid
         WHERE `action`.active = 1 AND end_time > :startTime AND start_time < :endTime

@@ -14,6 +14,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_actions.*
+import kotlinx.android.synthetic.main.fragment_actions.chart_view
+import kotlinx.android.synthetic.main.fragment_timer.*
 import kotlinx.android.synthetic.main.part_date_chooser.*
 import ru.softstone.kotime.R
 import ru.softstone.kotime.architecture.presentation.BaseNavigationFragment
@@ -21,6 +23,7 @@ import ru.softstone.kotime.domain.action.model.ActionAndCategory
 import ru.softstone.kotime.presentation.actions.list.model.ActionItem
 import ru.softstone.kotime.presentation.actions.list.rv.ActionItemModel
 import ru.softstone.kotime.presentation.actions.list.rv.ActionsRvController
+import ru.softstone.kotime.presentation.customview.chart.ChartItem
 import ru.softstone.kotime.presentation.getFormattedDate
 import ru.softstone.kotime.presentation.getFormattedDuration
 import java.util.*
@@ -45,7 +48,11 @@ class ActionsFragment : BaseNavigationFragment<ActionsPresenter>(),
         super.onAttach(context)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_actions, container, false)
     }
 
@@ -76,6 +83,10 @@ class ActionsFragment : BaseNavigationFragment<ActionsPresenter>(),
         date_view.text = getFormattedDate(context!!, date)
     }
 
+    override fun showChart(chatItems: List<ChartItem>) {
+        chart_view.showChartItems(chatItems)
+    }
+
     override fun showActions(actions: List<ActionAndCategory>) {
         rvController.setData(actions.map {
             val timeFormat = android.text.format.DateFormat.getTimeFormat(context)
@@ -87,7 +98,8 @@ class ActionsFragment : BaseNavigationFragment<ActionsPresenter>(),
                 it.uid,
                 it.description,
                 it.categoryName,
-                "$duration ($statTime - $endTime)"
+                "$duration ($statTime - $endTime)",
+                it.color
             )
         })
     }

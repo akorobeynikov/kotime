@@ -50,9 +50,9 @@ class MainActivity : BaseActivity<ActivityPresenter>(), ActivityView, BottomNavi
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.putParcelableArray(STATE_KEY, saveStateProvider.getStates())
+        outState.putParcelableArray(STATE_KEY, saveStateProvider.getStates())
     }
 
     override fun onResume() {

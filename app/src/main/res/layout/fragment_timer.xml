@@ -53,14 +53,50 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <View
+        android:id="@+id/divider1_view"
+        android:background="@color/divider"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_layout"
+        android:layout_width="0dp"
+        android:layout_height="1dp"/>
+
+    <ru.softstone.kotime.presentation.customview.chart.ChartView
+        android:id="@+id/time_marks_view"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider1_view" />
+
+    <View
+        android:id="@+id/divider2_view"
+        android:background="@color/divider"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/time_marks_view"
+        android:layout_width="0dp"
+        android:layout_height="1dp"/>
+
+    <ru.softstone.kotime.presentation.customview.chart.ChartView
+        android:id="@+id/chart_view"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@color/colorPrimary"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider2_view" />
+
+    <View
         android:id="@+id/pulse_view"
         android:layout_width="288dp"
         android:layout_height="288dp"
         android:background="@drawable/accent_color_circle"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/timer_button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_bar_layout"
+        app:layout_constraintTop_toBottomOf="@id/chart_view"
         tools:scaleX="1.02"
         tools:scaleY="1.02" />
 
@@ -101,16 +137,38 @@
         android:id="@+id/timer_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:background="@drawable/primary_color_circle"
         android:contentDescription="@null"
         android:elevation="4dp"
         android:gravity="center"
         android:minWidth="0dp"
         android:minHeight="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/add_button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/pulse_view"
+        tools:src="@drawable/ic_start" />
+
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:contentDescription="@null"
+        android:elevation="4dp"
+        android:gravity="center"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="10dp"
+        android:text="@string/add_record_button"
+        android:textColor="@color/textColorOnAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timer_button"
         tools:src="@drawable/ic_start" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

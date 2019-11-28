@@ -18,6 +18,9 @@ abstract class ActionItemModel : EpoxyModelWithHolder<ActionViewHolder>() {
     lateinit var category: String
 
     @EpoxyAttribute
+    var color: Int = 0
+
+    @EpoxyAttribute
     lateinit var itemClickListener: View.OnClickListener
 
     override fun bind(holder: ActionViewHolder) {
@@ -25,6 +28,7 @@ abstract class ActionItemModel : EpoxyModelWithHolder<ActionViewHolder>() {
         holder.timeView.text = time
         holder.categoryView.text = category
         holder.container.setOnClickListener(itemClickListener)
+        holder.colorView.setBackgroundColor(color)
     }
 }
 

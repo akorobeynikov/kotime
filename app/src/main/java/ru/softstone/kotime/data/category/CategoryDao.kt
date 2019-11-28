@@ -40,8 +40,8 @@ interface CategoryDao {
     @Query("UPDATE category SET active = :active WHERE uid = :categoryId")
     fun setStatus(categoryId: Int, active: Boolean): Single<Int>
 
-    @Query("UPDATE category SET goalType = :goalType WHERE uid = :categoryId")
-    fun setType(categoryId: Int, goalType: Int): Single<Int>
+    @Query("UPDATE category SET goalType = :goalType, color = :color WHERE uid = :categoryId")
+    fun setTypeAndColor(categoryId: Int, goalType: Int, color: Int): Single<Int>
 
     @Query("SELECT COUNT(uid) FROM category WHERE active = 1")
     fun getCount(): Single<Int>

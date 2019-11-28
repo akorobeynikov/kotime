@@ -24,11 +24,19 @@
         android:layout_height="wrap_content"
         tools:text="some category name" />
 
+
     <ImageView
         android:id="@+id/goal_view"
         android:tint="@color/iconColorOnBackground"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_height="24dp"
         android:contentDescription="@null" />
+
+    <View
+        android:id="@+id/color_view"
+        android:background="#ccc"
+        android:layout_width="24dp"
+        android:layout_height="24dp"/>
 
 </LinearLayout>

@@ -14,6 +14,7 @@ class CategoriesRvController @Inject constructor() : TypedEpoxyController<List<C
                 id(it.id.toLong())
                 name(it.name)
                 goal(it.goalType)
+                color(it.color)
                 clickListener { model, _, _, _ ->
                     onClickListener?.invoke(model.id().toInt())
                 }

@@ -14,5 +14,6 @@ data class CategoryEntry(
     @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "goalType") var goalType: Int,
     @ColumnInfo(name = "position") var position: Int,
+    @ColumnInfo(name = "color") var color: Int,
     @ColumnInfo(name = "active") var active: Boolean
 )

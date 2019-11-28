@@ -1,5 +1,6 @@
 package ru.softstone.kotime.data.category
 
+import android.graphics.Color
 import io.reactivex.*
 import ru.softstone.kotime.data.storage.AppDatabase
 import ru.softstone.kotime.domain.category.CategorySource
@@ -13,9 +14,14 @@ class CategorySourceImpl @Inject constructor(
     private val categoryDao: CategoryDao,
     private val appDatabase: AppDatabase
 ) : CategorySource {
-    override fun addCategory(name: String, goalType: CategoryGoalType): Completable {
+    companion object {
+        private const val DEFAULT_COLOR = Color.GRAY
+    }
+
+    override fun addCategory(name: String, goalType: CategoryGoalType, color: Int): Completable {
         return categoryDao.getCount().flatMapCompletable { count ->
-            val entry = CategoryEntry(0, name, goalType.id, position = count, active = true)
+            val entry =
+                CategoryEntry(0, name, goalType.id, position = count, active = true, color = color)
             categoryDao.insertAll(entry)
         }
     }
@@ -23,7 +29,12 @@ class CategorySourceImpl @Inject constructor(
     override fun addCategories(categoryNames: List<String>): Completable {
         return categoryDao.getCount().flatMapCompletable { count ->
             val entries = categoryNames
-                .mapIndexed { index, name -> CategoryEntry(0, name, CategoryGoalType.NONE.id, count + index, true) }
+                .mapIndexed { index, name ->
+                    CategoryEntry(
+                        0, name, CategoryGoalType.NONE.id, count + index,
+                        DEFAULT_COLOR, true
+                    )
+                }
             categoryDao.insertAll(entries)
         }
     }
@@ -36,7 +47,16 @@ class CategorySourceImpl @Inject constructor(
 
     override fun observeActiveCategories(): Flowable<List<Category>> {
         return categoryDao.getAllActive()
-            .map { entries -> entries.map { Category(it.uid, it.name, CategoryGoalType.getById(it.goalType)) } }
+            .map { entries ->
+                entries.map {
+                    Category(
+                        it.uid,
+                        it.name,
+                        CategoryGoalType.getById(it.goalType),
+                        it.color
+                    )
+                }
+            }
     }
 
     override fun setStatus(categoryId: Int, active: Boolean): Completable {
@@ -68,8 +88,8 @@ class CategorySourceImpl @Inject constructor(
             )
     }
 
-    override fun setType(categoryId: Int, type: CategoryGoalType): Completable {
-        return categoryDao.setType(categoryId, type.id)
+    override fun setType(categoryId: Int, type: CategoryGoalType, color: Int): Completable {
+        return categoryDao.setTypeAndColor(categoryId, type.id, color)
             .flatMapCompletable { affectedRowsCount ->
                 if (affectedRowsCount == 1)
                     Completable.complete()
@@ -90,11 +110,13 @@ class CategorySourceImpl @Inject constructor(
     override fun getCount(): Single<Int> = categoryDao.getCount()
 
     override fun getCategoryById(id: Int): Single<Category> {
-        return categoryDao.findById(id).map { Category(it.uid, it.name, CategoryGoalType.getById(it.goalType)) }
+        return categoryDao.findById(id)
+            .map { Category(it.uid, it.name, CategoryGoalType.getById(it.goalType), it.color) }
     }
 
     override fun getCategoryByName(name: String): Maybe<Category> {
         //todo вынести маппер категрии
-        return categoryDao.findByName(name).map { Category(it.uid, it.name, CategoryGoalType.getById(it.goalType)) }
+        return categoryDao.findByName(name)
+            .map { Category(it.uid, it.name, CategoryGoalType.getById(it.goalType), it.color) }
     }
 }

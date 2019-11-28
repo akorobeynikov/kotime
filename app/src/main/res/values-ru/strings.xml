@@ -45,4 +45,5 @@
     <string name="suggest_improvement_button">Предложить улучшение</string>
     <string name="developer">Разработчик</string>
     <string name="special_thanks">Особая благодарность:\n-</string>
+    <string name="color_label">Цвет</string>
 </resources>

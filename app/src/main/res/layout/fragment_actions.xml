@@ -8,6 +8,17 @@
 
     <include layout="@layout/part_date_chooser" />
 
+    <View
+        android:background="@color/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <ru.softstone.kotime.presentation.customview.chart.ChartView
+        android:id="@+id/chart_view"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="@color/colorPrimary" />
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_weight="1"
         android:layout_width="match_parent"

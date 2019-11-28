@@ -19,19 +19,24 @@ class CategoryInteractorImpl @Inject constructor(
         private const val CATEGORY_STATE = "CATEGORY_STATE"
     }
 
-    override fun addCategory(name: String, goalType: CategoryGoalType): Single<AddResult> {
+    override fun addCategory(
+        name: String,
+        goalType: CategoryGoalType,
+        color: Int
+    ): Single<AddResult> {
         return categorySource.getCategoryStatusByName(name)
             .flatMap { status ->
                 if (status.exist) {
                     if (status.active) {
-                        categorySource.setType(status.id, goalType).toSingleDefault(AddResult.ALREADY_EXIST)
+                        categorySource.setType(status.id, goalType, color)
+                            .toSingleDefault(AddResult.ALREADY_EXIST)
                     } else {
-                        categorySource.setType(status.id, goalType)
+                        categorySource.setType(status.id, goalType, color)
                             .andThen(categorySource.setStatus(status.id, true))
                             .toSingleDefault(AddResult.ENABLED)
                     }
                 } else {
-                    categorySource.addCategory(name, goalType)
+                    categorySource.addCategory(name, goalType, color)
                         .toSingleDefault(AddResult.ADDED)
                 }
             }
@@ -65,9 +70,9 @@ class CategoryInteractorImpl @Inject constructor(
     override fun updateActiveCategory(category: Category): Completable {
         return categorySource.getCategoryById(category.id).flatMapCompletable {
             if (it.name == category.name) {
-                categorySource.setType(category.id, category.goalType)
+                categorySource.setType(category.id, category.goalType, category.color)
             } else {
-                addCategory(category.name, category.goalType).flatMapCompletable {
+                addCategory(category.name, category.goalType, category.color).flatMapCompletable {
                     categorySource.setStatus(category.id, false)
                     //todo сохранять позицую при изменении категирии
                 }
