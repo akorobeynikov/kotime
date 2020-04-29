@@ -12,7 +12,7 @@ android {
         release {
             keyAlias 'release'
             keyPassword '***REMOVED***'
-            storeFile file('../keystore.jks')
+            storeFile file('../debug.jks')
             storePassword '***REMOVED***'
         }
     }
@@ -20,8 +20,8 @@ android {
         applicationId "ru.softstone.kotime"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 2
-        versionName "0.2"
+        versionCode 3
+        versionName "0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
